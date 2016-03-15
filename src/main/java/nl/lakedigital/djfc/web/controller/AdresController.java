@@ -50,11 +50,11 @@ public class AdresController {
         if (jsonAdressen != null && jsonAdressen.size() > 0) {
             JsonAdres eersteAdres = jsonAdressen.get(0);
 
-            Set<Adres> adressen = new HashSet<>();
+            List<Adres> adressen = new ArrayList<>();
             for (JsonAdres jsonAdres : jsonAdressen) {
                 adressen.add(mapper.map(jsonAdres, Adres.class));
             }
-            adresService.opslaan(Lists.newArrayList(adressen), SoortEntiteit.valueOf(eersteAdres.getSoortEntiteit()), eersteAdres.getEntiteitId());
+            adresService.opslaan(adressen, SoortEntiteit.valueOf(eersteAdres.getSoortEntiteit()), eersteAdres.getEntiteitId());
         }
     }
 
