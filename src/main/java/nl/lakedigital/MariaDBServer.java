@@ -11,9 +11,6 @@ public class MariaDBServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(MariaDBServer.class);
     private String poortNummer;
 
-    public MariaDBServer() {
-    }
-
     public static void main(String[] args) {
         new MariaDBServer().init();
     }
@@ -28,9 +25,7 @@ public class MariaDBServer {
             db.start();
             System.out.println("Db started");
         } catch (ManagedProcessException mpe) {
-            System.out.println("Fout ");
-            System.out.println(mpe.getMessage());
-            //            System.out.println("{}", mpe);
+            LOGGER.error("{}",mpe);
             mpe.printStackTrace();
         }
     }
