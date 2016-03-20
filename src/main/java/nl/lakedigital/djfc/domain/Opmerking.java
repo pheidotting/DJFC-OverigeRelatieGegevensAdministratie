@@ -35,6 +35,7 @@ public class Opmerking extends AbstracteEntiteitMetSoortEnId implements Serializ
         tijd = new Date();
     }
 
+    @Override
     public Long getId() {
         return id;
     }

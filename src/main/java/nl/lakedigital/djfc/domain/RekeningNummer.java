@@ -26,8 +26,7 @@ public class RekeningNummer extends AbstracteEntiteitMetSoortEnId implements Ser
     @Column(name = "REKENINGNUMMER")
     private String rekeningnummer;
 
-    @Enumerated(EnumType.STRING)
-
+    @Override
     public Long getId() {
         return id;
     }

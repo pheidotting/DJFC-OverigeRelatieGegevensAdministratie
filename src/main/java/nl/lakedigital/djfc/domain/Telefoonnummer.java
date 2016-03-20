@@ -29,6 +29,7 @@ public class Telefoonnummer extends AbstracteEntiteitMetSoortEnId implements Ser
     @Column(name = "OMSCHRIJVING", columnDefinition = "varchar(2500)")
     private String omschrijving;
 
+    @Override
     public Long getId() {
         return id;
     }

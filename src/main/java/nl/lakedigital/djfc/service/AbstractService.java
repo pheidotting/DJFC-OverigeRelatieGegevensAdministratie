@@ -23,10 +23,6 @@ public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
 
     public abstract AbstractRepository getRepository();
 
-    private String getMyType() {
-        return this.type.getSimpleName();
-    }
-
     public List<T> alles(SoortEntiteit soortEntiteit, Long parentId) {
         LOGGER.debug("alles soortEntiteit {} parentId {}", soortEntiteit, parentId);
 

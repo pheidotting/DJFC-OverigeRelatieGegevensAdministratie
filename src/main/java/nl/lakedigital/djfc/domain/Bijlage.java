@@ -33,6 +33,7 @@ public class Bijlage extends AbstracteEntiteitMetSoortEnId implements Serializab
     @Column(name = "OMSCHRIJVING")
     private String omschrijving;
 
+    @Override
     public Long getId() {
         return id;
     }

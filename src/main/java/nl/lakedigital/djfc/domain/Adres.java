@@ -42,6 +42,7 @@ public class Adres extends AbstracteEntiteitMetSoortEnId implements Serializable
     @Enumerated(EnumType.STRING)
     private SoortAdres soortAdres;
 
+    @Override
     public Long getId() {
         return id;
     }

@@ -21,7 +21,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
 
     public AbstractController(Class<D> domainType, Class<J> jsonType, Class loggerType) {
         this.domainType = domainType;this.jsonType=jsonType;
-        LOGGER = LoggerFactory.getLogger(AbstractController.class);
+        LOGGER = LoggerFactory.getLogger(loggerType);
     }
 
     @Inject
@@ -46,7 +46,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
 
     public abstract void opslaan(List<J> jsonEntiteiten);
     public void goOpslaan(@RequestBody List<J> jsonEntiteiten) {
-        if (jsonEntiteiten != null && jsonEntiteiten.size() > 0) {
+        if (jsonEntiteiten != null && !jsonEntiteiten.isEmpty()) {
             J eersteEntiteit = jsonEntiteiten.get(0);
 
             List<D> entiteiten = new ArrayList<>();

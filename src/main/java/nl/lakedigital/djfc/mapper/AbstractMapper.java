@@ -24,7 +24,7 @@ public abstract class AbstractMapper<T, Z> {
             }
             return ret;
         } else {
-            return null;
+            return new ArrayList<>();
         }
 
     }
@@ -37,7 +37,7 @@ public abstract class AbstractMapper<T, Z> {
             }
             return ret;
         } else {
-            return null;
+            return new ArrayList<>();
         }
 
     }
@@ -54,7 +54,7 @@ public abstract class AbstractMapper<T, Z> {
             }
             return ret;
         } else {
-            return null;
+            return new HashSet<>();
         }
     }
 
