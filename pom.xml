@@ -24,11 +24,11 @@
             <artifactId>djfc-commons</artifactId>
             <version>4.0</version>
         </dependency>
-        <dependency>
-            <groupId>nl.lakedigital.djfc</groupId>
-            <artifactId>djfc-persoonsbeheer-client</artifactId>
-            <version>4.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>nl.lakedigital.djfc</groupId>-->
+            <!--<artifactId>djfc-persoonsbeheer-client</artifactId>-->
+            <!--<version>4.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>net.sf.dozer</groupId>
