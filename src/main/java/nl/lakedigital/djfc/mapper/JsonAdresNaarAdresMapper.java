@@ -2,7 +2,6 @@ package nl.lakedigital.djfc.mapper;
 
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.Adres;
-import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.service.AdresService;
 import org.springframework.stereotype.Component;
 
@@ -31,9 +30,6 @@ public class JsonAdresNaarAdresMapper extends AbstractMapper<JsonAdres, Adres> i
         if (jsonAdres.getSoortAdres() != null) {
             adres.setSoortAdres(Adres.SoortAdres.valueOf(jsonAdres.getSoortAdres()));
         }
-
-        adres.setSoortEntiteit(SoortEntiteit.valueOf(jsonAdres.getSoortEntiteit()));
-        adres.setEntiteitId(jsonAdres.getEntiteitId());
 
         return adres;
     }

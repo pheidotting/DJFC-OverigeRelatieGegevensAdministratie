@@ -19,9 +19,6 @@ public class AdresNaarJsonAdresMapper extends AbstractMapper<Adres, JsonAdres> i
         jsonAdres.setToevoeging(adres.getToevoeging());
         jsonAdres.setSoortAdres(adres.getSoortAdres().name());
 
-        jsonAdres.setSoortEntiteit(adres.getSoortEntiteit().name());
-        jsonAdres.setEntiteitId(adres.getEntiteitId());
-
         return jsonAdres;
     }
 

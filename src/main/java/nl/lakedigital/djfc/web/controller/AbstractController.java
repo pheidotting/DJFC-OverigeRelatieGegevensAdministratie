@@ -1,9 +1,7 @@
 package nl.lakedigital.djfc.web.controller;
 
 import nl.lakedigital.djfc.commons.json.AbstracteJsonEntiteitMetSoortEnId;
-import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
-import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.mapper.Mapper;
 import nl.lakedigital.djfc.service.AbstractService;
@@ -16,13 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId, J extends AbstracteJsonEntiteitMetSoortEnId> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractController.class);
+    private static Logger LOGGER;
 
     private final Class<D> domainType;
     private final Class<J> jsonType;
 
-    public AbstractController(Class<D> domainType, Class<J> jsonType) {
+    public AbstractController(Class<D> domainType, Class<J> jsonType, Class loggerType) {
         this.domainType = domainType;this.jsonType=jsonType;
+        LOGGER = LoggerFactory.getLogger(AbstractController.class);
     }
 
     @Inject

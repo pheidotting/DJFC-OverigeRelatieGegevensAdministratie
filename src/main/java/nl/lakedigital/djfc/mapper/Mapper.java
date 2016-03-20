@@ -1,8 +1,10 @@
 package nl.lakedigital.djfc.mapper;
 
 
-import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import nl.lakedigital.djfc.commons.json.AbstracteJsonEntiteitMetSoortEnId;
+import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
+import nl.lakedigital.djfc.domain.SoortEntiteit;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -37,6 +39,15 @@ public class Mapper {
         objectUit = ((AbstractMapper) mapper).map(objectIn);
 
         LOGGER.debug("mappen van {} naar {}", objectIn.getClass(), objectUit.getClass());
+
+        if (objectUit instanceof AbstracteEntiteitMetSoortEnId) {
+            ((AbstracteEntiteitMetSoortEnId) objectUit).setSoortEntiteit(SoortEntiteit.valueOf(((AbstracteJsonEntiteitMetSoortEnId) objectIn).getSoortEntiteit()));
+            ((AbstracteEntiteitMetSoortEnId) objectUit).setEntiteitId(((AbstracteJsonEntiteitMetSoortEnId) objectIn).getEntiteitId());
+        }
+        if (objectUit instanceof AbstracteJsonEntiteitMetSoortEnId) {
+            ((AbstracteJsonEntiteitMetSoortEnId) objectUit).setSoortEntiteit(((AbstracteEntiteitMetSoortEnId) objectIn).getSoortEntiteit().name());
+            ((AbstracteJsonEntiteitMetSoortEnId) objectUit).setEntiteitId(((AbstracteEntiteitMetSoortEnId) objectIn).getEntiteitId());
+        }
 
         return clazz.cast(objectUit);
     }
