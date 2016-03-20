@@ -1,6 +1,8 @@
 package nl.lakedigital.djfc.domain;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -12,10 +14,10 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Entity
 @Table(name = "ADRES")
 @NamedQueries({//
-        @NamedQuery(name = "Adres.zoekAdressgenBijEntiteit", query = "select a from Adres a where a.soortEntiteit = :soortEntiteit and a.entiteitId = :entiteitId"),//
+        @NamedQuery(name = "Adres.zoekBijEntiteit", query = "select a from Adres a where a.soortEntiteit = :soortEntiteit and a.entiteitId = :entiteitId"),//
         @NamedQuery(name = "Adres.zoekAdres", query = "select a from Adres a where a.straat like :adres or a.plaats like :adres"), //
 })
-public class Adres implements Serializable {
+public class Adres extends AbstracteEntiteitMetSoortEnId implements Serializable {
     private static final long serialVersionUID = 2361944992062349932L;
 
     public enum SoortAdres {
@@ -39,11 +41,6 @@ public class Adres implements Serializable {
     @Column(name = "SOORT")
     @Enumerated(EnumType.STRING)
     private SoortAdres soortAdres;
-    @Enumerated(EnumType.STRING)
-    @Column(length = 50, name = "SOORTENTITEIT")
-    private SoortEntiteit soortEntiteit;
-    @Column(name = "ENTITEITID")
-    private Long entiteitId;
 
     public Long getId() {
         return id;
@@ -103,69 +100,33 @@ public class Adres implements Serializable {
         this.soortAdres = soortAdres;
     }
 
-    public SoortEntiteit getSoortEntiteit() {
-        return soortEntiteit;
-    }
-
-    public void setSoortEntiteit(SoortEntiteit soortEntiteit) {
-        this.soortEntiteit = soortEntiteit;
-    }
-
-    public Long getEntiteitId() {
-        return entiteitId;
-    }
-
-    public void setEntiteitId(Long entiteitId) {
-        this.entiteitId = entiteitId;
-    }
-
     public boolean isCompleet() {
         return isNotBlank(straat) && huisnummer != null && isNotBlank(postcode) && isNotBlank(plaats);
 
     }
 
     @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Adres [straat=");
-        builder.append(straat);
-        builder.append(", huisnummer=");
-        builder.append(huisnummer);
-        builder.append(", toevoeging=");
-        builder.append(toevoeging);
-        builder.append(", postcode=");
-        builder.append(postcode);
-        builder.append(", plaats=");
-        builder.append(plaats);
-        builder.append("]");
-        builder.append(", soortAdres=");
-        builder.append(soortAdres);
-        builder.append("]");
-        return builder.toString();
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Adres)) {
+            return false;
+        }
+
+        Adres adres = (Adres) o;
+
+        return new EqualsBuilder().append(getId(), adres.getId()).append(getStraat(), adres.getStraat()).append(getHuisnummer(), adres.getHuisnummer()).append(getToevoeging(), adres.getToevoeging()).append(getPostcode(), adres.getPostcode()).append(getPlaats(), adres.getPlaats()).append(getSoortAdres(), adres.getSoortAdres()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((huisnummer == null) ? 0 : huisnummer.hashCode());
-        result = prime * result + ((plaats == null) ? 0 : plaats.hashCode());
-        result = prime * result + ((postcode == null) ? 0 : postcode.hashCode());
-        result = prime * result + ((straat == null) ? 0 : straat.hashCode());
-        result = prime * result + ((toevoeging == null) ? 0 : toevoeging.hashCode());
-        result = prime * result + ((soortAdres == null) ? 0 : soortAdres.hashCode());
-        return result;
+        return new HashCodeBuilder(17, 37).append(getId()).append(getStraat()).append(getHuisnummer()).append(getToevoeging()).append(getPostcode()).append(getPlaats()).append(getSoortAdres()).toHashCode();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Adres other = (Adres) obj;
-        return new EqualsBuilder().append(huisnummer, other.huisnummer).append(plaats, other.plaats).append(postcode, other.postcode).append(straat, other.straat).append(toevoeging, other.toevoeging).append(soortAdres, other.soortAdres).isEquals();
+    public String toString() {
+        return new ToStringBuilder(this).append("id", id).append("straat", straat).append("huisnummer", huisnummer).append("toevoeging", toevoeging).append("postcode", postcode).append("plaats", plaats).append("soortAdres", soortAdres).append("compleet", isCompleet()).toString();
     }
 }

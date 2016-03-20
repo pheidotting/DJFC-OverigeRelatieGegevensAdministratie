@@ -9,17 +9,25 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
+import nl.lakedigital.djfc.commons.json.AbstracteJsonEntiteitMetSoortEnId;
+import nl.lakedigital.djfc.commons.json.JsonAdres;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractClient {
+public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId> {
     private GsonBuilder builder = new GsonBuilder();
     protected Gson gson = new Gson();
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AbstractClient.class);
+
+
+    public abstract List<T> lijst(String soortEntiteit, Long entiteitId);
+    public abstract String opslaan(List<T> jsonAdressen);
+    public abstract void verwijder(String soortEntiteit, Long entiteitId);
 
     protected String aanroepenUrlPost(String adres, Object object) {
         Gson gson = builder.create();
@@ -34,6 +42,21 @@ public abstract class AbstractClient {
         ClientResponse cr = webResource.accept("application/json").type("application/json").post(ClientResponse.class, verstuurObject);
 
         return cr.getEntity(String.class);
+    }
+    protected void aanroepenUrlPostZonderBody(String adres, String... args) {
+        Gson gson = builder.create();
+
+        Client client = Client.create();
+
+        if (args != null) {
+            for (String arg : args) {
+                adres = adres + "/" + arg;
+            }
+        }
+
+        WebResource webResource = client.resource(adres);
+
+                webResource.accept("application/json").type("application/json").post();
     }
 
     protected String uitvoerenGet(String adres) {
@@ -101,8 +124,13 @@ public abstract class AbstractClient {
             throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
         }
 
-        Type listOfTestObject = new TypeToken<List<T>>() {
+//        Type listOfTestObject = new TypeToken<List<T>>() {
+//        }.getType();
+//        return gson.fromJson(response.getEntity(String.class), listOfTestObject);
+        Type listType = new TypeToken<ArrayList<JsonAdres>>() {
         }.getType();
-        return gson.fromJson(response.getEntity(String.class), listOfTestObject);
+        List<T> yourClassList = new Gson().fromJson(response.getEntity(String.class), listType);
+
+        return yourClassList;
     }
 }

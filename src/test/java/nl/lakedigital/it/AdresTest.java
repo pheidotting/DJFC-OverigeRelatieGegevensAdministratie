@@ -1,7 +1,7 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
-//import nl.lakedigital.djfc.client.AdresClient;
+import de.svenjacobs.loremipsum.LoremIpsum;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -10,92 +10,54 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import javax.inject.Inject;
+import static nl.lakedigital.assertion.Assert.assertEquals;
 
-public class AdresTest {
-//    @Inject
+public class AdresTest extends  AbstractTest<JsonAdres>{
     private AdresClient adresClient = new AdresClient();
 
-    //    public final List<String> jsonRelatieFieldNames = Lists.newArrayList(//
-    //            "identificatie", //
-    //            "roepnaam", //
-    //            "voornaam", //
-    //            "tussenvoegsel", //
+    public final List<String> jsonAdresFieldNames = Lists.newArrayList(//
+            "straat", //
+            "huisnummer", //
+            "toevoeging", //
+            "postcode", //
+            "plaats", //
+            "soortAdres", //
+            "soortEntiteit", //
+            "entiteitId" //
+    );
 
-    //            "achternaam",//
-    //            "bsn", //
-    //            "geboorteDatum", //
-    //            "overlijdensdatum", //
-    //            "geslacht", //
-    //            "burgerlijkeStaat"//
-    //    );
-
-
-
-    @Test
-    public void allesOpslaanTest() {
-        List<Long> ids = Lists.newArrayList(3L, 6L, 9L);
-        List<JsonAdres> adressen = new ArrayList<>();
-
-        for (SoortEntiteit soortEntiteit : SoortEntiteit.values()) {
-            for (Long id : ids) {
-                JsonAdres jsonAdres = new JsonAdres();
-
-                jsonAdres.setEntiteitId(id);
-                jsonAdres.setSoortEntiteit(soortEntiteit.name());
-
-                adressen.add(jsonAdres);
-
-                System.out.println(ReflectionToStringBuilder.toString(jsonAdres,ToStringStyle.SHORT_PREFIX_STYLE));
-            }
-        }
-
-        adresClient.opslaan(adressen);
+    @Override
+    public AbstractClient getClient() {
+        return adresClient;
     }
 
-    @Test
-    public void test() {
-//        List<JsonAdres> adresssen = adresClient.lijstAdressen(SoortEntiteit.POLIS.name(), 3L);
-
-//        for (JsonAdres jsonAdres : adresssen) {
-//            System.out.println(ReflectionToStringBuilder.toString(jsonAdres, ToStringStyle.SHORT_PREFIX_STYLE));
-//        }
+    @Override
+    public List<String> getFields() {
+        return jsonAdresFieldNames;
     }
-    //    public void opslaanRelatieMinimaal() {
-    //        Long medewerkerId  = 3L;
-    //        JsonRelatie relatie = new JsonRelatie();
-    //        relatie.setVoornaam("Tony");
-    //        relatie.setAchternaam("Stark");
-    //        relatie.setKantoor(1L);
-    //
-    //        String sId = relatieClient.opslaanRelatie(relatie);
-    //        org.junit.Assert.assertEquals(1,relatieClient.lijstRelaties(medewerkerId).getJsonRelaties().size());
-    //        Long id = Long.valueOf(sId);
-    //
-    //        JsonRelatie opgeslagen = relatieClient.leesRelatie(id);
-    //        relatie.setId(id);
-    //
-    //        assertEquals(relatie, opgeslagen, jsonRelatieFieldNames);
-    //
-    //        relatie.setBsn("bsn");
-    //        relatieClient.opslaanRelatie(relatie);
-    //        org.junit.Assert.assertEquals(1,relatieClient.lijstRelaties(medewerkerId).getJsonRelaties().size());
-    //
-    //        opgeslagen = relatieClient.leesRelatie(id);
-    //
-    //        assertEquals(relatie, opgeslagen, jsonRelatieFieldNames);
-    //
-    //        relatie.setTussenvoegsel("tt");relatie.setBurgerlijkeStaat("Gehuwd GVG");relatie.setGeboorteDatum("1979-09-06");
-    //        relatie.setGeslacht("Man");relatie.setIdentificatie("id");relatie.setOverlijdensdatum("2015-03-01");relatie.setRoepnaam("Iron Man");
-    //
-    //        relatieClient.opslaanRelatie(relatie);
-    //        org.junit.Assert.assertEquals(1,relatieClient.lijstRelaties(medewerkerId).getJsonRelaties().size());
-    //
-    //        opgeslagen = relatieClient.leesRelatie(id);
-    //
-    //        assertEquals(relatie, opgeslagen, jsonRelatieFieldNames);
-    //    }
 
+    @Override
+    public JsonAdres maakEntiteit(int teller, Long entiteitId, SoortEntiteit soortEntiteit) {
+            JsonAdres jsonAdres = new JsonAdres();
 
+            jsonAdres.setToevoeging(UUID.randomUUID().toString().replace("-", ""));
+            jsonAdres.setStraat(UUID.randomUUID().toString().replace("-", ""));
+            jsonAdres.setPlaats(UUID.randomUUID().toString().replace("-", ""));
+            jsonAdres.setSoortAdres("POSTADRES");
+            jsonAdres.setPostcode(UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase());
+            jsonAdres.setHuisnummer(Long.valueOf(teller));
+
+            jsonAdres.setSoortEntiteit(soortEntiteit.name());
+            jsonAdres.setEntiteitId(entiteitId);
+
+            return jsonAdres;
+    }
+
+    @Override
+    public void wijzig(JsonAdres entiteit) {
+        entiteit.setStraat("nieuweStraat");
+
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -30,30 +31,34 @@ public class BijlageRepositoryTest {
 
     @Test
     public void opslaan() {
-        assertEquals(0, bijlageRepository.alles().size());
+        SoortEntiteit soortEntiteit=SoortEntiteit.SCHADE;
+        Long entiteitId = 3L;
+
+        assertEquals(0, bijlageRepository.alles(soortEntiteit,entiteitId).size());
 
         Bijlage bijlage=new Bijlage();
-        bijlage.setEntiteitId(3L);
-        bijlage.setSoortBijlage(SoortEntiteit.POLIS);
+        bijlage.setEntiteitId(entiteitId);
+        bijlage.setSoortEntiteit(soortEntiteit);
         bijlage.setBestandsNaam("aa.pdf");
         bijlage.setOmschrijving("omschr");
         bijlage.setUploadMoment(LocalDateTime.now());
 
-        bijlageRepository.opslaan(bijlage);
+        bijlageRepository.opslaan(newArrayList(bijlage));
 
-        assertEquals(1, bijlageRepository.alles().size());
+
+        assertEquals(1, bijlageRepository.alles(soortEntiteit,entiteitId).size());
         assertEquals(bijlage, bijlageRepository.lees(bijlage.getId()));
 
         bijlage.setOmschrijving("Andere bijlage");
 
-        bijlageRepository.opslaan(bijlage);
+        bijlageRepository.opslaan(newArrayList(bijlage));
 
-        assertEquals(1, bijlageRepository.alles().size());
+        assertEquals(1, bijlageRepository.alles(soortEntiteit,entiteitId).size());
         assertEquals(bijlage, bijlageRepository.lees(bijlage.getId()));
 
-        bijlageRepository.verwijder(bijlage);
+        bijlageRepository.verwijder(newArrayList(bijlage));
 
-        assertEquals(0, bijlageRepository.alles().size());
+        assertEquals(0, bijlageRepository.alles(soortEntiteit,entiteitId).size());
     }
 
 }

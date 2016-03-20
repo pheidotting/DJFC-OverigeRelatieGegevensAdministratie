@@ -14,30 +14,20 @@ import java.util.Date;
 @Entity
 @Table(name = "OPMERKING")
 @NamedQueries({//
-        @NamedQuery(name = "Opmerking.zoekOpmerkingenBijEntiteit", query = "select o from Opmerking o where o.soortEntiteit = :soortEntiteit and o.entiteitId = :entiteitId")//
+        @NamedQuery(name = "Opmerking.zoekBijEntiteit", query = "select o from Opmerking o where o.soortEntiteit = :soortEntiteit and o.entiteitId = :entiteitId")//
 })
-public class Opmerking implements Serializable {
+public class Opmerking extends AbstracteEntiteitMetSoortEnId implements Serializable {
     private static final long serialVersionUID = -2928569293026238403L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-
     @Column(name = "TIJD")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tijd;
-
     @Column(name = "MEDEWERKER")
     private Long medewerker;
-
-    @Enumerated(EnumType.STRING)
-    @Column(length = 50, name = "SOORTENTITEIT")
-    private SoortEntiteit soortEntiteit;
-
-    @Column(name = "ENTITEITID")
-    private Long entiteitId;
-
     @Column(columnDefinition = "varchar(2500)", name = "OPMERKING")
     private String opmerking;
 
@@ -69,33 +59,12 @@ public class Opmerking implements Serializable {
         this.medewerker = medewerker;
     }
 
-    public Long getEntiteitId() {
-        return entiteitId;
-    }
-
-    public void setEntiteitId(Long entiteitId) {
-        this.entiteitId = entiteitId;
-    }
-
-    public SoortEntiteit getSoortEntiteit() {
-        return soortEntiteit;
-    }
-
-    public void setSoortEntiteit(SoortEntiteit soortEntiteit) {
-        this.soortEntiteit = soortEntiteit;
-    }
-
     public String getOpmerking() {
         return opmerking;
     }
 
     public void setOpmerking(String opmerking) {
         this.opmerking = opmerking;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("tijd", tijd).append("opmerking", opmerking).toString();
     }
 
     @Override
@@ -110,11 +79,16 @@ public class Opmerking implements Serializable {
 
         Opmerking opmerking1 = (Opmerking) o;
 
-        return new EqualsBuilder().append(getId(), opmerking1.getId()).append(getTijd(), opmerking1.getTijd()).append(getOpmerking(), opmerking1.getOpmerking()).isEquals();
+        return new EqualsBuilder().append(getId(), opmerking1.getId()).append(getTijd(), opmerking1.getTijd()).append(getMedewerker(), opmerking1.getMedewerker()).append(getOpmerking(), opmerking1.getOpmerking()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(getId()).append(getTijd()).append(getOpmerking()).toHashCode();
+        return new HashCodeBuilder(17, 37).append(getId()).append(getTijd()).append(getMedewerker()).append(getOpmerking()).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("id", id).append("tijd", tijd).append("medewerker", medewerker).append("opmerking", opmerking).toString();
     }
 }

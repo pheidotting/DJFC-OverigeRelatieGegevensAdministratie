@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,29 +29,32 @@ public class TelefoonnummerRepositoryTest {
 
     @Test
     public void opslaan() {
-        assertEquals(0, telefoonnummerRepository.alles().size());
+        SoortEntiteit soortEntiteit=SoortEntiteit.SCHADE;
+        Long entiteitId = 3L;
+
+        assertEquals(0, telefoonnummerRepository.alles(soortEntiteit,entiteitId).size());
 
         Telefoonnummer telefoonnummer = new Telefoonnummer();
         telefoonnummer.setTelefoonnummer("0612345678");
-        telefoonnummer.setEntiteitId(58L);
-        telefoonnummer.setSoortEntiteit(SoortEntiteit.CONTACTPERSOON);
+        telefoonnummer.setEntiteitId(entiteitId);
+        telefoonnummer.setSoortEntiteit(soortEntiteit);
 
-        telefoonnummerRepository.opslaan(telefoonnummer);
+        telefoonnummerRepository.opslaan(newArrayList(telefoonnummer));
 
-        assertEquals(1, telefoonnummerRepository.alles().size());
+        assertEquals(1, telefoonnummerRepository.alles(soortEntiteit,entiteitId).size());
         assertEquals(telefoonnummer, telefoonnummerRepository.lees(telefoonnummer.getId()));
 
         telefoonnummer.setOmschrijving("jadajada omschrijving");
         telefoonnummer.setSoort(TelefoonnummerSoort.MOBIEL);
 
-        telefoonnummerRepository.opslaan(telefoonnummer);
+        telefoonnummerRepository.opslaan(newArrayList(telefoonnummer));
 
-        assertEquals(1, telefoonnummerRepository.alles().size());
+        assertEquals(1, telefoonnummerRepository.alles(soortEntiteit,entiteitId).size());
         assertEquals(telefoonnummer, telefoonnummerRepository.lees(telefoonnummer.getId()));
 
-        telefoonnummerRepository.verwijder(telefoonnummer);
+        telefoonnummerRepository.verwijder(newArrayList(telefoonnummer));
 
-        assertEquals(0, telefoonnummerRepository.alles().size());
+        assertEquals(0, telefoonnummerRepository.alles(soortEntiteit,entiteitId).size());
     }
 
 }

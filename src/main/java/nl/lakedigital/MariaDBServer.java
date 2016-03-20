@@ -3,6 +3,7 @@ package nl.lakedigital;
 import ch.vorburger.exec.ManagedProcessException;
 import ch.vorburger.mariadb4j.DB;
 import ch.vorburger.mariadb4j.DBConfigurationBuilder;
+import org.jadira.usertype.moneyandcurrency.joda.columnmapper.IntegerColumnCurrencyUnitMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,10 +20,10 @@ public class MariaDBServer {
 
     public void init() {
         DBConfigurationBuilder configBuilder = DBConfigurationBuilder.newBuilder();
-        configBuilder.setPort(3306); // OR, default: setPort(0); => autom. detect free port
+        configBuilder.setPort(Integer.valueOf(getPoortNummer())); // OR, default: setPort(0); => autom. detect free port
         //        configBuilder.setDataDir("/home/theapp/db"); // just an example
         try {
-            System.out.println("Starting MariaDB");
+            System.out.println("Starting MariaDB op poort " + getPoortNummer());
             DB db = DB.newEmbeddedDB(Integer.valueOf(getPoortNummer()));
             db.start();
             System.out.println("Db started");
@@ -36,7 +37,7 @@ public class MariaDBServer {
 
     public String getPoortNummer() {
         if (poortNummer == null) {
-            poortNummer = "3306";
+            poortNummer = "3308";
         }
         return poortNummer;
     }

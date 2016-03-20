@@ -2,6 +2,7 @@ package nl.lakedigital.djfc.domain;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -10,8 +11,10 @@ import java.io.Serializable;
 @Audited
 @Entity
 @Table(name = "TELEFOONNUMMER")
-//@NamedQueries({@NamedQuery(name = "Telefoonnummer.verwijderTelefoonnummersBijRelatie", query = "delete from Telefoonnummer a where a.relatie = :relatie")})
-public class Telefoonnummer implements Serializable {
+@NamedQueries({//
+        @NamedQuery(name = "Telefoonnummer.zoekBijEntiteit", query = "select t from Telefoonnummer t where t.soortEntiteit = :soortEntiteit and t.entiteitId = :entiteitId")//
+})
+public class Telefoonnummer extends AbstracteEntiteitMetSoortEnId implements Serializable {
     private static final long serialVersionUID = -8991287195295458633L;
 
     @Id
@@ -25,11 +28,6 @@ public class Telefoonnummer implements Serializable {
     private TelefoonnummerSoort soort;
     @Column(name = "OMSCHRIJVING", columnDefinition = "varchar(2500)")
     private String omschrijving;
-    @Enumerated(EnumType.STRING)
-    @Column(length = 50, name = "SOORTENTITEIT")
-    private SoortEntiteit soortEntiteit;
-    @Column(name = "ENTITEITID")
-    private Long entiteitId;
 
     public Long getId() {
         return id;
@@ -63,55 +61,28 @@ public class Telefoonnummer implements Serializable {
         this.omschrijving = omschrijving;
     }
 
-    public SoortEntiteit getSoortEntiteit() {
-        return soortEntiteit;
-    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
 
-    public void setSoortEntiteit(SoortEntiteit soortEntiteit) {
-        this.soortEntiteit = soortEntiteit;
-    }
+        if (!(o instanceof Telefoonnummer)) {
+            return false;
+        }
 
-    public Long getEntiteitId() {
-        return entiteitId;
-    }
+        Telefoonnummer that = (Telefoonnummer) o;
 
-    public void setEntiteitId(Long entiteitId) {
-        this.entiteitId = entiteitId;
+        return new EqualsBuilder().append(getId(), that.getId()).append(getTelefoonnummer(), that.getTelefoonnummer()).append(getSoort(), that.getSoort()).append(getOmschrijving(), that.getOmschrijving()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(id).append(soort).append(telefoonnummer).append(omschrijving).toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Telefoonnummer other = (Telefoonnummer) obj;
-
-        return new EqualsBuilder().append(id, other.id).append(soort, other.soort).append(telefoonnummer, other.telefoonnummer).append(omschrijving, other.omschrijving).isEquals();
+        return new HashCodeBuilder(17, 37).append(getId()).append(getTelefoonnummer()).append(getSoort()).append(getOmschrijving()).toHashCode();
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Telefoonnummer [id=");
-        builder.append(id);
-        builder.append(", telefoonnummer=");
-        builder.append(telefoonnummer);
-        builder.append(", soort=");
-        builder.append(soort);
-        builder.append(", omschrijving=");
-        builder.append(omschrijving);
-        builder.append("]");
-        return builder.toString();
+        return new ToStringBuilder(this).append("id", id).append("telefoonnummer", telefoonnummer).append("soort", soort).append("omschrijving", omschrijving).toString();
     }
 }

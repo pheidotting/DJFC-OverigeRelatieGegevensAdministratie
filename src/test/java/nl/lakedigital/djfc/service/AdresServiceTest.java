@@ -54,7 +54,7 @@ public class AdresServiceTest extends EasyMockSupport {
     public void testOpslaan() throws Exception {
         Adres adres=new Adres();
 
-        adresRepository.opslaan(adres);
+        adresRepository.opslaan(Lists.newArrayList(adres));
         expectLastCall();
 
         replayAll();
@@ -80,9 +80,10 @@ public class AdresServiceTest extends EasyMockSupport {
 
         expect(adresRepository.alles(soortEntiteit,entiteitId)).andReturn(Lists.newArrayList(bestaand,teVerwijderen));
 
-        adresRepository.opslaan(bestaand);
-        adresRepository.opslaan(nieuw);
-        adresRepository.verwijder(teVerwijderen);
+        adresRepository.opslaan(Lists.newArrayList(nieuw,bestaand));
+        expectLastCall();
+        adresRepository.verwijder(Lists.newArrayList(teVerwijderen));
+        expectLastCall();
 
         replayAll();
 
@@ -100,7 +101,7 @@ public class AdresServiceTest extends EasyMockSupport {
         List<Adres> adressen= Lists.newArrayList(adres);
 
         expect(adresRepository.alles(soortEntiteit,entiteitId)).andReturn(adressen);
-        adresRepository.verwijder(adres);
+        adresRepository.verwijder(Lists.newArrayList(adres));
         expectLastCall();
 
         replayAll();

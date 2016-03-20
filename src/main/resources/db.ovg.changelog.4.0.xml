@@ -54,7 +54,7 @@
             <column name="S3" type="varchar(255)" />
             <column name="OMSCHRIJVING" type="varchar(300)" />
             <column name="ENTITEITID" type="int" />
-            <column name="SOORTBIJLAGE" type="varchar(20)" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
         </createTable>
         <createTable tableName="BIJLAGE_AUD">
             <column name="ID" type="int">
@@ -67,7 +67,7 @@
             <column name="S3" type="varchar(255)" />
             <column name="OMSCHRIJVING" type="varchar(300)" />
             <column name="ENTITEITID" type="int" />
-            <column name="SOORTBIJLAGE" type="varchar(20)" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
         </createTable>
         <createTable tableName="OPMERKING">
             <column name="ID" type="int" autoIncrement="true">

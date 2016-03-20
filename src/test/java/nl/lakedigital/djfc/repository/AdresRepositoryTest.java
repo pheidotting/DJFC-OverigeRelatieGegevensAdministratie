@@ -1,5 +1,6 @@
 package nl.lakedigital.djfc.repository;
 
+import com.google.common.collect.Lists;
 import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.inloggen.Sessie;
@@ -36,7 +37,7 @@ public class AdresRepositoryTest {
         adres.setSoortEntiteit(SoortEntiteit.RELATIE);
         adres.setPostcode("1234AA");
 
-        adresRepository.opslaan(adres);
+        adresRepository.opslaan(Lists.newArrayList(adres));
 
         assertEquals(1, adresRepository.alles(soortEntiteit,relatieId).size());
         assertEquals(0, adresRepository.alles(SoortEntiteit.POLIS,relatieId).size());
@@ -47,12 +48,12 @@ public class AdresRepositoryTest {
         adres.setPlaats("Gotham");
         adres.setSoortAdres(Adres.SoortAdres.POSTADRES);
 
-        adresRepository.opslaan(adres);
+        adresRepository.opslaan(Lists.newArrayList(adres));
 
         assertEquals(1, adresRepository.alles(soortEntiteit,relatieId).size());
         assertEquals(adres, adresRepository.lees(adres.getId()));
 
-        adresRepository.verwijder(adres);
+        adresRepository.verwijder(Lists.newArrayList(adres));
 
         assertEquals(0, adresRepository.alles(soortEntiteit,relatieId).size());
     }

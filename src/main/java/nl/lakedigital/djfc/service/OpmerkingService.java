@@ -1,33 +1,26 @@
-//package nl.lakedigital.djfc.service;
-//
-//import nl.dias.domein.Opmerking;
-//import nl.dias.repository.OpmerkingRepository;
-//import nl.dias.web.SoortEntiteit;
-//import org.springframework.stereotype.Service;
-//
-//import javax.inject.Inject;
-//import java.util.List;
-//
-//@Service
-//public class OpmerkingService {
-//    @Inject
-//    private OpmerkingRepository opmerkingRepository;
-//
-//    public List<Opmerking> alleOpmerkingenBijEntiteit(SoortEntiteit soortEntiteit, Long entiteitId) {
-//        return opmerkingRepository.alleOpmerkingenBijEntiteit(soortEntiteit, entiteitId);
-//    }
-//
-//    public void verwijder(Long id) {
-//        Opmerking opmerking = opmerkingRepository.lees(id);
-//
-//        opmerkingRepository.verwijder(opmerking);
-//    }
-//
-//    public void opslaan(Opmerking opmerking) {
-//        opmerkingRepository.opslaan(opmerking);
-//    }
-//
-//    public Opmerking lees(Long id) {
-//        return opmerkingRepository.lees(id);
-//    }
-//}
+package nl.lakedigital.djfc.service;
+
+import nl.lakedigital.djfc.domain.Adres;
+import nl.lakedigital.djfc.domain.Opmerking;
+import nl.lakedigital.djfc.repository.AbstractRepository;
+import nl.lakedigital.djfc.repository.AdresRepository;
+import nl.lakedigital.djfc.repository.OpmerkingRepository;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import java.util.List;
+
+@Service
+public class OpmerkingService extends AbstractService<Opmerking> {
+    public OpmerkingService() {
+        super(Opmerking.class);
+    }
+
+    @Inject
+    private OpmerkingRepository opmerkingRepository;
+
+    @Override
+    public AbstractRepository getRepository() {
+        return opmerkingRepository;
+    }
+}

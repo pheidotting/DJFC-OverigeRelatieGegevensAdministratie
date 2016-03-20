@@ -2,6 +2,7 @@ package nl.lakedigital.djfc.domain;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -10,8 +11,10 @@ import java.io.Serializable;
 @Audited
 @Entity
 @Table(name = "REKENINGNUMMER")
-//@NamedQueries({@NamedQuery(name = "RekeningNummer.verwijderRekeningNummersBijLong", query = "delete from RekeningNummer a where a.relatie = :relatie")})
-public class RekeningNummer implements Serializable {
+@NamedQueries({//
+        @NamedQuery(name = "RekeningNummer.zoekBijEntiteit", query = "select r from RekeningNummer r where r.soortEntiteit = :soortEntiteit and r.entiteitId = :entiteitId")//
+})
+public class RekeningNummer extends AbstracteEntiteitMetSoortEnId implements Serializable {
     private static final long serialVersionUID = 6164849876034232194L;
 
     @Id
@@ -22,11 +25,8 @@ public class RekeningNummer implements Serializable {
     private String bic;
     @Column(name = "REKENINGNUMMER")
     private String rekeningnummer;
+
     @Enumerated(EnumType.STRING)
-    @Column(length = 50, name = "SOORTENTITEIT")
-    private SoortEntiteit soortEntiteit;
-    @Column(name = "ENTITEITID")
-    private Long entiteitId;
 
     public Long getId() {
         return id;
@@ -52,50 +52,28 @@ public class RekeningNummer implements Serializable {
         this.rekeningnummer = rekeningnummer;
     }
 
-    public SoortEntiteit getSoortEntiteit() {
-        return soortEntiteit;
-    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
 
-    public void setSoortEntiteit(SoortEntiteit soortEntiteit) {
-        this.soortEntiteit = soortEntiteit;
-    }
+        if (!(o instanceof RekeningNummer)) {
+            return false;
+        }
 
-    public Long getEntiteitId() {
-        return entiteitId;
-    }
+        RekeningNummer that = (RekeningNummer) o;
 
-    public void setEntiteitId(Long entiteitId) {
-        this.entiteitId = entiteitId;
+        return new EqualsBuilder().append(getId(), that.getId()).append(getBic(), that.getBic()).append(getRekeningnummer(), that.getRekeningnummer()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(bic).append(id).append(rekeningnummer).toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        RekeningNummer other = (RekeningNummer) obj;
-
-        return new EqualsBuilder().append(bic, other.bic).append(id, other.id).append(rekeningnummer, other.rekeningnummer).isEquals();
+        return new HashCodeBuilder(17, 37).append(getId()).append(getBic()).append(getRekeningnummer()).toHashCode();
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("RekeningNummer [id=").append(id);
-        builder.append(", bic=").append(bic);
-        builder.append(", rekeningnummer=").append(rekeningnummer);
-        builder.append("]");
-        return builder.toString();
+        return new ToStringBuilder(this).append("id", id).append("bic", bic).append("rekeningnummer", rekeningnummer).toString();
     }
 }

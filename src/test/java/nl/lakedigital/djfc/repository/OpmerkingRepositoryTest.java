@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -29,30 +30,33 @@ public class OpmerkingRepositoryTest {
 
     @Test
     public void opslaan() {
-        assertEquals(0, opmerkingRepository.alles().size());
+        SoortEntiteit soortEntiteit=SoortEntiteit.SCHADE;
+        Long entiteitId = 3L;
+
+        assertEquals(0, opmerkingRepository.alles(soortEntiteit,entiteitId).size());
 
         Opmerking opmerking=new Opmerking();
-        opmerking.setEntiteitId(3L);
-        opmerking.setSoortEntiteit(SoortEntiteit.POLIS);
+        opmerking.setEntiteitId(entiteitId);
+        opmerking.setSoortEntiteit(soortEntiteit);
         opmerking.setMedewerker(3L);
         opmerking.setOpmerking("blablabla opmerking");
 
-        opmerkingRepository.opslaan(opmerking);
+        opmerkingRepository.opslaan(newArrayList(opmerking));
 
         assertNotNull(opmerking.getTijd());
-        assertEquals(1, opmerkingRepository.alles().size());
+        assertEquals(1, opmerkingRepository.alles(soortEntiteit,entiteitId).size());
         assertEquals(opmerking, opmerkingRepository.lees(opmerking.getId()));
 
         opmerking.setOpmerking("Andere opmerking");
 
-        opmerkingRepository.opslaan(opmerking);
+        opmerkingRepository.opslaan(newArrayList(opmerking));
 
-        assertEquals(1, opmerkingRepository.alles().size());
+        assertEquals(1, opmerkingRepository.alles(soortEntiteit,entiteitId).size());
         assertEquals(opmerking, opmerkingRepository.lees(opmerking.getId()));
 
-        opmerkingRepository.verwijder(opmerking);
+        opmerkingRepository.verwijder(newArrayList(opmerking));
 
-        assertEquals(0, opmerkingRepository.alles().size());
+        assertEquals(0, opmerkingRepository.alles(soortEntiteit,entiteitId).size());
     }
 
 }

@@ -24,11 +24,11 @@
             <artifactId>djfc-commons</artifactId>
             <version>4.0</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>nl.lakedigital.djfc</groupId>-->
-            <!--<artifactId>djfc-persoonsbeheer-client</artifactId>-->
-            <!--<version>4.0</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>nl.lakedigital.djfc</groupId>
+            <artifactId>djfc-persoonsbeheer-client</artifactId>
+            <version>4.0</version>
+        </dependency>
 
         <dependency>
             <groupId>net.sf.dozer</groupId>
@@ -339,38 +339,17 @@
             <version>2.5-20081211</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>de.sven-jacobs</groupId>
+            <artifactId>loremipsum</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
     <build>
         <plugins>
-            <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
-            <!--&lt;!&ndash;<groupId>org.codehaus.mojo</groupId>&ndash;&gt;-->
-            <!--&lt;!&ndash;<artifactId>jaxb2-maven-plugin</artifactId>&ndash;&gt;-->
-            <!--&lt;!&ndash;<version>1.5</version>&ndash;&gt;-->
-            <!--&lt;!&ndash;<executions>&ndash;&gt;-->
-            <!--&lt;!&ndash;<execution>&ndash;&gt;-->
-            <!--&lt;!&ndash;<id>xjc</id>&ndash;&gt;-->
-            <!--&lt;!&ndash;<goals>&ndash;&gt;-->
-            <!--&lt;!&ndash;<goal>xjc</goal>&ndash;&gt;-->
-            <!--&lt;!&ndash;</goals>&ndash;&gt;-->
-            <!--&lt;!&ndash;</execution>&ndash;&gt;-->
-            <!--&lt;!&ndash;</executions>&ndash;&gt;-->
-            <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
-            <!--&lt;!&ndash;<packageName>bank</packageName>&ndash;&gt;-->
-            <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
-            <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
-            <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
-                <!--&lt;!&ndash;<groupId>org.codehaus.mojo</groupId>&ndash;&gt;-->
-                <!--&lt;!&ndash;<artifactId>cobertura-maven-plugin</artifactId>&ndash;&gt;-->
-                <!--&lt;!&ndash;<version>2.6</version>&ndash;&gt;-->
-                <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<formats>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<format>html</format>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<format>xml</format>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</formats>&ndash;&gt;-->
-                <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
-            <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -379,105 +358,12 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.eclipse.jetty</groupId>-->
-                <!--<artifactId>jetty-maven-plugin</artifactId>-->
-                <!--<version>9.1.1.v20140108</version>-->
-                <!--<configuration>-->
-                    <!--<stopKey>a</stopKey>-->
-                    <!--<stopPort>7081</stopPort>-->
-                    <!--<httpConnector>-->
-                        <!--&lt;!&ndash;host>localhost</host&ndash;&gt;-->
-                        <!--<port>7072</port>-->
-                    <!--</httpConnector>-->
-                    <!--<scanIntervalSeconds>10</scanIntervalSeconds>-->
-                    <!--<webAppConfig>-->
-                        <!--<contextPath>/projectx</contextPath>-->
-                    <!--</webAppConfig>-->
-                    <!--&lt;!&ndash;-->
-                    <!--<jettyConfig>src/main/webapp/jetty.xml</jettyConfig>-->
-                    <!--&ndash;&gt;-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-            <!--&lt;!&ndash; Integratie Test &ndash;&gt;-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<excludes>-->
-                        <!--<exclude>**/it/*Test.java</exclude>-->
-                    <!--</excludes>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>integration-test</id>-->
-                        <!--<goals>-->
-                            <!--<goal>test</goal>-->
-                        <!--</goals>-->
-                        <!--<phase>integration-test</phase>-->
-                        <!--<configuration>-->
-                            <!--<excludes>-->
-                                <!--<exclude>none</exclude>-->
-                            <!--</excludes>-->
-                            <!--<includes>-->
-                                <!--<include>**/it/*Test.java</include>-->
-                            <!--</includes>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-            <!--&lt;!&ndash; Einde Integratie Test &ndash;&gt;-->
-            <!--<plugin>-->
-                <!--<artifactId>maven-failsafe-plugin</artifactId>-->
-                <!--<version>2.6</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>integration-test</goal>-->
-                            <!--<goal>verify</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>org.eclipse.jetty</groupId>-->
-                <!--<artifactId>jetty-maven-plugin</artifactId>-->
-                <!--<version>9.3.7.v20160115</version>-->
-                <!--&lt;!&ndash;<dependencies>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<groupId>org.ow2.asm</groupId>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<artifactId>asm</artifactId>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<version>5.0.2</version>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<groupId>org.ow2.asm</groupId>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<artifactId>asm-commons</artifactId>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<version>5.0.2</version>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
-                <!--&lt;!&ndash;</dependencies>&ndash;&gt;-->
-                <!--<configuration>-->
-                    <!--<stopKey>a</stopKey>-->
-                    <!--<stopPort>7081</stopPort>-->
-                    <!--<httpConnector>-->
-                        <!--&lt;!&ndash;host>localhost</host&ndash;&gt;-->
-                        <!--<port>7072</port>-->
-                    <!--</httpConnector>-->
-                    <!--<scanIntervalSeconds>10</scanIntervalSeconds>-->
-                    <!--<webAppConfig>-->
-                        <!--<contextPath>/persoonsbeheer</contextPath>-->
-                    <!--</webAppConfig>-->
-                    <!--&lt;!&ndash;-->
-                    <!--<jettyConfig>src/main/webapp/jetty.xml</jettyConfig>-->
-                    <!--&ndash;&gt;-->
-                <!--</configuration>-->
-            <!--</plugin>-->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.3.7.v20160115</version>
                 <configuration>
                     <httpConnector>
-                        <!--host>localhost</host-->
                         <port>7072</port>
                     </httpConnector>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
@@ -496,7 +382,6 @@
                         </goals>
                         <configuration>
                             <scanIntervalSeconds>0</scanIntervalSeconds>
-                            <!--<daemon>true</daemon>-->
                         </configuration>
                     </execution>
                     <execution>
@@ -508,58 +393,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
-                <!--&lt;!&ndash;<groupId>org.apache.maven.plugins</groupId>&ndash;&gt;-->
-                <!--&lt;!&ndash;<artifactId>maven-war-plugin</artifactId>&ndash;&gt;-->
-                <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<webXml>src/main/webapp\WEB-INF\web.xml</webXml>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<warSourceDirectory>webapp</warSourceDirectory>&ndash;&gt;-->
-                <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
-            <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
-            <!--<plugin>-->
-                <!--<groupId>org.eclipse.jetty</groupId>-->
-                <!--<artifactId>jetty-maven-plugin</artifactId>-->
-                <!--<version>9.3.0.M2</version>-->
-                <!--<configuration>-->
-                    <!--<httpConnector>-->
-                        <!--<port>7072</port>-->
-                    <!--</httpConnector>-->
-                    <!--<webApp>-->
-                        <!--<contextPath>/dejonge</contextPath>-->
-                        <!--<descriptor>-->
-                            <!--src/main/webapp/WEB-INF/web.xml-->
-                        <!--</descriptor>-->
-                    <!--</webApp>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-            <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
-                <!--&lt;!&ndash;<groupId>org.apache.maven.plugins</groupId>&ndash;&gt;-->
-                <!--&lt;!&ndash;<artifactId>maven-project-info-reports-plugin</artifactId>&ndash;&gt;-->
-                <!--&lt;!&ndash;<version>2.7</version>&ndash;&gt;-->
-                <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<dependencyLocationsEnabled>false</dependencyLocationsEnabled>&ndash;&gt;-->
-                <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
-            <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
-            <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
-                <!--&lt;!&ndash;<groupId>org.codehaus.mojo</groupId>&ndash;&gt;-->
-                <!--&lt;!&ndash;<artifactId>cobertura-maven-plugin</artifactId>&ndash;&gt;-->
-                <!--&lt;!&ndash;<version>2.6</version>&ndash;&gt;-->
-                <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<check>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<branchRate>85</branchRate>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<lineRate>85</lineRate>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<haltOnFailure>true</haltOnFailure>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<totalBranchRate>85</totalBranchRate>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<totalLineRate>85</totalLineRate>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<packageLineRate>85</packageLineRate>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<packageBranchRate>85</packageBranchRate>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</check>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<formats>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<format>html</format>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<format>xml</format>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</formats>&ndash;&gt;-->
-                <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
-            <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
             <!-- Integratie Test -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -587,7 +420,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Einde Integratie Test -->
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.6</version>
@@ -600,51 +432,52 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.3.7.v20160115</version>
-                <configuration>
-                    <httpConnector>
-                        <!--host>localhost</host-->
-                        <port>7072</port>
-                    </httpConnector>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <stopPort>8005</stopPort>
-                    <stopKey>STOP</stopKey>
-                    <webAppConfig>
-                        <contextPath>/orga</contextPath>
-                    </webAppConfig>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>start-jetty</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <scanIntervalSeconds>0</scanIntervalSeconds>
-                            <!--<daemon>true</daemon>-->
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>stop-jetty</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <webXml>src/main/webapp\WEB-INF\web.xml</webXml>
-                    <warSourceDirectory>webapp</warSourceDirectory>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.eclipse.jetty</groupId>-->
+                <!--<artifactId>jetty-maven-plugin</artifactId>-->
+                <!--<version>9.3.7.v20160115</version>-->
+                <!--<configuration>-->
+                    <!--<httpConnector>-->
+                        <!--&lt;!&ndash;host>localhost</host&ndash;&gt;-->
+                        <!--<port>7072</port>-->
+                    <!--</httpConnector>-->
+                    <!--<scanIntervalSeconds>10</scanIntervalSeconds>-->
+                    <!--<stopPort>8005</stopPort>-->
+                    <!--<stopKey>STOP</stopKey>-->
+                    <!--<webAppConfig>-->
+                        <!--<contextPath>/orga</contextPath>-->
+                    <!--</webAppConfig>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>start-jetty</id>-->
+                        <!--<phase>pre-integration-test</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>run</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<scanIntervalSeconds>0</scanIntervalSeconds>-->
+                            <!--&lt;!&ndash;<daemon>true</daemon>&ndash;&gt;-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>stop-jetty</id>-->
+                        <!--<phase>post-integration-test</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>stop</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+            <!-- Einde Integratie Test -->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-war-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<webXml>src/main/webapp\WEB-INF\web.xml</webXml>-->
+                    <!--<warSourceDirectory>webapp</warSourceDirectory>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
