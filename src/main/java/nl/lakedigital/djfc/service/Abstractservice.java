@@ -12,7 +12,6 @@ import java.util.List;
 
 import static com.google.common.collect.Iterables.filter;
 
-
 public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractService.class);
 
