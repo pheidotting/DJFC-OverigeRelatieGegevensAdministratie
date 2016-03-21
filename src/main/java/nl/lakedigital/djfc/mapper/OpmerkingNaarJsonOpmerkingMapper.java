@@ -1,41 +1,25 @@
-//package nl.lakedigital.djfc.mapper;
-//
-//import nl.dias.domein.Opmerking;
-//import nl.lakedigital.djfc.commons.json.JsonOpmerking;
-//import org.springframework.stereotype.Component;
-//
-//@Component
-//public class OpmerkingNaarJsonOpmerkingMapper extends  AbstractMapper<Opmerking,JsonOpmerking>{
-//    @Override
-//    public JsonOpmerking map(Opmerking opmerking, Object parent, Object bestaandOjbect) {
-//        JsonOpmerking jsonOpmerking = new JsonOpmerking();
-//
-//        jsonOpmerking.setId(opmerking.getId());
-//        jsonOpmerking.setOpmerking(opmerking.getOpmerking());
-//        jsonOpmerking.setTijd(opmerking.getTijd().toString("dd-MM-yyyy HH:mm"));
-//        jsonOpmerking.setMedewerker(opmerking.getMedewerker().getNaam());
-//        jsonOpmerking.setMedewerkerId(opmerking.getMedewerker().getId().toString());
-//        if (opmerking.getSchade() != null) {
-//            jsonOpmerking.setSchade(opmerking.getSchade().getId().toString());
-//        }
-//        if (opmerking.getPolis() != null) {
-//            jsonOpmerking.setPolis(opmerking.getPolis().getId().toString());
-//        }
-//        if (opmerking.getHypotheek() != null) {
-//            jsonOpmerking.setHypotheek(opmerking.getHypotheek().getId().toString());
-//        }
-//        if (opmerking.getBedrijf() != null) {
-//            jsonOpmerking.setBedrijf(opmerking.getBedrijf().getId().toString());
-//        }
-//        if (jsonOpmerking.getAangifte() != null) {
-//            jsonOpmerking.setAangifte(opmerking.getAangifte().getId().toString());
-//        }
-//
-//        return jsonOpmerking;
-//    }
-//
-//    @Override
-//    boolean isVoorMij(Object object) {
-//        return object instanceof  Opmerking;
-//    }
-//}
+package nl.lakedigital.djfc.mapper;
+
+import nl.lakedigital.djfc.commons.json.JsonOpmerking;
+import nl.lakedigital.djfc.domain.Opmerking;
+import org.springframework.stereotype.Component;
+
+@Component
+public class OpmerkingNaarJsonOpmerkingMapper extends  AbstractMapper<Opmerking,JsonOpmerking> implements JsonMapper{
+    @Override
+    public JsonOpmerking map(Opmerking opmerking, Object parent, Object bestaandOjbect) {
+        JsonOpmerking jsonOpmerking = new JsonOpmerking();
+
+        jsonOpmerking.setId(opmerking.getId());
+        jsonOpmerking.setOpmerking(opmerking.getOpmerking());
+        jsonOpmerking.setTijd(opmerking.getTijd().toString("dd-MM-yyyy HH:mm"));
+        jsonOpmerking.setMedewerkerId(opmerking.getMedewerker());
+
+        return jsonOpmerking;
+    }
+
+    @Override
+    public boolean isVoorMij(Object object) {
+        return object instanceof  Opmerking;
+    }
+}

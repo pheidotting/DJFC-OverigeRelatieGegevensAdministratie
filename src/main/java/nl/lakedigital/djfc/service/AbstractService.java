@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.repository.AbstractRepository;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,19 +39,23 @@ public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
         getRepository().opslaan(Lists.newArrayList(adres));
     }
 
-    public void opslaan(final List<T> adressen, SoortEntiteit soortEntiteit, Long entiteitId) {
+    public void opslaan(final List<T> entiteiten, SoortEntiteit soortEntiteit, Long entiteitId) {
+        for(T t : entiteiten){
+            System.out.println(ReflectionToStringBuilder.toString(t, ToStringStyle.SHORT_PREFIX_STYLE));
+        }
+
         List<T> lijstBestaandeNummer = getRepository().alles(soortEntiteit, entiteitId);
 
         //Verwijderen wat niet (meer) voorkomt
         Iterable<T> teVerwijderen = filter(lijstBestaandeNummer, new Predicate<T>() {
             @Override
             public boolean apply(T adres) {
-                return !adressen.contains(adres);
+                return !entiteiten.contains(adres);
             }
         });
 
         getRepository().verwijder(Lists.newArrayList(teVerwijderen));
-        getRepository().opslaan(adressen);
+        getRepository().opslaan(entiteiten);
     }
 
     public void verwijderen(SoortEntiteit soortEntiteit, Long entiteitId) {
