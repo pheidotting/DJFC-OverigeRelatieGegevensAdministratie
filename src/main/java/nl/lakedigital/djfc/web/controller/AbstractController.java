@@ -5,6 +5,8 @@ import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.mapper.Mapper;
 import nl.lakedigital.djfc.service.AbstractService;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
     @ResponseBody
     public List<J> alles(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
         LOGGER.debug("alles soortEntiteit {} parentId {}", soortentiteit, parentid);
+        System.out.println("alles soortEntiteit " + soortentiteit + " parentId " + parentid);
 
         List<D> domainEntiteiten = getService().alles(SoortEntiteit.valueOf(soortentiteit), parentid);
         List<J> jsonEntiteiten = new ArrayList<>();
@@ -46,6 +49,10 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
 
     public abstract void opslaan(List<J> jsonEntiteiten);
     public void goOpslaan(@RequestBody List<J> jsonEntiteiten) {
+        for (J j : jsonEntiteiten) {
+            System.out.println("Opslaan : " + ReflectionToStringBuilder.toString(j, ToStringStyle.SHORT_PREFIX_STYLE));
+        }
+
         if (jsonEntiteiten != null && !jsonEntiteiten.isEmpty()) {
             J eersteEntiteit = jsonEntiteiten.get(0);
 

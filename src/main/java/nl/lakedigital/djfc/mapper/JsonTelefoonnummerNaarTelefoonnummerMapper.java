@@ -1,74 +1,43 @@
-//package nl.lakedigital.djfc.mapper;
-//
-//import com.google.common.base.Predicate;
-//import nl.dias.domein.*;
-//import nl.lakedigital.djfc.commons.json.JsonTelefoonnummer;
-//import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-//import org.apache.commons.lang3.builder.ToStringStyle;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.stereotype.Component;
-//
-//import java.util.Set;
-//
-//import static com.google.common.collect.Iterables.filter;
-//import static com.google.common.collect.Iterables.getFirst;
-//
-//@Component
-//public class JsonTelefoonnummerNaarTelefoonnummerMapper extends AbstractMapper<JsonTelefoonnummer, Telefoonnummer> {
-//    private static final Logger LOGGER = LoggerFactory.getLogger(JsonTelefoonnummerNaarTelefoonnummerMapper.class);
-//
-//    @Override
-//    public Telefoonnummer map(final JsonTelefoonnummer object, Object parent, Object bestaandOjbect) {
-//        if (object == null) {
-//            return null;
-//        }
-//        LOGGER.debug("Mappen : {}", ReflectionToStringBuilder.toString(object, ToStringStyle.SHORT_PREFIX_STYLE));
-//
-//        Telefoonnummer telefoonnummer = null;
-//        Set<Telefoonnummer> telefoonnummers = null;
-//
-//        if (parent != null) {
-//            if (parent instanceof Relatie) {
-//                telefoonnummers = ((Relatie) parent).getTelefoonnummers();
-//            } else if (parent instanceof ContactPersoon) {
-//                telefoonnummers = ((ContactPersoon) parent).getTelefoonnummers();
-//            } else if (parent instanceof Bedrijf) {
-//                telefoonnummers = ((Bedrijf) parent).getTelefoonnummers();
-//            }
-//            if (telefoonnummers != null && !telefoonnummers.isEmpty()) {
-//                telefoonnummer = getFirst(filter(telefoonnummers, new Predicate<Telefoonnummer>() {
-//                    @Override
-//                    public boolean apply(Telefoonnummer telefoonnummer) {
-//                        return telefoonnummer.getId() == object.getId();
-//                    }
-//                }), new Telefoonnummer());
-//            } else {
-//                telefoonnummer = new Telefoonnummer();
-//            }
-//        } else {
-//            telefoonnummer = new Telefoonnummer();
-//        }
-//        telefoonnummer.setId(object.getId());
-//        telefoonnummer.setOmschrijving(object.getOmschrijving());
-//        telefoonnummer.setSoort(TelefoonnummerSoort.valueOf(object.getSoort()));
-//        telefoonnummer.setTelefoonnummer(object.getTelefoonnummer());
-//
-//        if (parent instanceof Relatie) {
-//            telefoonnummer.setRelatie((Relatie) parent);
-//        } else if (parent instanceof ContactPersoon) {
-//            telefoonnummer.setContactPersoon((ContactPersoon) parent);
-//        } else if (parent instanceof Bedrijf) {
-//            telefoonnummer.setBedrijf((Bedrijf) parent);
-//        }
-//        if (telefoonnummer.getId() == null) {
-//            telefoonnummers.add(telefoonnummer);
-//        }
-//        return telefoonnummer;
-//    }
-//
-//    @Override
-//    boolean isVoorMij(Object object) {
-//        return object instanceof JsonTelefoonnummer;
-//    }
-//}
+package nl.lakedigital.djfc.mapper;
+
+import nl.lakedigital.djfc.commons.json.JsonTelefoonnummer;
+import nl.lakedigital.djfc.domain.Telefoonnummer;
+import nl.lakedigital.djfc.domain.TelefoonnummerSoort;
+import nl.lakedigital.djfc.service.TelefoonnummerService;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import javax.inject.Inject;
+
+@Component
+public class JsonTelefoonnummerNaarTelefoonnummerMapper extends AbstractMapper<JsonTelefoonnummer, Telefoonnummer> implements JsonMapper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonTelefoonnummerNaarTelefoonnummerMapper.class);
+
+    @Inject
+    private TelefoonnummerService telefoonnummerService;
+
+    @Override
+    public Telefoonnummer map(final JsonTelefoonnummer jsonTelefoonnummer, Object parent, Object bestaandOjbect) {
+        LOGGER.debug("Mappen : {}", ReflectionToStringBuilder.toString(jsonTelefoonnummer, ToStringStyle.SHORT_PREFIX_STYLE));
+
+        Telefoonnummer telefoonnummer = new Telefoonnummer();
+
+        if (jsonTelefoonnummer.getId() != null) {
+            telefoonnummer = telefoonnummerService.lees(jsonTelefoonnummer.getId());
+        }
+        telefoonnummer.setId(jsonTelefoonnummer.getId());
+        telefoonnummer.setOmschrijving(jsonTelefoonnummer.getOmschrijving());
+        telefoonnummer.setSoort(TelefoonnummerSoort.valueOf(jsonTelefoonnummer.getSoort()));
+        telefoonnummer.setTelefoonnummer(jsonTelefoonnummer.getTelefoonnummer());
+
+        return telefoonnummer;
+    }
+
+    @Override
+    public boolean isVoorMij(Object object) {
+        return object instanceof JsonTelefoonnummer;
+    }
+}

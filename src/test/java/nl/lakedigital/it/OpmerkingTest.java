@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import nl.lakedigital.djfc.commons.json.JsonOpmerking;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 
-import javax.persistence.Column;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +11,7 @@ public class OpmerkingTest extends AbstractTest<JsonOpmerking> {
     private OpmerkingClient opmerkingClient=new OpmerkingClient();
 
     public final List<String> fieldNames = Lists.newArrayList(//
-            "tijd", //
+            //            "tijd", //
             "medewerker", //
             "medewerkerId", //
             "opmerking", //
@@ -37,9 +35,9 @@ public class OpmerkingTest extends AbstractTest<JsonOpmerking> {
 
         jsonOpmerking.setOpmerking(UUID.randomUUID().toString());
         jsonOpmerking.setTijd("2016-05-01 13:37");
-        jsonOpmerking.setMedewerker("2");
-        jsonOpmerking.setEntiteitId(3L);
-        jsonOpmerking.setSoortEntiteit("POLIS");
+        jsonOpmerking.setMedewerkerId(2L);
+        jsonOpmerking.setEntiteitId(entiteitId);
+        jsonOpmerking.setSoortEntiteit(soortEntiteit.name());
 
         return jsonOpmerking;
     }

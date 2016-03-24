@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import java.util.UUID;
 
 @Component
-public class JsonBijlageNaarBijlageMapper extends AbstractMapper<JsonBijlage, Bijlage> {
+public class JsonBijlageNaarBijlageMapper extends AbstractMapper<JsonBijlage, Bijlage> implements JsonMapper {
     @Inject
     private BijlageService bijlageService;
 
@@ -30,7 +30,7 @@ public class JsonBijlageNaarBijlageMapper extends AbstractMapper<JsonBijlage, Bi
     }
 
     @Override
-    boolean isVoorMij(Object object) {
+    public boolean isVoorMij(Object object) {
         return object instanceof JsonBijlage;
     }
 }

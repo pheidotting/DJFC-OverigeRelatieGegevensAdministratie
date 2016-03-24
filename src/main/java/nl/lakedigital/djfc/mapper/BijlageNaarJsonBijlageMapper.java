@@ -5,7 +5,7 @@ import nl.lakedigital.djfc.domain.Bijlage;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BijlageNaarJsonBijlageMapper extends AbstractMapper<Bijlage, JsonBijlage> {
+public class BijlageNaarJsonBijlageMapper extends AbstractMapper<Bijlage, JsonBijlage> implements JsonMapper {
     @Override
     public JsonBijlage map(Bijlage bijlage, Object parent, Object bestaandObject) {
         JsonBijlage json = new JsonBijlage();
@@ -22,7 +22,7 @@ public class BijlageNaarJsonBijlageMapper extends AbstractMapper<Bijlage, JsonBi
     }
 
     @Override
-    boolean isVoorMij(Object object) {
+    public boolean isVoorMij(Object object) {
         return object instanceof Bijlage;
     }
 }

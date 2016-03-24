@@ -5,7 +5,10 @@ import nl.lakedigital.djfc.domain.RekeningNummer;
 import nl.lakedigital.djfc.service.AbstractService;
 import nl.lakedigital.djfc.service.RekeningNummerService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -25,8 +28,10 @@ public class RekeningNummerController extends AbstractController<RekeningNummer,
         return rekeningNummerService;
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/opslaan")
+    @ResponseBody
     @Override
-    public void opslaan(List<JsonRekeningNummer> jsonEntiteiten) {
+    public void opslaan(@RequestBody List<JsonRekeningNummer> jsonEntiteiten) {
         goOpslaan(jsonEntiteiten);
     }
 }

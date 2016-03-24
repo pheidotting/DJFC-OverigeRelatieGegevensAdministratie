@@ -2,7 +2,6 @@ package nl.lakedigital.it;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -10,12 +9,10 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import nl.lakedigital.djfc.commons.json.AbstracteJsonEntiteitMetSoortEnId;
-import nl.lakedigital.djfc.commons.json.JsonAdres;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId> {
@@ -114,6 +111,7 @@ public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId
             }
         }
         LOGGER.info("Aanroepen via GET " + adres);
+        System.out.println("Aanroepen via GET " + adres);
 
         ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
@@ -127,10 +125,11 @@ public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId
 //        Type listOfTestObject = new TypeToken<List<T>>() {
 //        }.getType();
 //        return gson.fromJson(response.getEntity(String.class), listOfTestObject);
-        Type listType = new TypeToken<ArrayList<JsonAdres>>() {
-        }.getType();
+        Type listType = getTypeToken();
         List<T> yourClassList = new Gson().fromJson(response.getEntity(String.class), listType);
 
         return yourClassList;
     }
+
+    protected abstract Type getTypeToken();
 }
