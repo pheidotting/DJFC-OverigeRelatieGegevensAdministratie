@@ -17,12 +17,6 @@ import static com.google.common.collect.Iterables.filter;
 public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractService.class);
 
-    private final Class<T> type;
-
-    public AbstractService(Class<T> type) {
-        this.type = type;
-    }
-
     public abstract AbstractRepository getRepository();
 
     public List<T> alles(SoortEntiteit soortEntiteit, Long parentId) {
