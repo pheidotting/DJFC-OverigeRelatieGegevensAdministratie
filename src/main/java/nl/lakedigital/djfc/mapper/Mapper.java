@@ -27,7 +27,6 @@ public class Mapper {
     public <T> T map(final Object objectIn, final Class<T> clazz) {
         Object objectUit = null;
 
-        System.out.println(ReflectionToStringBuilder.toString(objectIn, ToStringStyle.SHORT_PREFIX_STYLE));
         LOGGER.debug("Mappen van {}", ReflectionToStringBuilder.toString(objectIn, ToStringStyle.SHORT_PREFIX_STYLE));
 
         JsonMapper mapper = getOnlyElement(filter(mappers, new Predicate<JsonMapper>() {
@@ -39,8 +38,6 @@ public class Mapper {
 
         objectUit = ((AbstractMapper) mapper).map(objectIn);
 
-        System.out.println(objectIn);
-        System.out.println(objectUit);
         LOGGER.debug("mappen van {} naar {}", objectIn.getClass(), objectUit.getClass());
         LOGGER.debug("mappen van {} naar {}", objectIn.getClass(), objectUit.getClass());
 

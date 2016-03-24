@@ -35,7 +35,7 @@ public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
 
     public void opslaan(final List<T> entiteiten, SoortEntiteit soortEntiteit, Long entiteitId) {
         for(T t : entiteiten){
-            System.out.println(ReflectionToStringBuilder.toString(t, ToStringStyle.SHORT_PREFIX_STYLE));
+            LOGGER.debug(ReflectionToStringBuilder.toString(t, ToStringStyle.SHORT_PREFIX_STYLE));
         }
 
         List<T> lijstBestaandeNummer = getRepository().alles(soortEntiteit, entiteitId);

@@ -1,7 +1,6 @@
 package nl.lakedigital.djfc.repository;
 
 import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
-import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -53,7 +52,7 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
         entityManager.getTransaction().begin();
 
         for (T adres : adressen) {
-            System.out.println(ReflectionToStringBuilder.toString(adres, ToStringStyle.SHORT_PREFIX_STYLE));
+            LOGGER.debug(ReflectionToStringBuilder.toString(adres, ToStringStyle.SHORT_PREFIX_STYLE));
 
             if (adres.getId() == null) {
                 entityManager.persist(adres);
