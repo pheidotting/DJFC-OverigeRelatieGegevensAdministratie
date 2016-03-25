@@ -28,6 +28,7 @@ public class OpmerkingController extends AbstractController<Opmerking, JsonOpmer
         return opmerkingService;
     }
 
+    @Override
     @RequestMapping(method = RequestMethod.POST, value = "/opslaan")
     @ResponseBody
     public void opslaan(@RequestBody List<JsonOpmerking> jsonEntiteiten) {
