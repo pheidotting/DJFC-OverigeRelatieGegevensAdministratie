@@ -29,10 +29,10 @@ public class TelefoonnummerRepositoryTest {
 
     @Test
     public void opslaan() {
-        SoortEntiteit soortEntiteit=SoortEntiteit.SCHADE;
+        SoortEntiteit soortEntiteit = SoortEntiteit.SCHADE;
         Long entiteitId = 3L;
 
-        assertEquals(0, telefoonnummerRepository.alles(soortEntiteit,entiteitId).size());
+        assertEquals(0, telefoonnummerRepository.alles(soortEntiteit, entiteitId).size());
 
         Telefoonnummer telefoonnummer = new Telefoonnummer();
         telefoonnummer.setTelefoonnummer("0612345678");
@@ -41,7 +41,7 @@ public class TelefoonnummerRepositoryTest {
 
         telefoonnummerRepository.opslaan(newArrayList(telefoonnummer));
 
-        assertEquals(1, telefoonnummerRepository.alles(soortEntiteit,entiteitId).size());
+        assertEquals(1, telefoonnummerRepository.alles(soortEntiteit, entiteitId).size());
         assertEquals(telefoonnummer, telefoonnummerRepository.lees(telefoonnummer.getId()));
 
         telefoonnummer.setOmschrijving("jadajada omschrijving");
@@ -49,12 +49,12 @@ public class TelefoonnummerRepositoryTest {
 
         telefoonnummerRepository.opslaan(newArrayList(telefoonnummer));
 
-        assertEquals(1, telefoonnummerRepository.alles(soortEntiteit,entiteitId).size());
+        assertEquals(1, telefoonnummerRepository.alles(soortEntiteit, entiteitId).size());
         assertEquals(telefoonnummer, telefoonnummerRepository.lees(telefoonnummer.getId()));
 
         telefoonnummerRepository.verwijder(newArrayList(telefoonnummer));
 
-        assertEquals(0, telefoonnummerRepository.alles(soortEntiteit,entiteitId).size());
+        assertEquals(0, telefoonnummerRepository.alles(soortEntiteit, entiteitId).size());
     }
 
 }

@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 @ContextConfiguration("classpath:applicationContext-unittest.xml")
 public class AdresRepositoryTest {
     private Long relatieId = 58L;
-    private SoortEntiteit soortEntiteit=SoortEntiteit.RELATIE;
+    private SoortEntiteit soortEntiteit = SoortEntiteit.RELATIE;
 
     @Inject
     private AdresRepository adresRepository;
@@ -30,7 +30,7 @@ public class AdresRepositoryTest {
 
     @Test
     public void opslaan() {
-        assertEquals(0, adresRepository.alles(soortEntiteit,relatieId).size());
+        assertEquals(0, adresRepository.alles(soortEntiteit, relatieId).size());
 
         Adres adres = new Adres();
         adres.setEntiteitId(relatieId);
@@ -39,9 +39,9 @@ public class AdresRepositoryTest {
 
         adresRepository.opslaan(Lists.newArrayList(adres));
 
-        assertEquals(1, adresRepository.alles(soortEntiteit,relatieId).size());
-        assertEquals(0, adresRepository.alles(SoortEntiteit.POLIS,relatieId).size());
-        assertEquals(0, adresRepository.alles(soortEntiteit,relatieId+1).size());
+        assertEquals(1, adresRepository.alles(soortEntiteit, relatieId).size());
+        assertEquals(0, adresRepository.alles(SoortEntiteit.POLIS, relatieId).size());
+        assertEquals(0, adresRepository.alles(soortEntiteit, relatieId + 1).size());
         assertEquals(adres, adresRepository.lees(adres.getId()));
 
         adres.setHuisnummer(333L);
@@ -50,12 +50,12 @@ public class AdresRepositoryTest {
 
         adresRepository.opslaan(Lists.newArrayList(adres));
 
-        assertEquals(1, adresRepository.alles(soortEntiteit,relatieId).size());
+        assertEquals(1, adresRepository.alles(soortEntiteit, relatieId).size());
         assertEquals(adres, adresRepository.lees(adres.getId()));
 
         adresRepository.verwijder(Lists.newArrayList(adres));
 
-        assertEquals(0, adresRepository.alles(soortEntiteit,relatieId).size());
+        assertEquals(0, adresRepository.alles(soortEntiteit, relatieId).size());
     }
 
 }

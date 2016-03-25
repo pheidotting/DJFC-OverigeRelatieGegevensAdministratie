@@ -1,6 +1,5 @@
 package nl.lakedigital.djfc.repository;
 
-import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.domain.Opmerking;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.inloggen.Sessie;
@@ -30,12 +29,12 @@ public class OpmerkingRepositoryTest {
 
     @Test
     public void opslaan() {
-        SoortEntiteit soortEntiteit=SoortEntiteit.SCHADE;
+        SoortEntiteit soortEntiteit = SoortEntiteit.SCHADE;
         Long entiteitId = 3L;
 
-        assertEquals(0, opmerkingRepository.alles(soortEntiteit,entiteitId).size());
+        assertEquals(0, opmerkingRepository.alles(soortEntiteit, entiteitId).size());
 
-        Opmerking opmerking=new Opmerking();
+        Opmerking opmerking = new Opmerking();
         opmerking.setEntiteitId(entiteitId);
         opmerking.setSoortEntiteit(soortEntiteit);
         opmerking.setMedewerker(3L);
@@ -44,19 +43,19 @@ public class OpmerkingRepositoryTest {
         opmerkingRepository.opslaan(newArrayList(opmerking));
 
         assertNotNull(opmerking.getTijd());
-        assertEquals(1, opmerkingRepository.alles(soortEntiteit,entiteitId).size());
+        assertEquals(1, opmerkingRepository.alles(soortEntiteit, entiteitId).size());
         assertEquals(opmerking, opmerkingRepository.lees(opmerking.getId()));
 
         opmerking.setOpmerking("Andere opmerking");
 
         opmerkingRepository.opslaan(newArrayList(opmerking));
 
-        assertEquals(1, opmerkingRepository.alles(soortEntiteit,entiteitId).size());
+        assertEquals(1, opmerkingRepository.alles(soortEntiteit, entiteitId).size());
         assertEquals(opmerking, opmerkingRepository.lees(opmerking.getId()));
 
         opmerkingRepository.verwijder(newArrayList(opmerking));
 
-        assertEquals(0, opmerkingRepository.alles(soortEntiteit,entiteitId).size());
+        assertEquals(0, opmerkingRepository.alles(soortEntiteit, entiteitId).size());
     }
 
 }

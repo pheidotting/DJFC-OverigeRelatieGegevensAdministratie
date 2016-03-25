@@ -69,7 +69,7 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
     }
 
     public List<T> alles(SoortEntiteit soortEntiteit, Long entiteitId) {
-        TypedQuery<T> query = entityManager.createNamedQuery(getMyType()+".zoekBijEntiteit", type);
+        TypedQuery<T> query = entityManager.createNamedQuery(getMyType() + ".zoekBijEntiteit", type);
         query.setParameter("soortEntiteit", soortEntiteit);
         query.setParameter("entiteitId", entiteitId);
 

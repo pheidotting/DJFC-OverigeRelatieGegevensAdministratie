@@ -8,16 +8,18 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 
 @Component
-public class JsonOpmerkingJsonOpmerkingMapper extends  AbstractMapper<JsonOpmerking,Opmerking>implements JsonMapper{
+public class JsonOpmerkingJsonOpmerkingMapper extends AbstractMapper<JsonOpmerking, Opmerking> implements JsonMapper {
     @Inject
     private OpmerkingService opmerkingService;
 
 
     @Override
     public Opmerking map(JsonOpmerking jsonOpmerking, Object parent, Object bestaandOjbect) {
-        Opmerking opmerking=new Opmerking();
+        Opmerking opmerking = new Opmerking();
 
-        if(jsonOpmerking.getId()!=null){opmerking=opmerkingService.lees(jsonOpmerking.getId());}
+        if (jsonOpmerking.getId() != null) {
+            opmerking = opmerkingService.lees(jsonOpmerking.getId());
+        }
 
         opmerking.setOpmerking(jsonOpmerking.getOpmerking());
         opmerking.setMedewerker(jsonOpmerking.getMedewerkerId());
@@ -27,6 +29,6 @@ public class JsonOpmerkingJsonOpmerkingMapper extends  AbstractMapper<JsonOpmerk
 
     @Override
     public boolean isVoorMij(Object object) {
-        return object instanceof  JsonOpmerking;
+        return object instanceof JsonOpmerking;
     }
 }

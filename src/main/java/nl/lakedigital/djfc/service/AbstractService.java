@@ -26,7 +26,7 @@ public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
     }
 
     public T lees(Long id) {
-        return (T)getRepository().lees(id);
+        return (T) getRepository().lees(id);
     }
 
     public void opslaan(T adres) {
@@ -34,7 +34,7 @@ public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
     }
 
     public void opslaan(final List<T> entiteiten, SoortEntiteit soortEntiteit, Long entiteitId) {
-        for(T t : entiteiten){
+        for (T t : entiteiten) {
             LOGGER.debug(ReflectionToStringBuilder.toString(t, ToStringStyle.SHORT_PREFIX_STYLE));
         }
 

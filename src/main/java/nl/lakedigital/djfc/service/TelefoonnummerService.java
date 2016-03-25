@@ -10,11 +10,11 @@ import javax.inject.Inject;
 
 @Service
 public class TelefoonnummerService extends AbstractService<Telefoonnummer> {
-        @Inject
-        private TelefoonnummerRepository telefoonnummerRepository;
+    @Inject
+    private TelefoonnummerRepository telefoonnummerRepository;
 
-        @Override
-        public AbstractRepository getRepository() {
-            return telefoonnummerRepository;
-        }
+    @Override
+    public AbstractRepository getRepository() {
+        return telefoonnummerRepository;
     }
+}

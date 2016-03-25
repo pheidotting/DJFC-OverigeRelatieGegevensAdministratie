@@ -24,7 +24,7 @@ public class MariaDBServer {
             db.start();
             System.out.println("Db started");//NOSONAR
         } catch (ManagedProcessException mpe) {
-            LOGGER.error("{}",mpe);
+            LOGGER.error("{}", mpe);
             mpe.printStackTrace();
         }
     }

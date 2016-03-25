@@ -23,7 +23,9 @@ public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId
 
 
     public abstract List<T> lijst(String soortEntiteit, Long entiteitId);
+
     public abstract String opslaan(List<T> jsonAdressen);
+
     public abstract void verwijder(String soortEntiteit, Long entiteitId);
 
     protected String aanroepenUrlPost(String adres, Object object) {
@@ -40,6 +42,7 @@ public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId
 
         return cr.getEntity(String.class);
     }
+
     protected void aanroepenUrlPostZonderBody(String adres, String... args) {
         Gson gson = builder.create();
 
@@ -53,7 +56,7 @@ public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId
 
         WebResource webResource = client.resource(adres);
 
-                webResource.accept("application/json").type("application/json").post();
+        webResource.accept("application/json").type("application/json").post();
     }
 
     protected String uitvoerenGet(String adres) {
@@ -122,9 +125,9 @@ public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId
             throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
         }
 
-//        Type listOfTestObject = new TypeToken<List<T>>() {
-//        }.getType();
-//        return gson.fromJson(response.getEntity(String.class), listOfTestObject);
+        //        Type listOfTestObject = new TypeToken<List<T>>() {
+        //        }.getType();
+        //        return gson.fromJson(response.getEntity(String.class), listOfTestObject);
         Type listType = getTypeToken();
         List<T> yourClassList = new Gson().fromJson(response.getEntity(String.class), listType);
 

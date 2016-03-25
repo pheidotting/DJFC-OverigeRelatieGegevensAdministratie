@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class OpmerkingTest extends AbstractTest<JsonOpmerking> {
-    private OpmerkingClient opmerkingClient=new OpmerkingClient();
+    private OpmerkingClient opmerkingClient = new OpmerkingClient();
 
     public final List<String> fieldNames = Lists.newArrayList(//
             //            "tijd", //
@@ -31,7 +31,7 @@ public class OpmerkingTest extends AbstractTest<JsonOpmerking> {
 
     @Override
     public JsonOpmerking maakEntiteit(int teller, Long entiteitId, SoortEntiteit soortEntiteit) {
-        JsonOpmerking jsonOpmerking=new JsonOpmerking();
+        JsonOpmerking jsonOpmerking = new JsonOpmerking();
 
         jsonOpmerking.setOpmerking(UUID.randomUUID().toString());
         jsonOpmerking.setTijd("2016-05-01 13:37");
@@ -44,6 +44,6 @@ public class OpmerkingTest extends AbstractTest<JsonOpmerking> {
 
     @Override
     public void wijzig(JsonOpmerking entiteit) {
-entiteit.setOpmerking("nieuweOpmerking");
+        entiteit.setOpmerking("nieuweOpmerking");
     }
 }

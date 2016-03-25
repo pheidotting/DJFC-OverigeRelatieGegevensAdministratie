@@ -16,7 +16,7 @@ public class JsonAdresNaarAdresMapper extends AbstractMapper<JsonAdres, Adres> i
     public Adres map(JsonAdres jsonAdres, Object parent, Object bestaandObject) {
         Adres adres = new Adres();
 
-        if(jsonAdres.getId()!=null){
+        if (jsonAdres.getId() != null) {
             adres = adresService.lees(jsonAdres.getId());
         }
 

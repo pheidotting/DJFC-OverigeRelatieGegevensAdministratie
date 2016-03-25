@@ -5,7 +5,7 @@ import nl.lakedigital.djfc.domain.Opmerking;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OpmerkingNaarJsonOpmerkingMapper extends  AbstractMapper<Opmerking,JsonOpmerking> implements JsonMapper{
+public class OpmerkingNaarJsonOpmerkingMapper extends AbstractMapper<Opmerking, JsonOpmerking> implements JsonMapper {
     @Override
     public JsonOpmerking map(Opmerking opmerking, Object parent, Object bestaandOjbect) {
         JsonOpmerking jsonOpmerking = new JsonOpmerking();
@@ -20,6 +20,6 @@ public class OpmerkingNaarJsonOpmerkingMapper extends  AbstractMapper<Opmerking,
 
     @Override
     public boolean isVoorMij(Object object) {
-        return object instanceof  Opmerking;
+        return object instanceof Opmerking;
     }
 }

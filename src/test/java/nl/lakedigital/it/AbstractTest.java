@@ -14,8 +14,11 @@ import static nl.lakedigital.assertion.Assert.assertEquals;
 
 public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> {
     public abstract AbstractClient getClient();
+
     public abstract List<String> getFields();
+
     public abstract T maakEntiteit(int teller, Long entiteitId, SoortEntiteit soortEntiteit);
+
     public abstract void wijzig(T entiteit);
 
     @Test
@@ -79,4 +82,5 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
         getClient().verwijder(soortEntiteit.name(), entiteitId);
 
         assertEquals(0, getClient().lijst(soortEntiteit.name(), entiteitId).size());
-    }}
+    }
+}

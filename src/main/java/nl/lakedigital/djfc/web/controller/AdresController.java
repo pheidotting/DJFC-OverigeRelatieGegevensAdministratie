@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequestMapping("/adres")
 @Controller
-public class AdresController extends AbstractController<Adres,JsonAdres>{
+public class AdresController extends AbstractController<Adres, JsonAdres> {
     public AdresController() {
         super(Adres.class, JsonAdres.class, AdresController.class);
     }

@@ -20,7 +20,8 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
     private final Class<J> jsonType;
 
     public AbstractController(Class<D> domainType, Class<J> jsonType, Class loggerType) {
-        this.domainType = domainType;this.jsonType=jsonType;
+        this.domainType = domainType;
+        this.jsonType = jsonType;
         LOGGER = LoggerFactory.getLogger(loggerType);
     }
 
@@ -45,6 +46,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
     }
 
     public abstract void opslaan(List<J> jsonEntiteiten);
+
     public void goOpslaan(@RequestBody List<J> jsonEntiteiten) {
         if (jsonEntiteiten != null && !jsonEntiteiten.isEmpty()) {
             J eersteEntiteit = jsonEntiteiten.get(0);
@@ -56,6 +58,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
             getService().opslaan(entiteiten, SoortEntiteit.valueOf(eersteEntiteit.getSoortEntiteit()), eersteEntiteit.getEntiteitId());
         }
     }
+
     @RequestMapping(method = RequestMethod.POST, value = "/verwijderen/{soortentiteit}/{parentid}")
     @ResponseBody
     public void verwijderen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
