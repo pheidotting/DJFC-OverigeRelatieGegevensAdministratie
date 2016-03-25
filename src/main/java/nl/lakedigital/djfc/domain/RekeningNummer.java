@@ -24,7 +24,7 @@ public class RekeningNummer extends AbstracteEntiteitMetSoortEnId implements Ser
     @Column(name = "BIC")
     private String bic;
     @Column(name = "REKENINGNUMMER")
-    private String rekeningnummer;
+    private String rekNr;
 
     @Override
     public Long getId() {
@@ -44,11 +44,11 @@ public class RekeningNummer extends AbstracteEntiteitMetSoortEnId implements Ser
     }
 
     public String getRekeningnummer() {
-        return rekeningnummer;
+        return rekNr;
     }
 
     public void setRekeningnummer(String rekeningnummer) {
-        this.rekeningnummer = rekeningnummer;
+        this.rekNr = rekeningnummer;
     }
 
     @Override
@@ -73,6 +73,6 @@ public class RekeningNummer extends AbstracteEntiteitMetSoortEnId implements Ser
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("bic", bic).append("rekeningnummer", rekeningnummer).toString();
+        return new ToStringBuilder(this).append("id", id).append("bic", bic).append("rekeningnummer", rekNr).toString();
     }
 }

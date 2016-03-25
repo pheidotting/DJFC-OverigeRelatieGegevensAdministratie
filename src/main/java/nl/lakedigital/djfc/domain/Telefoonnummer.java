@@ -22,7 +22,7 @@ public class Telefoonnummer extends AbstracteEntiteitMetSoortEnId implements Ser
     @Column(name = "ID")
     private Long id;
     @Column(length = 10, name = "TELEFOONNUMMER")
-    private String telefoonnummer;
+    private String telNr;
     @Column(name = "TELEFOONNUMMERSOORT")
     @Enumerated(EnumType.STRING)
     private TelefoonnummerSoort soort;
@@ -39,11 +39,11 @@ public class Telefoonnummer extends AbstracteEntiteitMetSoortEnId implements Ser
     }
 
     public String getTelefoonnummer() {
-        return telefoonnummer;
+        return telNr;
     }
 
     public void setTelefoonnummer(String telefoonnummer) {
-        this.telefoonnummer = telefoonnummer;
+        this.telNr = telefoonnummer;
     }
 
     public TelefoonnummerSoort getSoort() {
@@ -84,6 +84,6 @@ public class Telefoonnummer extends AbstracteEntiteitMetSoortEnId implements Ser
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("telefoonnummer", telefoonnummer).append("soort", soort).append("omschrijving", omschrijving).toString();
+        return new ToStringBuilder(this).append("id", id).append("telefoonnummer", telNr).append("soort", soort).append("omschrijving", omschrijving).toString();
     }
 }

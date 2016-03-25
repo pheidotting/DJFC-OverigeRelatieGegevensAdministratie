@@ -29,7 +29,7 @@ public class Opmerking extends AbstracteEntiteitMetSoortEnId implements Serializ
     @Column(name = "MEDEWERKER")
     private Long medewerker;
     @Column(columnDefinition = "varchar(2500)", name = "OPMERKING")
-    private String opmerking;
+    private String opm;
 
     public Opmerking() {
         tijd = new Date();
@@ -61,11 +61,11 @@ public class Opmerking extends AbstracteEntiteitMetSoortEnId implements Serializ
     }
 
     public String getOpmerking() {
-        return opmerking;
+        return opm;
     }
 
     public void setOpmerking(String opmerking) {
-        this.opmerking = opmerking;
+        this.opm = opmerking;
     }
 
     @Override
@@ -90,6 +90,6 @@ public class Opmerking extends AbstracteEntiteitMetSoortEnId implements Serializ
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("tijd", tijd).append("medewerker", medewerker).append("opmerking", opmerking).toString();
+        return new ToStringBuilder(this).append("id", id).append("tijd", tijd).append("medewerker", medewerker).append("opmerking", opm).toString();
     }
 }
