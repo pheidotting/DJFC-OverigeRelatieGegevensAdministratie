@@ -86,12 +86,12 @@ public class Bijlage extends AbstracteEntiteitMetSoortEnId implements Serializab
 
         Bijlage bijlage = (Bijlage) o;
 
-        return new EqualsBuilder().append(getId(), bijlage.getId()).append(getBestandsNaam(), bijlage.getBestandsNaam()).append(getUploadMoment(), bijlage.getUploadMoment()).append(getS3Identificatie(), bijlage.getS3Identificatie()).append(getOmschrijving(), bijlage.getOmschrijving()).isEquals();
+        return new EqualsBuilder().append(getId(), bijlage.getId()).append(getBestandsNaam(), bijlage.getBestandsNaam()).append(getOmschrijving(), bijlage.getOmschrijving()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(getId()).append(getBestandsNaam()).append(getUploadMoment()).append(getS3Identificatie()).append(getOmschrijving()).toHashCode();
+        return new HashCodeBuilder(17, 37).append(getId()).append(getBestandsNaam()).append(getOmschrijving()).toHashCode();
     }
 
     @Override

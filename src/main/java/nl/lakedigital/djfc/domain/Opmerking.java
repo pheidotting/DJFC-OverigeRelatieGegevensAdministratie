@@ -80,16 +80,16 @@ public class Opmerking extends AbstracteEntiteitMetSoortEnId implements Serializ
 
         Opmerking opmerking1 = (Opmerking) o;
 
-        return new EqualsBuilder().append(getId(), opmerking1.getId()).append(getTijd(), opmerking1.getTijd()).append(getMedewerker(), opmerking1.getMedewerker()).append(getOpmerking(), opmerking1.getOpmerking()).isEquals();
+        return new EqualsBuilder().append(getId(), opmerking1.getId()).append(getMedewerker(), opmerking1.getMedewerker()).append(getOpmerking(), opmerking1.getOpmerking()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(getId()).append(getTijd()).append(getMedewerker()).append(getOpmerking()).toHashCode();
+        return new HashCodeBuilder(17, 37).append(getId()).append(getMedewerker()).append(getOpmerking()).toHashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("tijd", tijd).append("medewerker", medewerker).append("opmerking", opm).toString();
+        return new ToStringBuilder(this).append("id", id).append("tijd", tijd).append("medewerker", medewerker).append("opm", opm).append("opmerking", getOpmerking()).toString();
     }
 }

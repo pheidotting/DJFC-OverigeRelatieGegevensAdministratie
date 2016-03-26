@@ -10,6 +10,7 @@ public class BijlageNaarJsonBijlageMapper extends AbstractMapper<Bijlage, JsonBi
     public JsonBijlage map(Bijlage bijlage, Object parent, Object bestaandObject) {
         JsonBijlage json = new JsonBijlage();
         json.setId(bijlage.getId());
+        json.setOmschrijving(bijlage.getOmschrijving());
         if (bijlage.getOmschrijving() != null) {
             json.setOmschrijvingOfBestandsNaam(bijlage.getOmschrijving());
         } else {
