@@ -47,6 +47,7 @@ public class Adres extends AbstracteEntiteitMetSoortEnId implements Serializable
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

@@ -31,6 +31,7 @@ public class RekeningNummer extends AbstracteEntiteitMetSoortEnId implements Ser
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

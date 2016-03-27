@@ -38,6 +38,7 @@ public class Bijlage extends AbstracteEntiteitMetSoortEnId implements Serializab
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
