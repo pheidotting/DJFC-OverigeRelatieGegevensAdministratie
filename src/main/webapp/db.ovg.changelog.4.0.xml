@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    
+    <changeSet id="1" author="Patrick Heidotting">
+        <createTable tableName="REVINFO">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="timestamp" type="bigint" />
+            <column name="userid" type="bigint" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Patrick Heidotting">
+        <createTable tableName="ADRES">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="HUISNUMMER" type="int" />
+            <column name="PLAATS" type="varchar(255)" />
+            <column name="POSTCODE" type="varchar(6)" />
+            <column name="STRAAT" type="varchar(255)" />
+            <column name="TOEVOEGING" type="varchar(255)" />
+            <column name="SOORT" type="varchar(255)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+        <createTable tableName="ADRES_AUD">
+            <column name="ID" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="REV" type="int" />
+            <column name="REVTYPE" type="int" />
+            <column name="HUISNUMMER" type="int" />
+            <column name="PLAATS" type="varchar(255)" />
+            <column name="POSTCODE" type="varchar(6)" />
+            <column name="STRAAT" type="varchar(255)" />
+            <column name="TOEVOEGING" type="varchar(255)" />
+            <column name="SOORT" type="varchar(255)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+        <createTable tableName="BIJLAGE">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="BESTANDSNAAM" type="long" />
+            <column name="UPLOADMOMENT" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="S3" type="varchar(255)" />
+            <column name="OMSCHRIJVING" type="varchar(300)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+        <createTable tableName="BIJLAGE_AUD">
+            <column name="ID" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="REV" type="int" />
+            <column name="REVTYPE" type="int" />
+            <column name="BESTANDSNAAM" type="long" />
+            <column name="UPLOADMOMENT" type="datetime" />
+            <column name="S3" type="varchar(255)" />
+            <column name="OMSCHRIJVING" type="varchar(300)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+        <createTable tableName="OPMERKING">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="OPMERKING" type="text" />
+            <column name="TIJD" type="datetime" />
+            <column name="MEDEWERKER" type="bigint(20)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+        <createTable tableName="OPMERKING_AUD">
+            <column name="ID" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="REV" type="int" />
+            <column name="REVTYPE" type="int" />
+            <column name="OPMERKING" type="text" />
+            <column name="TIJD" type="datetime" />
+            <column name="MEDEWERKER" type="bigint(20)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+        <createTable tableName="REKENINGNUMMER">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="BIC" type="varchar(11)" />
+            <column name="REKENINGNUMMER" type="varchar(18)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+        <createTable tableName="REKENINGNUMMER_AUD">
+            <column name="ID" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="REV" type="int" />
+            <column name="REVTYPE" type="int" />
+            <column name="BIC" type="varchar(11)" />
+            <column name="REKENINGNUMMER" type="varchar(18)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+        <createTable tableName="TELEFOONNUMMER">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="TELEFOONNUMMERSOORT" type="varchar(255)" />
+            <column name="TELEFOONNUMMER" type="varchar(11)" />
+            <column name="OMSCHRIJVING" type="varchar(2500)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+        <createTable tableName="TELEFOONNUMMER_AUD">
+            <column name="ID" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="REV" type="int" />
+            <column name="REVTYPE" type="int" />
+            <column name="TELEFOONNUMMERSOORT" type="varchar(255)" />
+            <column name="TELEFOONNUMMER" type="varchar(11)" />
+            <column name="OMSCHRIJVING" type="varchar(2500)" />
+            <column name="ENTITEITID" type="int" />
+            <column name="SOORTENTITEIT" type="varchar(20)" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
