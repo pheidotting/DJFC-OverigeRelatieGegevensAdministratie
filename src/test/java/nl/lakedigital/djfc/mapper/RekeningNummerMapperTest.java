@@ -3,10 +3,24 @@ package nl.lakedigital.djfc.mapper;
 import nl.lakedigital.djfc.commons.json.JsonRekeningNummer;
 import nl.lakedigital.djfc.domain.RekeningNummer;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
+import nl.lakedigital.djfc.service.AbstractService;
+import nl.lakedigital.djfc.service.RekeningNummerService;
+import org.easymock.Mock;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class RekeningNummerMapperTest extends AbstractMapperTest<RekeningNummer, JsonRekeningNummer> {
     private RekeningNummerNaarJsonRekeningNummerMapper naarJsonMapper = new RekeningNummerNaarJsonRekeningNummerMapper();
     private JsonRekeningNummerNaarRekeningNummerMapper vanJsonMapper = new JsonRekeningNummerNaarRekeningNummerMapper();
+
+    @Mock
+    private RekeningNummerService rekeningNummerService;
+
+    @Override
+    public AbstractService getService() {
+        ReflectionTestUtils.setField(vanJsonMapper, "rekeningNummerService", rekeningNummerService);
+
+        return rekeningNummerService;
+    }
 
     @Override
     public AbstractMapper naarJsonMapper() {

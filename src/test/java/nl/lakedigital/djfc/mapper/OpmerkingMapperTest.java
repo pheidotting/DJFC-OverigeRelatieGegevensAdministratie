@@ -3,10 +3,24 @@ package nl.lakedigital.djfc.mapper;
 import nl.lakedigital.djfc.commons.json.JsonOpmerking;
 import nl.lakedigital.djfc.domain.Opmerking;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
+import nl.lakedigital.djfc.service.AbstractService;
+import nl.lakedigital.djfc.service.OpmerkingService;
+import org.easymock.Mock;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class OpmerkingMapperTest extends AbstractMapperTest<Opmerking, JsonOpmerking> {
     private OpmerkingNaarJsonOpmerkingMapper naarJsonMapper = new OpmerkingNaarJsonOpmerkingMapper();
     private JsonOpmerkingJsonOpmerkingMapper vanJsonMapper = new JsonOpmerkingJsonOpmerkingMapper();
+
+    @Mock
+    private OpmerkingService opmerkingService;
+
+    @Override
+    public AbstractService getService() {
+        ReflectionTestUtils.setField(vanJsonMapper, "opmerkingService", opmerkingService);
+
+        return opmerkingService;
+    }
 
     @Override
     public AbstractMapper naarJsonMapper() {

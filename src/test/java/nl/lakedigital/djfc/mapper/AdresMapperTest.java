@@ -3,10 +3,24 @@ package nl.lakedigital.djfc.mapper;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
+import nl.lakedigital.djfc.service.AbstractService;
+import nl.lakedigital.djfc.service.AdresService;
+import org.easymock.Mock;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class AdresMapperTest extends AbstractMapperTest<Adres, JsonAdres> {
     private AdresNaarJsonAdresMapper naarJsonMapper = new AdresNaarJsonAdresMapper();
     private JsonAdresNaarAdresMapper vanJsonMapper = new JsonAdresNaarAdresMapper();
+
+    @Mock
+    private AdresService adresService;
+
+    @Override
+    public AbstractService getService() {
+        ReflectionTestUtils.setField(vanJsonMapper, "adresService", adresService);
+
+        return adresService;
+    }
 
     @Override
     public AbstractMapper naarJsonMapper() {

@@ -4,10 +4,24 @@ import nl.lakedigital.djfc.commons.json.JsonTelefoonnummer;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.domain.Telefoonnummer;
 import nl.lakedigital.djfc.domain.TelefoonnummerSoort;
+import nl.lakedigital.djfc.service.AbstractService;
+import nl.lakedigital.djfc.service.TelefoonnummerService;
+import org.easymock.Mock;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class TelefoonnummerMapperTest extends AbstractMapperTest<Telefoonnummer, JsonTelefoonnummer> {
     private TelefoonnummerNaarJsonTelefoonnummerMapper naarJsonMapper = new TelefoonnummerNaarJsonTelefoonnummerMapper();
     private JsonTelefoonnummerNaarTelefoonnummerMapper vanJsonMapper = new JsonTelefoonnummerNaarTelefoonnummerMapper();
+
+    @Mock
+    private TelefoonnummerService telefoonnummerService;
+
+    @Override
+    public AbstractService getService() {
+        ReflectionTestUtils.setField(vanJsonMapper, "telefoonnummerService", telefoonnummerService);
+
+        return telefoonnummerService;
+    }
 
     @Override
     public AbstractMapper naarJsonMapper() {

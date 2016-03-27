@@ -18,6 +18,8 @@ public abstract class AbstracteEntiteitMetSoortEnId {
 
     public abstract Long getId();
 
+    public abstract void setId(Long id);
+
     public SoortEntiteit getSoortEntiteit() {
         return soortEntiteit;
     }
