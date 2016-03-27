@@ -4,10 +4,10 @@
 
     <packaging>war</packaging>
     <groupId>nl.lakedigital.djfc</groupId>
-    <artifactId>djfc-overigerelatiegegevensadministratie</artifactId>
+    <artifactId>djfc-overigegegevensadministratie</artifactId>
     <version>4.0-SNAPSHOT</version>
 
-    <name>DJFC-OverigeRelatieGegevensAdministratie</name>
+    <name>DJFC-OverigeGegevensAdministratie</name>
     <url>http://maven.apache.org</url>
 
     <properties>
