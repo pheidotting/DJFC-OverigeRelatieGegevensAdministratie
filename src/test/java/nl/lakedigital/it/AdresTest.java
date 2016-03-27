@@ -3,12 +3,25 @@ package nl.lakedigital.it;
 import com.google.common.collect.Lists;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
+import nl.lakedigital.djfc.repository.AdresRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.UUID;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:applicationContext-it.xml")
 public class AdresTest extends AbstractTest<JsonAdres> {
     private AdresClient adresClient = new AdresClient();
+    @Inject
+    private AdresRepository adresRepository;
 
     public final List<String> jsonAdresFieldNames = Lists.newArrayList(//
             "straat", //
@@ -51,6 +64,18 @@ public class AdresTest extends AbstractTest<JsonAdres> {
     @Override
     public void wijzig(JsonAdres entiteit) {
         entiteit.setStraat("nieuweStraat");
+    }
 
+    @Test
+    public void testLees() {
+        JsonAdres jsonAdres = maakEntiteit(10, 99L, SoortEntiteit.RELATIE);
+
+        getClient().opslaan(Lists.newArrayList(jsonAdres));
+
+        Long id = adresRepository.alles(SoortEntiteit.RELATIE, 99L).get(0).getId();
+
+        jsonAdres.setId(id);
+
+        assertThat(adresClient.lees(id), is(jsonAdres));
     }
 }

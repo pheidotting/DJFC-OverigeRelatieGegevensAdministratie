@@ -6,6 +6,11 @@ import nl.lakedigital.djfc.service.AbstractService;
 import nl.lakedigital.djfc.service.AdresService;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
+import org.junit.Test;
+
+import static org.easymock.EasyMock.expect;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class AdresControllerTest extends AbstractControllerTest<Adres, JsonAdres> {
     @TestSubject
@@ -41,5 +46,21 @@ public class AdresControllerTest extends AbstractControllerTest<Adres, JsonAdres
     @Override
     public Class setJsonType() {
         return JsonAdres.class;
+    }
+
+    @Test
+    public void testLees() {
+        Adres adres = new Adres();
+        JsonAdres jsonAdres = new JsonAdres();
+        Long id = 5L;
+
+        expect(adresService.lees(id)).andReturn(adres);
+        expect(mapper.map(adres, JsonAdres.class)).andReturn(jsonAdres);
+
+        replayAll();
+
+        assertThat(adresController.lees(id), is(jsonAdres));
+
+        verifyAll();
     }
 }

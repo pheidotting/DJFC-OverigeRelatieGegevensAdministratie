@@ -5,10 +5,7 @@ import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.service.AbstractService;
 import nl.lakedigital.djfc.service.AdresService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -35,4 +32,9 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
         goOpslaan(jsonEntiteiten);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/lees/{id}")
+    @ResponseBody
+    public JsonAdres lees(@PathVariable Long id) {
+        return mapper.map(adresService.lees(id), JsonAdres.class);
+    }
 }
