@@ -161,7 +161,7 @@
               <threadCounts>true</threadCounts>
             </value>
           </objProp>
-          <stringProp name="filename">/jmeter/oga.jtl</stringProp>
+          <stringProp name="filename">/tmp/jmeter/oga.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
