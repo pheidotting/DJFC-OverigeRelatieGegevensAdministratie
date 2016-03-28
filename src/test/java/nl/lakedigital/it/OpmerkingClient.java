@@ -39,7 +39,7 @@ public class OpmerkingClient extends AbstractClient<JsonOpmerking> {
         }
         System.out.println("# Aanroepen " + URL_OPSLAAN);
 
-        return aanroepenUrlPost(URL_OPSLAAN, jsonAdressen);
+        return aanroepenUrlPost(URL_OPSLAAN, jsonAdressen, 5L);
     }
 
     @Override
@@ -47,6 +47,6 @@ public class OpmerkingClient extends AbstractClient<JsonOpmerking> {
 
         System.out.println("Aanroepen " + URL_VERWIJDEREN);
 
-        aanroepenUrlPostZonderBody(URL_VERWIJDEREN, soortEntiteit, entiteitId.toString());
+        aanroepenUrlPostZonderBody(URL_VERWIJDEREN, 5L, soortEntiteit, entiteitId.toString());
     }
 }

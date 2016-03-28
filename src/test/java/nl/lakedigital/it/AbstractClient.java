@@ -28,7 +28,7 @@ public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId
 
     public abstract void verwijder(String soortEntiteit, Long entiteitId);
 
-    protected String aanroepenUrlPost(String adres, Object object) {
+    protected String aanroepenUrlPost(String adres, Object object, Long ingelogdeGebruiker) {
         Gson gson = builder.create();
 
         Client client = Client.create();
@@ -38,12 +38,12 @@ public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId
         LOGGER.info("Versturen {}", verstuurObject);
         System.out.println("Versturen " + verstuurObject + " naar " + adres);
 
-        ClientResponse cr = webResource.accept("application/json").type("application/json").post(ClientResponse.class, verstuurObject);
+        ClientResponse cr = webResource.accept("application/json").type("application/json").header("ingelogdeGebruiker", ingelogdeGebruiker.toString()).post(ClientResponse.class, verstuurObject);
 
         return cr.getEntity(String.class);
     }
 
-    protected void aanroepenUrlPostZonderBody(String adres, String... args) {
+    protected void aanroepenUrlPostZonderBody(String adres, Long ingelogdeGebruiker, String... args) {
         Gson gson = builder.create();
 
         Client client = Client.create();
@@ -56,7 +56,7 @@ public abstract class AbstractClient<T extends AbstracteJsonEntiteitMetSoortEnId
 
         WebResource webResource = client.resource(adres);
 
-        webResource.accept("application/json").type("application/json").post();
+        webResource.accept("application/json").type("application/json").header("ingelogdeGebruiker", ingelogdeGebruiker.toString()).post();
     }
 
     protected String uitvoerenGet(String adres) {
