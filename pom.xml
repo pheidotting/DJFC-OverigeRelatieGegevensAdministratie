@@ -34,11 +34,11 @@
             <artifactId>djfc-commons</artifactId>
             <version>4.0</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>nl.lakedigital.djfc</groupId>-->
-        <!--<artifactId>djfc-persoonsbeheer-client</artifactId>-->
-        <!--<version>4.0</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>nl.lakedigital.djfc</groupId>
+            <artifactId>djfc-clients</artifactId>
+            <version>4.0</version>
+        </dependency>
 
         <dependency>
             <groupId>net.sf.dozer</groupId>
@@ -81,11 +81,11 @@
             <version>LATEST</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>ch.vorburger.mariaDB4j</groupId>
-            <artifactId>mariaDB4j</artifactId>
-            <version>2.2.0-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>ch.vorburger.mariaDB4j</groupId>-->
+        <!--<artifactId>mariaDB4j</artifactId>-->
+        <!--<version>2.2.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>joda-time</groupId>

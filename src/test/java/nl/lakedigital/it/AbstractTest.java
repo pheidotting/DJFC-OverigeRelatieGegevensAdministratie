@@ -1,6 +1,7 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
+import nl.lakedigital.djfc.client.AbstractClient;
 import nl.lakedigital.djfc.commons.json.AbstracteJsonEntiteitMetSoortEnId;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
