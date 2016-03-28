@@ -62,7 +62,7 @@ public class AdresServiceTest extends AbstractServicetTest<Adres> {
 
     @Override
     public void testOpslaan() throws Exception {
-        adresOpgeslagenTaakSender.send(46L);
+        adresOpgeslagenTaakSender.send(getLegeEntiteit());
         expectLastCall();
 
         super.testOpslaan();
@@ -70,9 +70,9 @@ public class AdresServiceTest extends AbstractServicetTest<Adres> {
 
     @Override
     public void testOpslaanLijst() throws Exception {
-        adresOpgeslagenTaakSender.send(41L);
+        adresOpgeslagenTaakSender.send(getGevuldeEntiteit());
         expectLastCall();
-        adresOpgeslagenTaakSender.send(1L);
+        adresOpgeslagenTaakSender.send(getGevuldeBestaandeEntiteit());
         expectLastCall();
 
         super.testOpslaanLijst();

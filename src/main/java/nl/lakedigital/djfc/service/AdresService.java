@@ -27,7 +27,7 @@ public class AdresService extends AbstractService<Adres> {
         super.opslaan(adres);
 
         if (!adres.isCompleet()) {
-            adresOpgeslagenTaakSender.send(adres.getId());
+            adresOpgeslagenTaakSender.send(adres);
         }
     }
 
@@ -37,7 +37,7 @@ public class AdresService extends AbstractService<Adres> {
 
         for (Adres adres : adressen) {
             if (!adres.isCompleet()) {
-                adresOpgeslagenTaakSender.send(adres.getId());
+                adresOpgeslagenTaakSender.send(adres);
             }
         }
     }

@@ -2,10 +2,8 @@ package nl.lakedigital.djfc.service;
 
 import com.google.common.collect.Lists;
 import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
-import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.repository.AbstractRepository;
-import nl.lakedigital.djfc.repository.AdresRepository;
 import org.easymock.EasyMockRunner;
 import org.easymock.EasyMockSupport;
 import org.junit.Test;
@@ -64,16 +62,7 @@ public abstract class AbstractServicetTest<T extends AbstracteEntiteitMetSoortEn
         T entiteit = getLegeEntiteit();
 
         getRepository().opslaan(Lists.newArrayList(entiteit));
-        if (entiteit instanceof Adres) {
-            expectLastCall().andDelegateTo(new AdresRepository() {
-                @Override
-                public void opslaan(List<Adres> adressen) {
-                    adressen.get(0).setId(46L);
-                }
-            });
-        } else {
             expectLastCall();
-        }
 
         replayAll();
 
@@ -94,18 +83,7 @@ public abstract class AbstractServicetTest<T extends AbstracteEntiteitMetSoortEn
         expect(getRepository().alles(soortEntiteit, entiteitId)).andReturn(Lists.newArrayList(bestaand, teVerwijderen));
 
         getRepository().opslaan(Lists.newArrayList(nieuw, bestaand));
-        if (nieuw instanceof Adres) {
-            expectLastCall().andDelegateTo(new AdresRepository() {
-                private Long id = 41L;
-
-                @Override
-                public void opslaan(List<Adres> adres) {
-                    adres.get(0).setId(id++);
-                }
-            });
-        } else {
             expectLastCall();
-        }
         getRepository().verwijder(Lists.newArrayList(teVerwijderen));
         expectLastCall();
 
