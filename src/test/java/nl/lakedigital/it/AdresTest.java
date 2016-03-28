@@ -1,6 +1,8 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
+import nl.lakedigital.djfc.client.AbstractClient;
+import nl.lakedigital.djfc.client.oga.AdresClient;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.repository.AdresRepository;

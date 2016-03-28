@@ -25,7 +25,7 @@
     </bean>
     -->
 
-    <bean id="MariaDbServer" class="nl.lakedigital.MariaDBServer" init-method="init">
+    <bean id="MariaDbServer" class="nl.lakedigital.djfc.mariadbserver.MariaDBServer" init-method="init">
         <property name="poortNummer" value="3306"/>
     </bean>
 

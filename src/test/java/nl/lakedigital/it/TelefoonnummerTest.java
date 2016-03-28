@@ -1,6 +1,8 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
+import nl.lakedigital.djfc.client.AbstractClient;
+import nl.lakedigital.djfc.client.oga.TelefoonnummerClient;
 import nl.lakedigital.djfc.commons.json.JsonTelefoonnummer;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 

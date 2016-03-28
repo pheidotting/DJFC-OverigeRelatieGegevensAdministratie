@@ -1,6 +1,8 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
+import nl.lakedigital.djfc.client.AbstractClient;
+import nl.lakedigital.djfc.client.oga.OpmerkingClient;
 import nl.lakedigital.djfc.commons.json.JsonOpmerking;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 

@@ -24,7 +24,7 @@
     </bean>
     -->
 
-    <!--bean id="MariaDbServer" class="nl.lakedigital.MariaDBServer" init-method="init" /-->
+    <!--bean id="MariaDbServer" class="nl.lakedigital.djfc.mariadbserver.MariaDBServer" init-method="init" /-->
 
     <bean id="dataSource" class="com.atomikos.jdbc.nonxa.AtomikosNonXADataSourceBean"><!-- depends-on="MariaDbServer"-->
         <property name="uniqueResourceName" value="NonXA_DataSource"/>

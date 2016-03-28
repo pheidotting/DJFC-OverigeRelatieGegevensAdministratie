@@ -1,11 +1,14 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
+import nl.lakedigital.djfc.client.AbstractClient;
+import nl.lakedigital.djfc.client.oga.BijlageClient;
 import nl.lakedigital.djfc.commons.json.JsonBijlage;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 
 import java.util.List;
 import java.util.UUID;
+
 
 public class BijlageTest extends AbstractTest<JsonBijlage> {
     private BijlageClient bijlageClient = new BijlageClient();
