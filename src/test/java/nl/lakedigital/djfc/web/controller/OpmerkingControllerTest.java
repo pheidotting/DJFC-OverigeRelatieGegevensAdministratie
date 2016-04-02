@@ -6,6 +6,12 @@ import nl.lakedigital.djfc.service.AbstractService;
 import nl.lakedigital.djfc.service.OpmerkingService;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
+import org.junit.Test;
+
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class OpmerkingControllerTest extends AbstractControllerTest<Opmerking, JsonOpmerking> {
     @TestSubject
@@ -41,5 +47,42 @@ public class OpmerkingControllerTest extends AbstractControllerTest<Opmerking, J
     @Override
     public Class setJsonType() {
         return JsonOpmerking.class;
+    }
+
+    @Test
+    public void testVerwijder() {
+        Long id = 7L;
+
+        opmerkingService.verwijder(id);
+        expectLastCall();
+
+        replayAll();
+
+        opmerkingController.verwijder(id);
+
+        verifyAll();
+    }
+
+    @Test
+    public void testOpslaan() {
+        JsonOpmerking jsonOpmerking = new JsonOpmerking();
+        final Opmerking opmerking = new Opmerking();
+        final Long id = 9L;
+
+        expect(mapper.map(jsonOpmerking, Opmerking.class)).andReturn(opmerking);
+        opmerkingService.opslaan(opmerking);
+        expectLastCall().andDelegateTo(new OpmerkingService() {
+            @Override
+            public void opslaan(Opmerking opmerking1) {
+                opmerking1.setId(id);
+            }
+        });
+
+        replayAll();
+
+        assertThat(opmerkingController.opslaan(jsonOpmerking), is(id));
+
+        verifyAll();
+
     }
 }

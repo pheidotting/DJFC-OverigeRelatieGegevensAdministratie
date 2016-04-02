@@ -6,6 +6,12 @@ import nl.lakedigital.djfc.service.AbstractService;
 import nl.lakedigital.djfc.service.BijlageService;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
+import org.junit.Test;
+
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonBijlage> {
     @TestSubject
@@ -41,5 +47,42 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
     @Override
     public Class setJsonType() {
         return JsonBijlage.class;
+    }
+
+    @Test
+    public void testVerwijder() {
+        Long id = 7L;
+
+        bijlageService.verwijder(id);
+        expectLastCall();
+
+        replayAll();
+
+        bijlageController.verwijder(id);
+
+        verifyAll();
+    }
+
+    @Test
+    public void testOpslaan() {
+        JsonBijlage jsonBijlage = new JsonBijlage();
+        final Bijlage bijlage = new Bijlage();
+        final Long id = 9L;
+
+        expect(mapper.map(jsonBijlage, Bijlage.class)).andReturn(bijlage);
+        bijlageService.opslaan(bijlage);
+        expectLastCall().andDelegateTo(new BijlageService() {
+            @Override
+            public void opslaan(Bijlage bijlage1) {
+                bijlage1.setId(id);
+            }
+        });
+
+        replayAll();
+
+        assertThat(bijlageController.opslaan(jsonBijlage), is(id));
+
+        verifyAll();
+
     }
 }

@@ -5,6 +5,10 @@ import nl.lakedigital.djfc.repository.AbstractRepository;
 import nl.lakedigital.djfc.repository.OpmerkingRepository;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
+import org.junit.Test;
+
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
 
 public class OpmerkingServiceTest extends AbstractServicetTest<Opmerking> {
     @TestSubject
@@ -51,5 +55,21 @@ public class OpmerkingServiceTest extends AbstractServicetTest<Opmerking> {
         opmerking.setId(3L);
 
         return opmerking;
+    }
+
+    @Test
+    public void testVerwijder() {
+        Opmerking opmerking = new Opmerking();
+        Long id = 5L;
+
+        expect(opmerkingRepository.lees(id)).andReturn(opmerking);
+        opmerkingRepository.verwijder(opmerking);
+        expectLastCall();
+
+        replayAll();
+
+        opmerkingService.verwijder(id);
+
+        verifyAll();
     }
 }

@@ -16,4 +16,8 @@ public class BijlageService extends AbstractService<Bijlage> {
     public AbstractRepository getRepository() {
         return bijlageRepository;
     }
+
+    public void verwijder(Long id) {
+        bijlageRepository.verwijder(bijlageRepository.lees(id));
+    }
 }

@@ -5,10 +5,7 @@ import nl.lakedigital.djfc.domain.Bijlage;
 import nl.lakedigital.djfc.service.AbstractService;
 import nl.lakedigital.djfc.service.BijlageService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -33,5 +30,20 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
     @ResponseBody
     public void opslaan(@RequestBody List<JsonBijlage> jsonEntiteiten) {
         goOpslaan(jsonEntiteiten);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/opslaanBijlage")
+    @ResponseBody
+    public Long opslaan(JsonBijlage jsonBijlage) {
+        Bijlage bijlage = mapper.map(jsonBijlage, Bijlage.class);
+        bijlageService.opslaan(bijlage);
+
+        return bijlage.getId();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/verwijder/{id}")
+    @ResponseBody
+    public void verwijder(@PathVariable("id") Long id) {
+        bijlageService.verwijder(id);
     }
 }

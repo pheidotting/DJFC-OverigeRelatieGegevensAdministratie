@@ -5,6 +5,10 @@ import nl.lakedigital.djfc.repository.AbstractRepository;
 import nl.lakedigital.djfc.repository.BijlageRepository;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
+import org.junit.Test;
+
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
 
 public class BijlageServiceTest extends AbstractServicetTest<Bijlage> {
     @TestSubject
@@ -51,5 +55,21 @@ public class BijlageServiceTest extends AbstractServicetTest<Bijlage> {
         bijlage.setId(4L);
 
         return bijlage;
+    }
+
+    @Test
+    public void testVerwijder() {
+        Bijlage bijlage = new Bijlage();
+        Long id = 33L;
+
+        expect(bijlageRepository.lees(id)).andReturn(bijlage);
+        bijlageRepository.verwijder(bijlage);
+        expectLastCall();
+
+        replayAll();
+
+        bijlageService.verwijder(id);
+
+        verifyAll();
     }
 }

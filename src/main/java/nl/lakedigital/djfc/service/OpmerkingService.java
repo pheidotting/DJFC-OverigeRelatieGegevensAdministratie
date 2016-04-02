@@ -16,4 +16,8 @@ public class OpmerkingService extends AbstractService<Opmerking> {
     public AbstractRepository getRepository() {
         return opmerkingRepository;
     }
+
+    public void verwijder(Long id) {
+        opmerkingRepository.verwijder(opmerkingRepository.lees(id));
+    }
 }

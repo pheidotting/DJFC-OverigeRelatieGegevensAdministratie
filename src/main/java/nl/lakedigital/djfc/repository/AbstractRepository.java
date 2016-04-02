@@ -26,9 +26,6 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
         return this.type.getSimpleName();
     }
 
-    //    @PersistenceContext
-    //    private EntityManager entityManager;
-
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -45,7 +42,6 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
         return transaction;
     }
 
-    //    @Transactional
     public void verwijder(List<T> adressen) {
         if (getTransaction().getStatus() != TransactionStatus.ACTIVE) {
             getTransaction().begin();
@@ -58,7 +54,6 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
         getTransaction().commit();
     }
 
-    //    @Transactional
     public void opslaan(List<T> adressen) {
         if (getTransaction().getStatus() != TransactionStatus.ACTIVE) {
             getTransaction().begin();
@@ -100,5 +95,13 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
         getTransaction().commit();
 
         return lijst;
+    }
+
+    public void verwijder(T t){
+        getTransaction().begin();
+
+        getSession().delete(t);
+
+        getTransaction().commit();
     }
 }

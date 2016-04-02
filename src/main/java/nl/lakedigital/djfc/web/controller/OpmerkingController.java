@@ -5,10 +5,7 @@ import nl.lakedigital.djfc.domain.Opmerking;
 import nl.lakedigital.djfc.service.AbstractService;
 import nl.lakedigital.djfc.service.OpmerkingService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -33,5 +30,20 @@ public class OpmerkingController extends AbstractController<Opmerking, JsonOpmer
     @ResponseBody
     public void opslaan(@RequestBody List<JsonOpmerking> jsonEntiteiten) {
         goOpslaan(jsonEntiteiten);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/opslaanOpmerking")
+    @ResponseBody
+    public Long opslaan(@RequestBody JsonOpmerking jsonOpmerking) {
+        Opmerking opmerking = mapper.map(jsonOpmerking, Opmerking.class);
+
+        opmerkingService.opslaan(opmerking);
+        return opmerking.getId();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/verwijder/{id}")
+    @ResponseBody
+    public void verwijder(@PathVariable Long id) {
+        opmerkingService.verwijder(id);
     }
 }
