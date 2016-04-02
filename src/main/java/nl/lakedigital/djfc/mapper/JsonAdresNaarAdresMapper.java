@@ -3,12 +3,14 @@ package nl.lakedigital.djfc.mapper;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.service.AdresService;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
 @Component
 public class JsonAdresNaarAdresMapper extends AbstractMapper<JsonAdres, Adres> implements JsonMapper {
+
     @Inject
     private AdresService adresService;
 
@@ -18,7 +20,12 @@ public class JsonAdresNaarAdresMapper extends AbstractMapper<JsonAdres, Adres> i
 
         if (jsonAdres.getId() != null) {
             adres = adresService.lees(jsonAdres.getId());
+
+            System.out.println("asdfoijasodfjiawfjoiwjefiojweiojf");
+            System.out.println(jsonAdres.getId());
+            System.out.println(ReflectionToStringBuilder.toString(adres));
         }
+
 
         adres.setHuisnummer(jsonAdres.getHuisnummer());
         adres.setId(jsonAdres.getId());

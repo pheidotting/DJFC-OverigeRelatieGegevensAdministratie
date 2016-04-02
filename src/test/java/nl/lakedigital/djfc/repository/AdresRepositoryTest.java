@@ -7,6 +7,8 @@ import nl.lakedigital.djfc.inloggen.Sessie;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext-unittest.xml")
 public class AdresRepositoryTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRepository.class);
+
     private Long relatieId = 58L;
     private SoortEntiteit soortEntiteit = SoortEntiteit.RELATIE;
 
@@ -30,6 +34,8 @@ public class AdresRepositoryTest {
 
     @Test
     public void opslaan() {
+        LOGGER.info("moije");
+
         assertEquals(0, adresRepository.alles(soortEntiteit, relatieId).size());
 
         Adres adres = new Adres();

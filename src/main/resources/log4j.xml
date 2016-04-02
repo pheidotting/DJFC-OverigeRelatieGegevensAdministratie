@@ -19,8 +19,12 @@
 		<priority value="error" />
 	</category>
 
+	<category name="org.hibernate">
+		<priority value="error"/>
+	</category>
+
 	<root>
-		<priority value="info" />
+		<priority value="debug"/>
 		<appender-ref ref="console" />
 	</root>
 </log4j:configuration>

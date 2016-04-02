@@ -75,6 +75,10 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
         wijzig(entiteit3);
         getClient().opslaan(Lists.newArrayList(entiteit1, entiteit2, entiteit3));
 
+        adressenOpgehaald = getClient().lijst(soortEntiteit.name(), entiteitId);
+        entiteit1 = adressenOpgehaald.get(0);
+        entiteit2 = adressenOpgehaald.get(1);
+        entiteit3 = adressenOpgehaald.get(2);
         assertEquals(3, adressenOpgehaald.size());
 
         getClient().opslaan(Lists.newArrayList(entiteit1, entiteit3));

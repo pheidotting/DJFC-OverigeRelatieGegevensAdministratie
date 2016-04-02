@@ -134,4 +134,13 @@
             <column name="SOORTENTITEIT" type="varchar(20)" />
         </createTable>
     </changeSet>
+
+    <changeSet id="3" author="Patrick Heidotting">
+        <createTable tableName="hibernate_sequence">
+            <column name="next_val" type="bigint(20)"/>
+        </createTable>
+        <insert tableName="hibernate_sequence">
+            <column name="next_val">1</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
