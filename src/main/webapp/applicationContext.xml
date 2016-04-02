@@ -10,9 +10,9 @@
 
     <context:annotation-config/>
 
-    <!--<bean id="MariaDbServer" class="nl.lakedigital.djfc.mariadbserver.MariaDBServer" init-method="init">-->
-    <!--<property name="poortNummer" value="3308" />-->
-    <!--</bean>-->
+    <bean id="MariaDbServer" class="nl.lakedigital.djfc.mariadbserver.MariaDBServer" init-method="init">
+        <property name="poortNummer" value="3308"/>
+    </bean>
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" depends-on="MariaDbServer">
         <!--<property name="uniqueResourceName" value="NonXA_DataSource" />-->
