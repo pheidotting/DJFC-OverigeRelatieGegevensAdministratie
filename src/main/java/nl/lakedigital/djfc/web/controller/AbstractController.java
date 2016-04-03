@@ -19,15 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId, J extends AbstracteJsonEntiteitMetSoortEnId> {
-    private static Logger LOGGER;
+    protected static Logger LOGGER;
 
     private final Class<D> domainType;
     private final Class<J> jsonType;
 
-    public AbstractController(Class<D> domainType, Class<J> jsonType, Class loggerType) {
+    public AbstractController(Class<D> domainType, Class<J> jsonType) {
         this.domainType = domainType;
         this.jsonType = jsonType;
-        LOGGER = LoggerFactory.getLogger(loggerType);
+        LOGGER = LoggerFactory.getLogger(AbstractController.class);
     }
 
     @Inject
@@ -59,8 +59,6 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
             List<D> entiteiten = new ArrayList<>();
             for (J jsonEntiteit : jsonEntiteiten) {
                 LOGGER.debug(ReflectionToStringBuilder.toString(jsonEntiteit, ToStringStyle.SHORT_PREFIX_STYLE));
-
-                System.out.println(ReflectionToStringBuilder.toString(jsonEntiteit, ToStringStyle.SHORT_PREFIX_STYLE));
 
                 entiteiten.add(mapper.map(jsonEntiteit, domainType));
             }

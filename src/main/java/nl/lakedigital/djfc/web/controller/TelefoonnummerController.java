@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 public class TelefoonnummerController extends AbstractController<Telefoonnummer, JsonTelefoonnummer> {
     public TelefoonnummerController() {
-        super(Telefoonnummer.class, JsonTelefoonnummer.class, TelefoonnummerController.class);
+        super(Telefoonnummer.class, JsonTelefoonnummer.class);
     }
 
     @Inject

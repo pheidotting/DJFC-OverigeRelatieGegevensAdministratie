@@ -2,6 +2,8 @@ package nl.lakedigital.djfc.repository;
 
 import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -60,6 +62,7 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
         }
 
         for (T t : adressen) {
+            LOGGER.info("Opslaan {}", ReflectionToStringBuilder.toString(t, ToStringStyle.SHORT_PREFIX_STYLE));
             if (t.getId() == null) {
                 getSession().save(t);
             } else {
@@ -82,8 +85,6 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
     }
 
     public List<T> alles(SoortEntiteit soortEntiteit, Long entiteitId) {
-        LOGGER.debug("moi");
-
         getTransaction().begin();
 
         Query query = getSession().getNamedQuery(getMyType() + ".zoekBijEntiteit");

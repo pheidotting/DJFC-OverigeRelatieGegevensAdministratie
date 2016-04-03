@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class BijlageController extends AbstractController<Bijlage, JsonBijlage> {
     public BijlageController() {
-        super(Bijlage.class, JsonBijlage.class, BijlageController.class);
+        super(Bijlage.class, JsonBijlage.class);
     }
 
     @Inject

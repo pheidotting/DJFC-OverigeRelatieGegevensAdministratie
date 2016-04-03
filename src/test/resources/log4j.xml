@@ -11,12 +11,11 @@
         </layout>
     </appender>
 
+    <logger name="org.springframework">
+        <level value="error"/>
+    </logger>
     <category name="nl.lakedigital">
         <priority value="trace"/>
-    </category>
-
-    <category name="com.atomikos">
-        <priority value="error" />
     </category>
 
     <category name="org.hibernate">

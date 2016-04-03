@@ -42,6 +42,7 @@ public class AdresService extends AbstractService<Adres> {
         }
     }
 
+    @Override
     public Adres lees(Long id) {
         return adresRepository.lees(id);
     }

@@ -4,12 +4,15 @@ import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.service.AdresService;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
 @Component
 public class JsonAdresNaarAdresMapper extends AbstractMapper<JsonAdres, Adres> implements JsonMapper {
+    private final static Logger LOGGER = LoggerFactory.getLogger(JsonAdresNaarAdresMapper.class);
 
     @Inject
     private AdresService adresService;
@@ -21,9 +24,7 @@ public class JsonAdresNaarAdresMapper extends AbstractMapper<JsonAdres, Adres> i
         if (jsonAdres.getId() != null) {
             adres = adresService.lees(jsonAdres.getId());
 
-            System.out.println("asdfoijasodfjiawfjoiwjefiojweiojf");
-            System.out.println(jsonAdres.getId());
-            System.out.println(ReflectionToStringBuilder.toString(adres));
+            LOGGER.debug(ReflectionToStringBuilder.toString(adres));
         }
 
 

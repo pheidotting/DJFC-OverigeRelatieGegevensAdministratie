@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class AdresController extends AbstractController<Adres, JsonAdres> {
     public AdresController() {
-        super(Adres.class, JsonAdres.class, AdresController.class);
+        super(Adres.class, JsonAdres.class);
     }
 
     @Inject
@@ -29,6 +29,8 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     @RequestMapping(method = RequestMethod.POST, value = "/opslaan")
     @ResponseBody
     public void opslaan(@RequestBody List<JsonAdres> jsonEntiteiten) {
+        //        LOGGER.info("Opslaan lijst met {} entiteiten",jsonEntiteiten.size());
+
         goOpslaan(jsonEntiteiten);
     }
 

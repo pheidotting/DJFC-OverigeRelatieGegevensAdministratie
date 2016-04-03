@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class OpmerkingController extends AbstractController<Opmerking, JsonOpmerking> {
     public OpmerkingController() {
-        super(Opmerking.class, JsonOpmerking.class, OpmerkingController.class);
+        super(Opmerking.class, JsonOpmerking.class);
     }
 
     @Inject

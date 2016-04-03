@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 public class RekeningNummerController extends AbstractController<RekeningNummer, JsonRekeningNummer> {
     public RekeningNummerController() {
-        super(RekeningNummer.class, JsonRekeningNummer.class, RekeningNummerController.class);
+        super(RekeningNummer.class, JsonRekeningNummer.class);
     }
 
     @Inject
