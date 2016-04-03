@@ -29,7 +29,7 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     @RequestMapping(method = RequestMethod.POST, value = "/opslaan")
     @ResponseBody
     public void opslaan(@RequestBody List<JsonAdres> jsonEntiteiten) {
-        //        LOGGER.info("Opslaan lijst met {} entiteiten",jsonEntiteiten.size());
+        LOGGER.info("Opslaan lijst met {} entiteiten", jsonEntiteiten.size());
 
         goOpslaan(jsonEntiteiten);
     }
