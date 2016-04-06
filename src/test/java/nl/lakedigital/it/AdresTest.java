@@ -6,6 +6,7 @@ import nl.lakedigital.djfc.client.oga.AdresClient;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.repository.AdresRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -79,5 +80,20 @@ public class AdresTest extends AbstractTest<JsonAdres> {
         jsonAdres.setId(id);
 
         assertThat(adresClient.lees(id), is(jsonAdres));
+    }
+
+    @Test
+    @Ignore("om onnodige api calls te voorkomen")
+    public void testOphalenAdresOpPostcode() {
+        String postcode = "7894AB";
+        String huisnummer = "41";
+
+        JsonAdres verwacht = new JsonAdres();
+        verwacht.setStraat("Eemslandweg");
+        verwacht.setHuisnummer(41L);
+        verwacht.setPostcode(postcode);
+        verwacht.setPlaats("Zwartemeer");
+
+        assertThat(adresClient.ophalenAdresOpPostcode(postcode, huisnummer), is(verwacht));
     }
 }
