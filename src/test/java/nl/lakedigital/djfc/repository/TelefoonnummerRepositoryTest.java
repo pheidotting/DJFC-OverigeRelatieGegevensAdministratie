@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext-unittest.xml")
-public class TelefoonnummerRepositoryTest {
+public class TelefoonnummerRepositoryTest extends AbstractRepositoryTest<Telefoonnummer> {
 
     @Inject
     private TelefoonnummerRepository telefoonnummerRepository;
@@ -57,4 +57,16 @@ public class TelefoonnummerRepositoryTest {
         assertEquals(0, telefoonnummerRepository.alles(soortEntiteit, entiteitId).size());
     }
 
+    @Override
+    public Telefoonnummer maakEntiteit(String zoekWaarde) {
+        Telefoonnummer telefoonnummer = new Telefoonnummer();
+        telefoonnummer.setTelefoonnummer(zoekWaarde);
+
+        return telefoonnummer;
+    }
+
+    @Override
+    public AbstractRepository getRepository() {
+        return telefoonnummerRepository;
+    }
 }

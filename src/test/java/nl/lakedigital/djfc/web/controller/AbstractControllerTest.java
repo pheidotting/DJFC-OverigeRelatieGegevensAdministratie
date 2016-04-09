@@ -12,6 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.google.common.collect.Lists.newArrayList;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
@@ -92,6 +95,27 @@ public abstract class AbstractControllerTest<T extends AbstracteEntiteitMetSoort
         replayAll();
 
         getController().verwijderen(soortEntiteit.name(), entiteitId);
+
+        verifyAll();
+    }
+
+    @Test
+    public void zoeken() {
+        String zoekTerm = "zoekTerm";
+        List<T> domainEntiteiten = new ArrayList<>();
+        T t = getEntiteit();
+        domainEntiteiten.add(t);
+
+        List<U> jsonEntiteiten = new ArrayList<>();
+        U u = getJsonEntiteit();
+        jsonEntiteiten.add(u);
+
+        expect(getService().zoeken(zoekTerm)).andReturn(domainEntiteiten);
+        expect(mapper.map(t, jsonType)).andReturn(u);
+
+        replayAll();
+
+        assertEquals(jsonEntiteiten, getController().zoeken(zoekTerm));
 
         verifyAll();
     }

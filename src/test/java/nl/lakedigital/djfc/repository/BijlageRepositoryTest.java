@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext-unittest.xml")
-public class BijlageRepositoryTest {
+public class BijlageRepositoryTest extends AbstractRepositoryTest<Bijlage> {
 
     @Inject
     private BijlageRepository bijlageRepository;
@@ -59,4 +59,17 @@ public class BijlageRepositoryTest {
         assertEquals(0, bijlageRepository.alles(soortEntiteit, entiteitId).size());
     }
 
+    @Override
+    public Bijlage maakEntiteit(String zoekWaarde) {
+        Bijlage bijlage = new Bijlage();
+        bijlage.setUploadMoment(LocalDateTime.now());
+        bijlage.setOmschrijving(zoekWaarde);
+
+        return bijlage;
+    }
+
+    @Override
+    public AbstractRepository getRepository() {
+        return bijlageRepository;
+    }
 }

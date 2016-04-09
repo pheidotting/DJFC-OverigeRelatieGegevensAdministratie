@@ -45,6 +45,19 @@ public class OpmerkingTest extends AbstractTest<JsonOpmerking> {
     }
 
     @Override
+    public JsonOpmerking maakEntiteitVoorZoeken(String zoekWaarde, SoortEntiteit soortEntiteit, Long entiteitId) {
+        JsonOpmerking jsonOpmerking = new JsonOpmerking();
+
+        jsonOpmerking.setOpmerking(zoekWaarde);
+        jsonOpmerking.setTijd("2016-05-01 13:37");
+        jsonOpmerking.setMedewerkerId(2L);
+        jsonOpmerking.setEntiteitId(entiteitId);
+        jsonOpmerking.setSoortEntiteit(soortEntiteit.name());
+
+        return jsonOpmerking;
+    }
+
+    @Override
     public void wijzig(JsonOpmerking entiteit) {
         entiteit.setOpmerking("nieuweOpmerking");
     }

@@ -14,7 +14,8 @@ import java.util.Date;
 @Entity
 @Table(name = "OPMERKING")
 @NamedQueries({//
-        @NamedQuery(name = "Opmerking.zoekBijEntiteit", query = "select o from Opmerking o where o.soortEntiteit = :soortEntiteit and o.entiteitId = :entiteitId")//
+        @NamedQuery(name = "Opmerking.zoekBijEntiteit", query = "select o from Opmerking o where o.soortEntiteit = :soortEntiteit and o.entiteitId = :entiteitId"),//
+        @NamedQuery(name = "Opmerking.zoeken", query = "select o from Opmerking o where o.opm like :zoekTerm")//
 })
 public class Opmerking extends AbstracteEntiteitMetSoortEnId implements Serializable {
     private static final long serialVersionUID = -2928569293026238403L;

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import nl.lakedigital.djfc.client.AbstractClient;
 import nl.lakedigital.djfc.client.oga.AdresClient;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
+import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.repository.AdresRepository;
 import org.junit.Ignore;
@@ -80,6 +81,8 @@ public class AdresTest extends AbstractTest<JsonAdres> {
         jsonAdres.setId(id);
 
         assertThat(adresClient.lees(id), is(jsonAdres));
+
+        getClient().verwijder(SoortEntiteit.RELATIE.name(), 99L);
     }
 
     @Test
@@ -95,5 +98,18 @@ public class AdresTest extends AbstractTest<JsonAdres> {
         verwacht.setPlaats("Zwartemeer");
 
         assertThat(adresClient.ophalenAdresOpPostcode(postcode, huisnummer), is(verwacht));
+    }
+
+    @Override
+    public JsonAdres maakEntiteitVoorZoeken(String zoekWaarde, SoortEntiteit soortEntiteit, Long entiteitId) {
+        JsonAdres jsonAdres = new JsonAdres();
+
+        jsonAdres.setStraat(zoekWaarde);
+        jsonAdres.setPlaats(zoekWaarde);
+        jsonAdres.setSoortEntiteit(soortEntiteit.name());
+        jsonAdres.setSoortAdres(Adres.SoortAdres.POSTADRES.name());
+        jsonAdres.setEntiteitId(entiteitId);
+
+        return jsonAdres;
     }
 }

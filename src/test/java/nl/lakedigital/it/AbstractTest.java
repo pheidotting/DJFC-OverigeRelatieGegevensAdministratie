@@ -20,6 +20,8 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
 
     public abstract T maakEntiteit(int teller, Long entiteitId, SoortEntiteit soortEntiteit);
 
+    public abstract T maakEntiteitVoorZoeken(String zoekWaarde, SoortEntiteit soortEntiteit, Long entiteitId);
+
     public abstract void wijzig(T entiteit);
 
     @Test
@@ -87,5 +89,29 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
         getClient().verwijder(soortEntiteit.name(), entiteitId);
 
         assertEquals(0, getClient().lijst(soortEntiteit.name(), entiteitId).size());
+    }
+
+    @Test
+    public void testZoek() {
+        SoortEntiteit soortEntiteit = SoortEntiteit.RELATIE;
+        Long entiteitId = 5L;
+
+        String zoek1 = "abc";
+        String zoek2 = "bcd";
+        String zoek3 = "cde";
+
+        T entiteit1 = maakEntiteitVoorZoeken(zoek1, soortEntiteit, entiteitId);
+        T entiteit2 = maakEntiteitVoorZoeken(zoek2, soortEntiteit, entiteitId);
+        T entiteit3 = maakEntiteitVoorZoeken(zoek3, soortEntiteit, entiteitId);
+
+        getClient().opslaan(Lists.newArrayList(entiteit1, entiteit2, entiteit3));
+
+        assertEquals(1, getClient().zoeken("a").size());
+        assertEquals(2, getClient().zoeken("b").size());
+        assertEquals(3, getClient().zoeken("c").size());
+        assertEquals(2, getClient().zoeken("d").size());
+        assertEquals(1, getClient().zoeken("e").size());
+
+        getClient().verwijder(soortEntiteit.name(), entiteitId);
     }
 }

@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext-unittest.xml")
-public class OpmerkingRepositoryTest {
+public class OpmerkingRepositoryTest extends AbstractRepositoryTest<Opmerking> {
 
     @Inject
     private OpmerkingRepository opmerkingRepository;
@@ -58,4 +58,16 @@ public class OpmerkingRepositoryTest {
         assertEquals(0, opmerkingRepository.alles(soortEntiteit, entiteitId).size());
     }
 
+    @Override
+    public Opmerking maakEntiteit(String zoekWaarde) {
+        Opmerking opmerking = new Opmerking();
+        opmerking.setOpmerking(zoekWaarde);
+
+        return opmerking;
+    }
+
+    @Override
+    public AbstractRepository getRepository() {
+        return opmerkingRepository;
+    }
 }

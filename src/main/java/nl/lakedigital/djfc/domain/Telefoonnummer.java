@@ -12,7 +12,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "TELEFOONNUMMER")
 @NamedQueries({//
-        @NamedQuery(name = "Telefoonnummer.zoekBijEntiteit", query = "select t from Telefoonnummer t where t.soortEntiteit = :soortEntiteit and t.entiteitId = :entiteitId")//
+        @NamedQuery(name = "Telefoonnummer.zoekBijEntiteit", query = "select t from Telefoonnummer t where t.soortEntiteit = :soortEntiteit and t.entiteitId = :entiteitId"),//
+        @NamedQuery(name = "Telefoonnummer.zoeken", query = "select t from Telefoonnummer t where t.telNr like :zoekTerm")//
 })
 public class Telefoonnummer extends AbstracteEntiteitMetSoortEnId implements Serializable {
     private static final long serialVersionUID = -8991287195295458633L;

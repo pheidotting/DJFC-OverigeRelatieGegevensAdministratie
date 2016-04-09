@@ -29,10 +29,23 @@ public class RekeningTest extends AbstractTest<JsonRekeningNummer> {
     @Override
     public JsonRekeningNummer maakEntiteit(int teller, Long entiteitId, SoortEntiteit soortEntiteit) {
         JsonRekeningNummer rekeningNummer = new JsonRekeningNummer();
+
         rekeningNummer.setEntiteitId(entiteitId);
         rekeningNummer.setSoortEntiteit(soortEntiteit.name());
         rekeningNummer.setBic("bic");
         rekeningNummer.setRekeningnummer(UUID.randomUUID().toString().replace("-", "").substring(0, 18));
+
+        return rekeningNummer;
+    }
+
+    @Override
+    public JsonRekeningNummer maakEntiteitVoorZoeken(String zoekWaarde, SoortEntiteit soortEntiteit, Long entiteitId) {
+        JsonRekeningNummer rekeningNummer = new JsonRekeningNummer();
+
+        rekeningNummer.setEntiteitId(entiteitId);
+        rekeningNummer.setSoortEntiteit(soortEntiteit.name());
+        rekeningNummer.setBic("bic");
+        rekeningNummer.setRekeningnummer(zoekWaarde);
 
         return rekeningNummer;
     }

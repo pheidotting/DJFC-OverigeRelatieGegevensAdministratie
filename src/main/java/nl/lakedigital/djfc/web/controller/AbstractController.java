@@ -69,8 +69,22 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
     @RequestMapping(method = RequestMethod.POST, value = "/verwijderen/{soortentiteit}/{parentid}")
     @ResponseBody
     public void verwijderen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
-        LOGGER.debug("Verwijderen adressen bij {} en {}", soortentiteit, parentid);
+        LOGGER.debug("Verwijderen entiteiten {} bij {} en {}", domainType, soortentiteit, parentid);
 
         getService().verwijderen(SoortEntiteit.valueOf(soortentiteit), parentid);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/zoeken/{zoekTerm}")
+    @ResponseBody
+    public List<J> zoeken(@PathVariable("zoekTerm") String zoekTerm) {
+        LOGGER.debug("Zoeken met zoeketerm {}, {}", zoekTerm, domainType);
+
+        List<J> result = new ArrayList<>();
+        List<D> opgehaald = getService().zoeken(zoekTerm);
+        for (D d : opgehaald) {
+            result.add(mapper.map(d, jsonType));
+        }
+
+        return result;
     }
 }

@@ -41,6 +41,18 @@ public class TelefoonnummerTest extends AbstractTest<JsonTelefoonnummer> {
     }
 
     @Override
+    public JsonTelefoonnummer maakEntiteitVoorZoeken(String zoekWaarde, SoortEntiteit soortEntiteit, Long entiteitId) {
+        JsonTelefoonnummer jsonTelefoonnummer = new JsonTelefoonnummer();
+
+        jsonTelefoonnummer.setTelefoonnummer(zoekWaarde);
+        jsonTelefoonnummer.setSoortEntiteit(soortEntiteit.name());
+        jsonTelefoonnummer.setEntiteitId(entiteitId);
+        jsonTelefoonnummer.setSoort("MOBIEL");
+
+        return jsonTelefoonnummer;
+    }
+
+    @Override
     public void wijzig(JsonTelefoonnummer entiteit) {
         entiteit.setTelefoonnummer("telnummer");
     }

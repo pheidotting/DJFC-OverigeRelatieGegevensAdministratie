@@ -40,6 +40,16 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
     }
 
     @Override
+    public JsonBijlage maakEntiteitVoorZoeken(String zoekWaarde, SoortEntiteit soortEntiteit, Long entiteitId) {
+        JsonBijlage jsonBijlage = new JsonBijlage();
+        jsonBijlage.setOmschrijving(zoekWaarde);
+        jsonBijlage.setEntiteitId(entiteitId);
+        jsonBijlage.setSoortEntiteit(soortEntiteit.name());
+
+        return jsonBijlage;
+    }
+
+    @Override
     public void wijzig(JsonBijlage entiteit) {
         entiteit.setOmschrijving(UUID.randomUUID().toString());
     }

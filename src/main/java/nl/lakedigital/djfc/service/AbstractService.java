@@ -56,4 +56,8 @@ public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
         getRepository().verwijder(getRepository().alles(soortEntiteit, entiteitId));
     }
 
+    public List<T> zoeken(String zoekTerm) {
+        return getRepository().zoek(zoekTerm);
+    }
+
 }

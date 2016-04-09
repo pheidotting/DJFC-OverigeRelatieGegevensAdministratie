@@ -14,7 +14,8 @@ import java.util.Date;
 @Entity
 @Table(name = "BIJLAGE")
 @NamedQueries({//
-        @NamedQuery(name = "Bijlage.zoekBijEntiteit", query = "select b from Bijlage b where b.soortEntiteit = :soortEntiteit and b.entiteitId = :entiteitId")//
+        @NamedQuery(name = "Bijlage.zoekBijEntiteit", query = "select b from Bijlage b where b.soortEntiteit = :soortEntiteit and b.entiteitId = :entiteitId"),//
+        @NamedQuery(name = "Bijlage.zoeken", query = "select b from Bijlage b where b.omschrijving like :zoekTerm")//
 })
 public class Bijlage extends AbstracteEntiteitMetSoortEnId implements Serializable {
     private static final long serialVersionUID = 5743959281799187372L;

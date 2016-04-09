@@ -112,4 +112,18 @@ public abstract class AbstractServicetTest<T extends AbstracteEntiteitMetSoortEn
 
         verifyAll();
     }
+
+    @Test
+    public void testZoeken() {
+        String zoekTerm = "zoekTerm";
+        List<T> lijst = new ArrayList<>();
+
+        expect(getRepository().zoek(zoekTerm)).andReturn(lijst);
+
+        replayAll();
+
+        assertEquals(getService().zoeken(zoekTerm), lijst);
+
+        verifyAll();
+    }
 }

@@ -84,6 +84,19 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
         return t;
     }
 
+    public List<T> zoek(String zoekTerm) {
+        getTransaction().begin();
+
+        Query query = getSession().getNamedQuery(getMyType() + ".zoeken");
+        query.setParameter("zoekTerm", "%" + zoekTerm + "%");
+
+        List<T> lijst = query.list();
+
+        getTransaction().commit();
+
+        return lijst;
+    }
+
     public List<T> alles(SoortEntiteit soortEntiteit, Long entiteitId) {
         getTransaction().begin();
 

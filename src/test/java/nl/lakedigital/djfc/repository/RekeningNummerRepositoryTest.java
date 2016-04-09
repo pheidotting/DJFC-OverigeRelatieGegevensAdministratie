@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext-unittest.xml")
-public class RekeningNummerRepositoryTest {
+public class RekeningNummerRepositoryTest extends AbstractRepositoryTest<RekeningNummer> {
 
     @Inject
     private RekeningNummerRepository rekeningNummerRepository;
@@ -55,4 +55,16 @@ public class RekeningNummerRepositoryTest {
         assertEquals(0, rekeningNummerRepository.alles(soortEntiteit, entiteitId).size());
     }
 
+    @Override
+    public RekeningNummer maakEntiteit(String zoekWaarde) {
+        RekeningNummer rekeningNummer = new RekeningNummer();
+        rekeningNummer.setRekeningnummer(zoekWaarde);
+
+        return rekeningNummer;
+    }
+
+    @Override
+    public AbstractRepository getRepository() {
+        return rekeningNummerRepository;
+    }
 }
