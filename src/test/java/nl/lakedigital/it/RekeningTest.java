@@ -1,7 +1,7 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
-import nl.lakedigital.djfc.client.AbstractClient;
+import nl.lakedigital.djfc.client.oga.AbstractOgaClient;
 import nl.lakedigital.djfc.client.oga.RekeningClient;
 import nl.lakedigital.djfc.commons.json.JsonRekeningNummer;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
@@ -13,7 +13,7 @@ public class RekeningTest extends AbstractTest<JsonRekeningNummer> {
     private RekeningClient rekeningClient = new RekeningClient();
 
     @Override
-    public AbstractClient getClient() {
+    public AbstractOgaClient getClient() {
         return rekeningClient;
     }
 

@@ -1,7 +1,7 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
-import nl.lakedigital.djfc.client.AbstractClient;
+import nl.lakedigital.djfc.client.oga.AbstractOgaClient;
 import nl.lakedigital.djfc.commons.json.AbstracteJsonEntiteitMetSoortEnId;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -14,7 +14,7 @@ import java.util.List;
 import static nl.lakedigital.assertion.Assert.assertEquals;
 
 public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> {
-    public abstract AbstractClient getClient();
+    public abstract AbstractOgaClient getClient();
 
     public abstract List<String> getFields();
 

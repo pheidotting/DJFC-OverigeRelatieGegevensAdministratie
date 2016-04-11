@@ -1,7 +1,7 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
-import nl.lakedigital.djfc.client.AbstractClient;
+import nl.lakedigital.djfc.client.oga.AbstractOgaClient;
 import nl.lakedigital.djfc.client.oga.TelefoonnummerClient;
 import nl.lakedigital.djfc.commons.json.JsonTelefoonnummer;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
@@ -13,7 +13,7 @@ public class TelefoonnummerTest extends AbstractTest<JsonTelefoonnummer> {
     private TelefoonnummerClient telefoonnummerClient = new TelefoonnummerClient();
 
     @Override
-    public AbstractClient getClient() {
+    public AbstractOgaClient getClient() {
         return telefoonnummerClient;
     }
 

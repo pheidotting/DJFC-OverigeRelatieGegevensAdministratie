@@ -1,7 +1,7 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
-import nl.lakedigital.djfc.client.AbstractClient;
+import nl.lakedigital.djfc.client.oga.AbstractOgaClient;
 import nl.lakedigital.djfc.client.oga.BijlageClient;
 import nl.lakedigital.djfc.commons.json.JsonBijlage;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
@@ -14,7 +14,7 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
     private BijlageClient bijlageClient = new BijlageClient();
 
     @Override
-    public AbstractClient getClient() {
+    public AbstractOgaClient getClient() {
         return bijlageClient;
     }
 

@@ -1,7 +1,7 @@
 package nl.lakedigital.it;
 
 import com.google.common.collect.Lists;
-import nl.lakedigital.djfc.client.AbstractClient;
+import nl.lakedigital.djfc.client.oga.AbstractOgaClient;
 import nl.lakedigital.djfc.client.oga.AdresClient;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.Adres;
@@ -39,7 +39,7 @@ public class AdresTest extends AbstractTest<JsonAdres> {
     );
 
     @Override
-    public AbstractClient getClient() {
+    public AbstractOgaClient getClient() {
         return adresClient;
     }
 
