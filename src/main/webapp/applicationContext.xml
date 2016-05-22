@@ -10,22 +10,23 @@
 
     <context:annotation-config/>
 
-    <bean id="MariaDbServer" class="nl.lakedigital.djfc.mariadbserver.MariaDBServer" init-method="init">
-        <property name="poortNummer" value="3308"/>
+    <bean id="properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>file:app.properties</value>
+            </list>
+        </property>
+        <property name="placeholderPrefix" value="${"/>
     </bean>
 
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" depends-on="MariaDbServer">
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <!--<property name="uniqueResourceName" value="NonXA_DataSource" />-->
         <!--<property name="minPoolSize" value="2" />-->
         <!--<property name="maxPoolSize" value="30" />-->
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-
-        <property name="url" value="jdbc:mysql://localhost:3308/test"/>
-        <property name="username" value=""/>
-        <property name="password" value=""/>
-        <!--<property name="url" value="jdbc:mysql://89.18.180.239:3306/patrick_unittest" />-->
-        <!--<property name="username" value="patrick_unittest" />-->
-        <!--<property name="password" value="7jAASQFX" />-->
+        <property name="url" value="${oga.db.name}"/>
+        <property name="username" value="${oga.db.user}"/>
+        <property name="password" value="${oga.db.pass}"/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">

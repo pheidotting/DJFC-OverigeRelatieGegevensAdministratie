@@ -18,6 +18,7 @@ public class BijlageNaarJsonBijlageMapper extends AbstractMapper<Bijlage, JsonBi
         }
         json.setDatumUpload(bijlage.getUploadMoment().toString("dd-MM-yyyy HH:mm"));
         json.setBestandsNaam(bijlage.getBestandsNaam());
+        json.setS3Identificatie(bijlage.getS3Identificatie());
 
         return json;
     }

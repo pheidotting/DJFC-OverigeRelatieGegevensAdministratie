@@ -23,8 +23,12 @@ public class JsonBijlageNaarBijlageMapper extends AbstractMapper<JsonBijlage, Bi
 
         bijlage.setOmschrijving(jsonBijlage.getOmschrijving());
         bijlage.setUploadMoment(LocalDateTime.now());
-        bijlage.setBestandsNaam(jsonBijlage.getBestandsNaam());
-        bijlage.setS3Identificatie(UUID.randomUUID().toString().replace("-", ""));
+        bijlage.setBestandsNaam(jsonBijlage.getOmschrijvingOfBestandsNaam());
+        if (jsonBijlage.getBestandsNaam() != null) {
+            bijlage.setS3Identificatie(jsonBijlage.getBestandsNaam());
+        } else {
+            bijlage.setS3Identificatie(UUID.randomUUID().toString().replace("-", ""));
+        }
 
         return bijlage;
     }
