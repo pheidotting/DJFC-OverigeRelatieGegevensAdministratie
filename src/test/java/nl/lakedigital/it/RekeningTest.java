@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class RekeningTest extends AbstractTest<JsonRekeningNummer> {
-    private RekeningClient rekeningClient = new RekeningClient();
+    private RekeningClient rekeningClient = new RekeningClient(7072);
 
     @Override
     public AbstractOgaClient getClient() {

@@ -11,7 +11,7 @@ import java.util.UUID;
 
 
 public class BijlageTest extends AbstractTest<JsonBijlage> {
-    private BijlageClient bijlageClient = new BijlageClient();
+    private BijlageClient bijlageClient = new BijlageClient(7072);
 
     @Override
     public AbstractOgaClient getClient() {
@@ -19,7 +19,7 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
     }
 
     public final List<String> fieldNames = Lists.newArrayList(//
-            "bestandsNaam"//, //
+            //            "bestandsNaam"//, //
             //            "sooomschrijvingrt"
     );
 
