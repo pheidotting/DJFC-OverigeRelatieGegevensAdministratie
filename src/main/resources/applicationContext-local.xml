@@ -50,33 +50,4 @@
 
     <import resource="applicationContext-jms.xml" />
     -->
-
-    <!-- Thymeleaf -->
-    <bean id="fileTemplateResolver" class="org.thymeleaf.templateresolver.FileTemplateResolver">
-        <property name="prefix" value="templates/"/>
-        <property name="order" value="1"/>
-        <property name="suffix" value=".html"/>
-        <property name="templateMode" value="HTML5"/>
-        <property name="cacheTTLMs" value="10000"/>
-        <property name="characterEncoding" value="UTF-8"/>
-    </bean>
-
-    <bean id="templateResolver" class="org.thymeleaf.templateresolver.ClassLoaderTemplateResolver">
-        <property name="prefix" value="templates/"/>
-        <property name="order" value="2"/>
-        <property name="suffix" value=".html"/>
-        <property name="templateMode" value="HTML5"/>
-        <property name="cacheTTLMs" value="3600000"/>
-        <property name="characterEncoding" value="UTF-8"/>
-    </bean>
-
-    <bean id="templateEngine" class="org.thymeleaf.TemplateEngine" init-method="initialize">
-        <property name="templateResolvers">
-            <list>
-                <ref bean="fileTemplateResolver"/>
-                <ref bean="templateResolver"/>
-            </list>
-        </property>
-        <!--<property name="messageResolver" ref="messageResolver" />-->
-    </bean>
 </beans>
