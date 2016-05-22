@@ -61,6 +61,7 @@ public class BijlageMapperTest extends AbstractMapperTest<Bijlage, JsonBijlage> 
 
         bijlage.setOmschrijving("omschrijving");
         bijlage.setBestandsNaam("bestandsnaam");
+        bijlage.setOmschrijvingOfBestandsNaam("bestandsnaam");
 
         bijlage.setSoortEntiteit(soortEntiteit.name());
         bijlage.setEntiteitId(entiteitId);
