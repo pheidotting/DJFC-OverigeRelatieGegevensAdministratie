@@ -7,7 +7,6 @@ import org.joda.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import java.util.UUID;
 
 @Component
 public class JsonBijlageNaarBijlageMapper extends AbstractMapper<JsonBijlage, Bijlage> implements JsonMapper {
@@ -24,11 +23,7 @@ public class JsonBijlageNaarBijlageMapper extends AbstractMapper<JsonBijlage, Bi
         bijlage.setOmschrijving(jsonBijlage.getOmschrijving());
         bijlage.setUploadMoment(LocalDateTime.now());
         bijlage.setBestandsNaam(jsonBijlage.getOmschrijvingOfBestandsNaam());
-        if (jsonBijlage.getBestandsNaam() != null) {
-            bijlage.setS3Identificatie(jsonBijlage.getBestandsNaam());
-        } else {
-            bijlage.setS3Identificatie(UUID.randomUUID().toString().replace("-", ""));
-        }
+        bijlage.setS3Identificatie(jsonBijlage.getS3Identificatie());
 
         return bijlage;
     }

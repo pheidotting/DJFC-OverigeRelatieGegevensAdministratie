@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,9 @@ public abstract class AbstractControllerTest<T extends AbstracteEntiteitMetSoort
     public void opslaan() {
         SoortEntiteit soortEntiteit = SoortEntiteit.POLIS;
         Long entiteitId = 4L;
+        HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
+        expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
+        expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");
 
         T entiteit = getEntiteit();
         U jsonEntiteit = getJsonEntiteit();
@@ -79,7 +83,7 @@ public abstract class AbstractControllerTest<T extends AbstracteEntiteitMetSoort
 
         replayAll();
 
-        getController().opslaan(newArrayList(jsonEntiteit));
+        getController().opslaan(newArrayList(jsonEntiteit), httpServletRequest);
 
         verifyAll();
     }
@@ -88,13 +92,16 @@ public abstract class AbstractControllerTest<T extends AbstracteEntiteitMetSoort
     public void verwijderen() {
         SoortEntiteit soortEntiteit = SoortEntiteit.POLIS;
         Long entiteitId = 4L;
+        HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
+        expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
+        expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");
 
         getService().verwijderen(soortEntiteit, entiteitId);
         expectLastCall();
 
         replayAll();
 
-        getController().verwijderen(soortEntiteit.name(), entiteitId);
+        getController().verwijderen(soortEntiteit.name(), entiteitId, httpServletRequest);
 
         verifyAll();
     }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping("/adres")
@@ -37,8 +38,9 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     @Override
     @RequestMapping(method = RequestMethod.POST, value = "/opslaan")
     @ResponseBody
-    public void opslaan(@RequestBody List<JsonAdres> jsonEntiteiten) {
+    public void opslaan(@RequestBody List<JsonAdres> jsonEntiteiten, HttpServletRequest httpServletRequest) {
         LOGGER.info("Opslaan lijst met {} entiteiten", jsonEntiteiten.size());
+        zetSessieWaarden(httpServletRequest);
 
         goOpslaan(jsonEntiteiten);
     }

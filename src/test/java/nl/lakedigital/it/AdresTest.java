@@ -74,7 +74,7 @@ public class AdresTest extends AbstractTest<JsonAdres> {
     public void testLees() {
         JsonAdres jsonAdres = maakEntiteit(10, 99L, SoortEntiteit.RELATIE);
 
-        getClient().opslaan(Lists.newArrayList(jsonAdres));
+        getClient().opslaan(Lists.newArrayList(jsonAdres), 46L, "TAndTId");
 
         Long id = adresRepository.alles(SoortEntiteit.RELATIE, 99L).get(0).getId();
 
@@ -82,7 +82,7 @@ public class AdresTest extends AbstractTest<JsonAdres> {
 
         assertThat(adresClient.lees(id), is(jsonAdres));
 
-        getClient().verwijder(SoortEntiteit.RELATIE.name(), 99L);
+        getClient().verwijder(SoortEntiteit.RELATIE.name(), 99L, 46L, "TAndTId");
     }
 
     @Test

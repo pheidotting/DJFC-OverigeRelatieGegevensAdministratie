@@ -8,6 +8,8 @@ import org.easymock.Mock;
 import org.easymock.TestSubject;
 import org.junit.Test;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.hamcrest.CoreMatchers.is;
@@ -53,12 +55,16 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
     public void testVerwijder() {
         Long id = 7L;
 
+        HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
+        expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
+        expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");
+
         bijlageService.verwijder(id);
         expectLastCall();
 
         replayAll();
 
-        bijlageController.verwijder(id);
+        bijlageController.verwijder(id, httpServletRequest);
 
         verifyAll();
     }
@@ -68,6 +74,9 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
         JsonBijlage jsonBijlage = new JsonBijlage();
         final Bijlage bijlage = new Bijlage();
         final Long id = 9L;
+        HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
+        expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
+        expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");
 
         expect(mapper.map(jsonBijlage, Bijlage.class)).andReturn(bijlage);
         bijlageService.opslaan(bijlage);
@@ -80,7 +89,7 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
 
         replayAll();
 
-        assertThat(bijlageController.opslaan(jsonBijlage), is(id));
+        assertThat(bijlageController.opslaan(jsonBijlage, httpServletRequest), is(id));
 
         verifyAll();
 

@@ -1,7 +1,6 @@
 package nl.lakedigital.djfc.service;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.repository.AbstractRepository;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import static com.google.common.collect.Iterables.filter;
+import static com.google.common.collect.Lists.newArrayList;
 
 public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractService.class);
@@ -30,25 +30,39 @@ public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
     }
 
     public void opslaan(T adres) {
-        getRepository().opslaan(Lists.newArrayList(adres));
+        getRepository().opslaan(newArrayList(adres));
     }
 
     public void opslaan(final List<T> entiteiten, SoortEntiteit soortEntiteit, Long entiteitId) {
+        LOGGER.debug("Op te slaan entiteiten");
         for (T t : entiteiten) {
             LOGGER.debug(ReflectionToStringBuilder.toString(t, ToStringStyle.SHORT_PREFIX_STYLE));
         }
 
+        LOGGER.debug("bestaande entiteiten");
         List<T> lijstBestaandeNummer = getRepository().alles(soortEntiteit, entiteitId);
+        for (T t : lijstBestaandeNummer) {
+            LOGGER.debug(ReflectionToStringBuilder.toString(t, ToStringStyle.SHORT_PREFIX_STYLE));
+        }
 
         //Verwijderen wat niet (meer) voorkomt
         Iterable<T> teVerwijderen = filter(lijstBestaandeNummer, new Predicate<T>() {
             @Override
-            public boolean apply(T adres) {
-                return !entiteiten.contains(adres);
+            public boolean apply(final T adres) {
+                return newArrayList(filter(entiteiten, new Predicate<T>() {
+                    @Override
+                    public boolean apply(T t) {
+                        return adres.getId().equals(t.getId());
+                    }
+                })).size() == 0;
             }
         });
 
-        getRepository().verwijder(Lists.newArrayList(teVerwijderen));
+        LOGGER.debug("Te verwijderen entiteiten");
+        for (T t : teVerwijderen) {
+            LOGGER.debug(ReflectionToStringBuilder.toString(t, ToStringStyle.SHORT_PREFIX_STYLE));
+        }
+        getRepository().verwijder(newArrayList(teVerwijderen));
         getRepository().opslaan(entiteiten);
     }
 

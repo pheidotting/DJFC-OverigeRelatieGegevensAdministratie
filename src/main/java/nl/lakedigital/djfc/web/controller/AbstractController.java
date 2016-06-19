@@ -3,6 +3,7 @@ package nl.lakedigital.djfc.web.controller;
 import nl.lakedigital.djfc.commons.json.AbstracteJsonEntiteitMetSoortEnId;
 import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
+import nl.lakedigital.djfc.inloggen.Sessie;
 import nl.lakedigital.djfc.mapper.Mapper;
 import nl.lakedigital.djfc.service.AbstractService;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
         return jsonEntiteiten;
     }
 
-    public abstract void opslaan(List<J> jsonEntiteiten);
+    public abstract void opslaan(List<J> jsonEntiteiten, HttpServletRequest httpServletRequest);
 
     public void goOpslaan(List<J> jsonEntiteiten) {
         if (jsonEntiteiten != null && !jsonEntiteiten.isEmpty()) {
@@ -68,8 +70,10 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
 
     @RequestMapping(method = RequestMethod.POST, value = "/verwijderen/{soortentiteit}/{parentid}")
     @ResponseBody
-    public void verwijderen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
+    public void verwijderen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid, HttpServletRequest httpServletRequest) {
         LOGGER.debug("Verwijderen entiteiten {} bij {} en {}", domainType, soortentiteit, parentid);
+
+        zetSessieWaarden(httpServletRequest);
 
         getService().verwijderen(SoortEntiteit.valueOf(soortentiteit), parentid);
     }
@@ -87,4 +91,26 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
 
         return result;
     }
+
+    protected void zetSessieWaarden(HttpServletRequest httpServletRequest) {
+        Sessie.setIngelogdeGebruiker(getIngelogdeGebruiker(httpServletRequest));
+        Sessie.setTrackAndTraceId(getTrackAndTraceId(httpServletRequest));
+    }
+
+
+    protected Long getIngelogdeGebruiker(HttpServletRequest httpServletRequest) {
+        Long ingelogdeGebruiker = Long.valueOf(httpServletRequest.getHeader("ingelogdeGebruiker"));
+        LOGGER.debug("Ingelogde Gebruiker opgehaald : {}", ingelogdeGebruiker);
+
+        return ingelogdeGebruiker;
+    }
+
+    protected String getTrackAndTraceId(HttpServletRequest httpServletRequest) {
+        String tati = httpServletRequest.getHeader("trackAndTraceId");
+        LOGGER.debug("Track And Trace Id : {}", tati);
+
+        return tati;
+    }
+
+
 }

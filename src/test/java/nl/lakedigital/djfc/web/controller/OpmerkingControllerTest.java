@@ -8,6 +8,8 @@ import org.easymock.Mock;
 import org.easymock.TestSubject;
 import org.junit.Test;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.hamcrest.CoreMatchers.is;
@@ -53,12 +55,16 @@ public class OpmerkingControllerTest extends AbstractControllerTest<Opmerking, J
     public void testVerwijder() {
         Long id = 7L;
 
+        HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
+        expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
+        expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");
+
         opmerkingService.verwijder(id);
         expectLastCall();
 
         replayAll();
 
-        opmerkingController.verwijder(id);
+        opmerkingController.verwijder(id, httpServletRequest);
 
         verifyAll();
     }
@@ -68,6 +74,9 @@ public class OpmerkingControllerTest extends AbstractControllerTest<Opmerking, J
         JsonOpmerking jsonOpmerking = new JsonOpmerking();
         final Opmerking opmerking = new Opmerking();
         final Long id = 9L;
+        HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
+        expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
+        expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");
 
         expect(mapper.map(jsonOpmerking, Opmerking.class)).andReturn(opmerking);
         opmerkingService.opslaan(opmerking);
@@ -80,7 +89,7 @@ public class OpmerkingControllerTest extends AbstractControllerTest<Opmerking, J
 
         replayAll();
 
-        assertThat(opmerkingController.opslaan(jsonOpmerking), is(id));
+        assertThat(opmerkingController.opslaan(jsonOpmerking, httpServletRequest), is(id));
 
         verifyAll();
 

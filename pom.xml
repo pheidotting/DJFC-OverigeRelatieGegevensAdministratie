@@ -436,7 +436,7 @@
                 </executions>
             </plugin>
         </plugins>
-        <finalName>orga</finalName>
+        <finalName>oga</finalName>
     </build>
     <profiles>
         <profile>
@@ -460,7 +460,7 @@
                                         <resource>
                                             <directory>${basedir}/target</directory>
                                             <includes>
-                                                <include>orga.war</include>
+                                                <include>oga.war</include>
                                             </includes>
                                         </resource>
                                     </resources>

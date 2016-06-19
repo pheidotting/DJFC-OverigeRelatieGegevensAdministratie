@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping("/rekeningnummer")
@@ -31,7 +32,9 @@ public class RekeningNummerController extends AbstractController<RekeningNummer,
     @RequestMapping(method = RequestMethod.POST, value = "/opslaan")
     @ResponseBody
     @Override
-    public void opslaan(@RequestBody List<JsonRekeningNummer> jsonEntiteiten) {
+    public void opslaan(@RequestBody List<JsonRekeningNummer> jsonEntiteiten, HttpServletRequest httpServletRequest) {
+        zetSessieWaarden(httpServletRequest);
+
         goOpslaan(jsonEntiteiten);
     }
 }
