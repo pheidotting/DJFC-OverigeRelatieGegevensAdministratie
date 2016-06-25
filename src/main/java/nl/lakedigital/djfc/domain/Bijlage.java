@@ -14,7 +14,8 @@ import java.util.Date;
 @Entity
 @Table(name = "BIJLAGE")
 @NamedQueries({//
-        @NamedQuery(name = "Bijlage.zoekBijEntiteit", query = "select b from Bijlage b where b.soortEntiteit = :soortEntiteit and b.entiteitId = :entiteitId"),//
+        @NamedQuery(name = "Bijlage.zoekBijEntiteit", query = "select b from Bijlage b where b.soortEntiteit = :soortEntiteit and b.entiteitId = :entiteitId and groepBijlages is null"),//
+        @NamedQuery(name = "Bijlage.zoekBijEntiteitMetGroep", query = "select b from Bijlage b where b.soortEntiteit = :soortEntiteit and b.entiteitId = :entiteitId and groepBijlages is not null"),//
         @NamedQuery(name = "Bijlage.zoeken", query = "select b from Bijlage b where b.omschrijving like :zoekTerm")//
 })
 public class Bijlage extends AbstracteEntiteitMetSoortEnId implements Serializable {
@@ -33,6 +34,9 @@ public class Bijlage extends AbstracteEntiteitMetSoortEnId implements Serializab
     private String s3Identificatie;
     @Column(name = "OMSCHRIJVING")
     private String omschrijving;
+    @JoinColumn(name = "GROEPBIJLAGES")
+    @ManyToOne
+    private GroepBijlages groepBijlages;
 
     @Override
     public Long getId() {
@@ -74,6 +78,14 @@ public class Bijlage extends AbstracteEntiteitMetSoortEnId implements Serializab
 
     public void setOmschrijving(String omschrijving) {
         this.omschrijving = omschrijving;
+    }
+
+    public GroepBijlages getGroepBijlages() {
+        return groepBijlages;
+    }
+
+    public void setGroepBijlages(GroepBijlages groepBijlages) {
+        this.groepBijlages = groepBijlages;
     }
 
     @Override

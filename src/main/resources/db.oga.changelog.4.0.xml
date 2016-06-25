@@ -149,4 +149,27 @@
             <column name="TRACKANDTRACEID" type="varchar(36)"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="5" author="Patrick Heidotting">
+        <addColumn tableName="BIJLAGE">
+            <column name="GROEPBIJLAGES" type="int"/>
+        </addColumn>
+        <addColumn tableName="BIJLAGE_AUD">
+            <column name="GROEPBIJLAGES" type="int"/>
+        </addColumn>
+        <createTable tableName="GROEPBIJLAGE_AUD">
+            <column name="ID" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="int"/>
+            <column name="REVTYPE" type="int"/>
+            <column name="NAAM" type="text"/>
+        </createTable>
+        <createTable tableName="GROEPBIJLAGE">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAAM" type="text"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

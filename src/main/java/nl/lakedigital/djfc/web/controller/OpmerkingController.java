@@ -32,7 +32,9 @@ public class OpmerkingController extends AbstractController<Opmerking, JsonOpmer
     public void opslaan(@RequestBody List<JsonOpmerking> jsonEntiteiten, HttpServletRequest httpServletRequest) {
         zetSessieWaarden(httpServletRequest);
 
-        goOpslaan(jsonEntiteiten);
+        for (JsonOpmerking jsonOpmerking : jsonEntiteiten) {
+            opslaan(jsonOpmerking, httpServletRequest);
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/opslaanOpmerking")
