@@ -2,7 +2,10 @@ package nl.lakedigital.djfc.web.controller;
 
 import com.google.gson.Gson;
 import nl.lakedigital.djfc.commons.json.JsonBijlage;
+import nl.lakedigital.djfc.commons.json.JsonGroepBijlages;
 import nl.lakedigital.djfc.domain.Bijlage;
+import nl.lakedigital.djfc.domain.GroepBijlages;
+import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.service.AbstractService;
 import nl.lakedigital.djfc.service.BijlageService;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -93,4 +97,28 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
     public JsonBijlage lees(@PathVariable("id") Long id) {
         return mapper.map(bijlageService.lees(id), JsonBijlage.class);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/alleGroepen/{soortentiteit}/{parentid}")
+    @ResponseBody
+    public List<JsonGroepBijlages> alleGroepen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
+        LOGGER.debug("alles JsonGroepBijlages voor soortEntiteit {} parentId {}", soortentiteit, parentid);
+
+        List<GroepBijlages> domainEntiteiten = bijlageService.alleGroepenBijlages(SoortEntiteit.valueOf(soortentiteit), parentid);
+
+        LOGGER.debug("Opgehaald {} entiteiten", domainEntiteiten.size());
+
+        List<JsonGroepBijlages> jsonEntiteiten = new ArrayList<>();
+
+        for (GroepBijlages entiteit : domainEntiteiten) {
+            LOGGER.debug("map map {}", ReflectionToStringBuilder.toString(entiteit, ToStringStyle.SHORT_PREFIX_STYLE));
+            JsonGroepBijlages jsonGroepBijlages = mapper.map(entiteit, JsonGroepBijlages.class);
+
+            ReflectionToStringBuilder.toString(jsonEntiteiten, ToStringStyle.SHORT_PREFIX_STYLE);
+
+            jsonEntiteiten.add(jsonGroepBijlages);
+        }
+
+        return jsonEntiteiten;
+    }
+
 }
