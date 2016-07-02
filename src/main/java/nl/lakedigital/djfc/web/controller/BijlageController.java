@@ -30,6 +30,11 @@ import java.util.UUID;
 @Controller
 @PropertySources({@PropertySource("classpath:application.properties"), @PropertySource(value = "file:app.properties", ignoreResourceNotFound = true)})
 public class BijlageController extends AbstractController<Bijlage, JsonBijlage> {
+    @Inject
+    private BijlageService bijlageService;
+    @Value("${uploadpad}")
+    private String uploadpad;
+
     public BijlageController() {
         super(Bijlage.class, JsonBijlage.class);
     }
@@ -38,10 +43,6 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
     public static PropertySourcesPlaceholderConfigurer propertyConfigIn() {
         return new PropertySourcesPlaceholderConfigurer();
     }
-    @Inject
-    private BijlageService bijlageService;
-    @Value("${uploadpad}")
-    private String uploadpad;
 
     @Override
     public AbstractService getService() {
