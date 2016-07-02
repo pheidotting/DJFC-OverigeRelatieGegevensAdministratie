@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class TelefoonnummerTest extends AbstractTest<JsonTelefoonnummer> {
-    private TelefoonnummerClient telefoonnummerClient = new TelefoonnummerClient(7072);
+    private TelefoonnummerClient telefoonnummerClient = new TelefoonnummerClient("http://localhost:7072/oga");
 
     @Override
     public AbstractOgaClient getClient() {

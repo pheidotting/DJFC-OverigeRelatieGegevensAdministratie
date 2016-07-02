@@ -18,7 +18,7 @@ import static nl.lakedigital.assertion.Assert.assertEquals;
 
 
 public class BijlageTest extends AbstractTest<JsonBijlage> {
-    private BijlageClient bijlageClient = new BijlageClient(7072);
+    private BijlageClient bijlageClient = new BijlageClient("http://localhost:7072/oga");
 
     @Override
     public AbstractOgaClient getClient() {

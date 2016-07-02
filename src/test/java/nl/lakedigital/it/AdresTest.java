@@ -23,7 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext-it.xml")
 public class AdresTest extends AbstractTest<JsonAdres> {
-    private AdresClient adresClient = new AdresClient(7072);
+    private AdresClient adresClient = new AdresClient("http://localhost:7072/oga");
     @Inject
     private AdresRepository adresRepository;
 

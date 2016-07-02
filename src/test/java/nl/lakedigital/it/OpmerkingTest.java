@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class OpmerkingTest extends AbstractTest<JsonOpmerking> {
-    private OpmerkingClient opmerkingClient = new OpmerkingClient(7072);
+    private OpmerkingClient opmerkingClient = new OpmerkingClient("http://localhost:7072/oga");
 
     public final List<String> fieldNames = Lists.newArrayList(//
             //            "tijd", //
