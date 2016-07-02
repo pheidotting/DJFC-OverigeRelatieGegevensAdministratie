@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 @Service
 public class BijlageService extends AbstractService<Bijlage> {
     @Inject
@@ -31,4 +33,13 @@ public class BijlageService extends AbstractService<Bijlage> {
     public List<GroepBijlages> alleGroepenBijlages(SoortEntiteit soortEntiteit, Long entiteitId) {
         return bijlageRepository.alleGroepenBijlages(soortEntiteit, entiteitId);
     }
+
+    public void wijzigOmschrijvingBijlage(Long id, String nieuweNaam) {
+        Bijlage bijlage = bijlageRepository.lees(id);
+
+        bijlage.setOmschrijving(nieuweNaam);
+
+        bijlageRepository.opslaan(newArrayList(bijlage));
+    }
+
 }

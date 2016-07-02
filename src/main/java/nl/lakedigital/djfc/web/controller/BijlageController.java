@@ -3,6 +3,7 @@ package nl.lakedigital.djfc.web.controller;
 import com.google.gson.Gson;
 import nl.lakedigital.djfc.commons.json.JsonBijlage;
 import nl.lakedigital.djfc.commons.json.JsonGroepBijlages;
+import nl.lakedigital.djfc.commons.json.WijzigenOmschrijvingBijlage;
 import nl.lakedigital.djfc.domain.Bijlage;
 import nl.lakedigital.djfc.domain.GroepBijlages;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
@@ -56,6 +57,14 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
         zetSessieWaarden(httpServletRequest);
 
         goOpslaan(jsonEntiteiten);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/wijzigOmschrijvingBijlage")
+    @ResponseBody
+    public void wijzigOmschrijvingBijlage(@RequestBody WijzigenOmschrijvingBijlage wijzigenOmschrijvingBijlage, HttpServletRequest httpServletRequest) {
+        zetSessieWaarden(httpServletRequest);
+
+        bijlageService.wijzigOmschrijvingBijlage(wijzigenOmschrijvingBijlage.getBijlageId(), wijzigenOmschrijvingBijlage.getNieuweOmschrijving());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/opslaan")
