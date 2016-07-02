@@ -15,6 +15,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonBijlage> {
@@ -94,7 +95,6 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
         assertThat(bijlageController.opslaan(jsonBijlage, httpServletRequest), is(id));
 
         verifyAll();
-
     }
 
     @Test
@@ -117,6 +117,26 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
         bijlageController.opslaan(newArrayList(jsonBijlage), httpServletRequest);
 
         verifyAll();
+    }
 
+    @Test
+    public void testGenereerBestandsnaam() {
+        assertThat(bijlageController.genereerBestandsnaam(), is(notNullValue()));
+    }
+
+    @Test
+    public void testLees() {
+        JsonBijlage jsonBijlage = new JsonBijlage();
+        final Bijlage bijlage = new Bijlage();
+        final Long id = 9L;
+
+        expect(bijlageService.lees(id)).andReturn(bijlage);
+        expect(mapper.map(bijlage, JsonBijlage.class)).andReturn(jsonBijlage);
+
+        replayAll();
+
+        assertThat(bijlageController.lees(id), is(jsonBijlage));
+
+        verifyAll();
     }
 }
