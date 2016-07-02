@@ -1,5 +1,6 @@
 package nl.lakedigital.djfc.web.controller;
 
+import com.google.gson.Gson;
 import nl.lakedigital.djfc.commons.json.JsonBijlage;
 import nl.lakedigital.djfc.domain.Bijlage;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
@@ -8,6 +9,7 @@ import nl.lakedigital.djfc.service.BijlageService;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
 import org.junit.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -138,5 +140,14 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
         assertThat(bijlageController.lees(id), is(jsonBijlage));
 
         verifyAll();
+    }
+
+    @Test
+    public void testGetUploadPad() {
+        String pad = "ditIsHetUploadPad";
+
+        ReflectionTestUtils.setField(bijlageController, "uploadpad", pad);
+
+        assertThat(bijlageController.getUploadPad(), is(new Gson().toJson(pad)));
     }
 }
