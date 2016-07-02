@@ -117,6 +117,9 @@ public class BijlageRepositoryTest extends AbstractRepositoryTest<Bijlage> {
         System.out.println(ReflectionToStringBuilder.toString(groepBijlagesList.get(0), ToStringStyle.SHORT_PREFIX_STYLE));
         assertThat(groepBijlagesList.get(0), is(groepBijlages));
 
+        GroepBijlages gp = bijlageRepository.leesGroepBijlages(groepBijlages.getId());
+        assertThat(gp, is(groepBijlages));
+
         bijlageRepository.verwijder(newArrayList(bijlage));
         bijlageRepository.verwijder(newArrayList(bijlage1));
 

@@ -23,7 +23,7 @@ public class GroepBijlages {
     private Long id;
     @Column(name = "NAAM")
     private String naam;
-    @OneToMany(mappedBy = "groepBijlages")
+    @OneToMany(mappedBy = "groepBijlages", fetch = FetchType.EAGER)
     private List<Bijlage> bijlages;
 
     public Long getId() {
