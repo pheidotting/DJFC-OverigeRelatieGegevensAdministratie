@@ -34,6 +34,10 @@ public class BijlageService extends AbstractService<Bijlage> {
         return bijlageRepository.alleGroepenBijlages(soortEntiteit, entiteitId);
     }
 
+    public void opslaanGroepBijlages(GroepBijlages groepBijlages) {
+        bijlageRepository.opslaanGroepBijlages(groepBijlages);
+    }
+
     public void wijzigOmschrijvingBijlage(Long id, String nieuweNaam) {
         Bijlage bijlage = bijlageRepository.lees(id);
 

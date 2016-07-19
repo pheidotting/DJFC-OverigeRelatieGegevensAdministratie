@@ -108,6 +108,16 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
         return mapper.map(bijlageService.lees(id), JsonBijlage.class);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/opslaanGroep")
+    @ResponseBody
+    public Long opslaanGroep(@RequestBody JsonGroepBijlages jsonGroepBijlages) {
+        GroepBijlages groepBijlages = mapper.map(jsonGroepBijlages, GroepBijlages.class);
+
+        bijlageService.opslaanGroepBijlages(groepBijlages);
+
+        return groepBijlages.getId();
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/alleGroepen/{soortentiteit}/{parentid}")
     @ResponseBody
     public List<JsonGroepBijlages> alleGroepen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
