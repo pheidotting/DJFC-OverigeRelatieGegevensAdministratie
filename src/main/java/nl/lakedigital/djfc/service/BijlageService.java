@@ -36,6 +36,8 @@ public class BijlageService extends AbstractService<Bijlage> {
 
     public void opslaanGroepBijlages(GroepBijlages groepBijlages) {
         bijlageRepository.opslaanGroepBijlages(groepBijlages);
+
+        bijlageRepository.opslaan(groepBijlages.getBijlages());
     }
 
     public void wijzigOmschrijvingBijlage(Long id, String nieuweNaam) {
