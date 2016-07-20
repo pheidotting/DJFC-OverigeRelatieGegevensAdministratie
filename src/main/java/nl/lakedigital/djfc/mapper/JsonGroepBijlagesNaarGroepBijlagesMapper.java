@@ -21,7 +21,10 @@ public class JsonGroepBijlagesNaarGroepBijlagesMapper extends AbstractMapper<Jso
         groepBijlages.setId(object.getId());
 
         for (JsonBijlage bijlage : object.getBijlages()) {
-            groepBijlages.getBijlages().add(jsonBijlageNaarBijlageMapper.map(bijlage, null, Bijlage.class));
+            Bijlage b = jsonBijlageNaarBijlageMapper.map(bijlage, null, Bijlage.class);
+            b.setGroepBijlages(groepBijlages);
+
+            groepBijlages.getBijlages().add(b);
         }
 
         return groepBijlages;
