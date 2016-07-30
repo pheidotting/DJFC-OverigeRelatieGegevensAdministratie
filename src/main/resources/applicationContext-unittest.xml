@@ -10,7 +10,7 @@
     <context:annotation-config/>
 
     <bean id="MariaDbServer" class="nl.lakedigital.djfc.mariadbserver.MariaDBServer" init-method="init">
-        <property name="poortNummer" value="3308"/>
+        <property name="poortNummer" value="3319"/>
     </bean>
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" depends-on="MariaDbServer">
@@ -19,7 +19,7 @@
         <!--<property name="maxPoolSize" value="30"/>-->
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 
-        <property name="url" value="jdbc:mysql://localhost:3308/test"/>
+        <property name="url" value="jdbc:mysql://localhost:3319/test"/>
         <property name="username" value=""/>
         <property name="password" value=""/>
         <!--<property name="url" value="jdbc:mysql://192.168.2.236/unittest"/>-->
