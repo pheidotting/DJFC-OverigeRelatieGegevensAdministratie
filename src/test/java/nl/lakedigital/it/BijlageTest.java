@@ -9,6 +9,8 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,8 @@ import static nl.lakedigital.assertion.Assert.assertEquals;
 
 
 public class BijlageTest extends AbstractTest<JsonBijlage> {
+    private final static Logger LOGGER = LoggerFactory.getLogger(BijlageTest.class);
+
     private BijlageClient bijlageClient = new BijlageClient("http://localhost:7072/oga");
 
     @Override
@@ -102,7 +106,7 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
 
                 adressen.add(jsonAdres);
 
-                System.out.println(ReflectionToStringBuilder.toString(jsonAdres, ToStringStyle.SHORT_PREFIX_STYLE));
+                LOGGER.info(ReflectionToStringBuilder.toString(jsonAdres, ToStringStyle.SHORT_PREFIX_STYLE));
 
                 bijlageClient.opslaan(jsonAdres, 46L, "TAndTId");
             }
@@ -114,7 +118,7 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
 
             JsonBijlage jsonAdres1 = adressedn.get(0);
 
-            System.out.println(ReflectionToStringBuilder.toString(jsonAdres1, ToStringStyle.SHORT_PREFIX_STYLE));
+            LOGGER.info(ReflectionToStringBuilder.toString(jsonAdres1, ToStringStyle.SHORT_PREFIX_STYLE));
 
             assertEquals(jsonAdres, jsonAdres1, getFields());
 
