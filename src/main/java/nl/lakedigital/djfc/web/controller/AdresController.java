@@ -21,14 +21,14 @@ import java.util.List;
 @RequestMapping("/adres")
 @Controller
 public class AdresController extends AbstractController<Adres, JsonAdres> {
-    public AdresController() {
-        super(Adres.class, JsonAdres.class);
-    }
-
     @Inject
     private AdresService adresService;
     @Inject
     private PostcodeService postcodeService;
+
+    public AdresController() {
+        super(Adres.class, JsonAdres.class);
+    }
 
     @Override
     public AbstractService getService() {
@@ -61,9 +61,6 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
         Client client = Client.create(clientConfig);
         WebResource webResource = client.resource(adres);
         ClientResponse response = webResource.header("X-Api-Key", "FYEYGHHNFV3sZutux7LcX8ng8VizXWPk1HWxPPX9").accept("application/x-www-form-urlencoded; charset=UTF-8").get(ClientResponse.class);
-        //        if (response.getStatus() != 200) {
-        //            throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
-        //        }
 
         String antwoord = response.getEntity(String.class);
         LOGGER.debug("Antwoord van de postcode api: {}", antwoord);
