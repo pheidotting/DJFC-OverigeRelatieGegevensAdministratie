@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 public class AdresTest {
 
     @Test
-    public void testIsCompleet() throws Exception {
+    public void testIsCompleet() {
         Adres adres = new Adres();
 
         assertFalse(adres.isCompleet());
