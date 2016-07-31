@@ -8,6 +8,8 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
 import static nl.lakedigital.assertion.Assert.assertEquals;
 
 public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> {
+    private final static Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
+
     public abstract AbstractOgaClient getClient();
 
     public abstract List<String> getFields();
@@ -38,7 +42,7 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
 
                 adressen.add(jsonAdres);
 
-                System.out.println(ReflectionToStringBuilder.toString(jsonAdres, ToStringStyle.SHORT_PREFIX_STYLE));
+                LOGGER.debug(ReflectionToStringBuilder.toString(jsonAdres, ToStringStyle.SHORT_PREFIX_STYLE));
             }
         }
 
@@ -50,7 +54,7 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
 
             T jsonAdres1 = adressedn.get(0);
 
-            System.out.println(ReflectionToStringBuilder.toString(jsonAdres1, ToStringStyle.SHORT_PREFIX_STYLE));
+            LOGGER.debug(ReflectionToStringBuilder.toString(jsonAdres1, ToStringStyle.SHORT_PREFIX_STYLE));
 
             assertEquals(jsonAdres, jsonAdres1, getFields());
 
