@@ -21,7 +21,7 @@ public class JsonBijlageNaarBijlageMapper extends AbstractMapper<JsonBijlage, Bi
             bijlage = bijlageService.lees(jsonBijlage.getId());
         }
 
-        bijlage.setOmschrijving(jsonBijlage.getOmschrijving());
+        bijlage.setOmschrijving("".equals(jsonBijlage.getOmschrijving()) ? null : jsonBijlage.getOmschrijving());
         bijlage.setUploadMoment(LocalDateTime.now());
         bijlage.setBestandsNaam(jsonBijlage.getOmschrijvingOfBestandsNaam());
         bijlage.setS3Identificatie(jsonBijlage.getS3Identificatie());

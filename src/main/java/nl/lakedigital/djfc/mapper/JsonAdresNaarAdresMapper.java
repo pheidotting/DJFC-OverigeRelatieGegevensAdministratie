@@ -27,14 +27,12 @@ public class JsonAdresNaarAdresMapper extends AbstractMapper<JsonAdres, Adres> i
             LOGGER.debug(ReflectionToStringBuilder.toString(adres));
         }
 
-
-        adres.setHuisnummer(jsonAdres.getHuisnummer());
         adres.setId(jsonAdres.getId());
         adres.setHuisnummer(jsonAdres.getHuisnummer());
-        adres.setPlaats(jsonAdres.getPlaats());
-        adres.setPostcode(jsonAdres.getPostcode());
-        adres.setStraat(jsonAdres.getStraat());
-        adres.setToevoeging(jsonAdres.getToevoeging());
+        adres.setPlaats("".equals(jsonAdres.getPlaats()) ? null : jsonAdres.getPlaats());
+        adres.setPostcode("".equals(jsonAdres.getPostcode()) ? null : jsonAdres.getPostcode());
+        adres.setStraat("".equals(jsonAdres.getStraat()) ? null : jsonAdres.getStraat());
+        adres.setToevoeging("".equals(jsonAdres.getToevoeging()) ? null : jsonAdres.getToevoeging());
         if (jsonAdres.getSoortAdres() != null) {
             adres.setSoortAdres(Adres.SoortAdres.valueOf(jsonAdres.getSoortAdres()));
         }

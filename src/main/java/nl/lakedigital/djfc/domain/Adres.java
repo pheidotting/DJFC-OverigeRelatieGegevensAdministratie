@@ -119,16 +119,17 @@ public class Adres extends AbstracteEntiteitMetSoortEnId implements Serializable
 
         Adres adres = (Adres) o;
 
-        return new EqualsBuilder().append(getId(), adres.getId()).append(getStraat(), adres.getStraat()).append(getHuisnummer(), adres.getHuisnummer()).append(getToevoeging(), adres.getToevoeging()).append(getPostcode(), adres.getPostcode()).append(getPlaats(), adres.getPlaats()).append(getSoortAdres(), adres.getSoortAdres()).isEquals();
+        return new EqualsBuilder().append(getStraat(), adres.getStraat()).append(getHuisnummer(), adres.getHuisnummer()).append(getToevoeging(), adres.getToevoeging()).append(getPostcode(), adres.getPostcode()).append(getPlaats(), adres.getPlaats()).append(getSoortAdres(), adres.getSoortAdres()).append(getEntiteitId(), adres.getEntiteitId()).append(getSoortEntiteit(), adres.getSoortEntiteit()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(getId()).append(getStraat()).append(getHuisnummer()).append(getToevoeging()).append(getPostcode()).append(getPlaats()).append(getSoortAdres()).toHashCode();
+        return new HashCodeBuilder(17, 37).append(getStraat()).append(getHuisnummer()).append(getToevoeging()).append(getPostcode()).append(getPlaats()).append(getSoortAdres()).append(getEntiteitId()).append(getSoortEntiteit()).toHashCode();
     }
+
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("straat", straat).append("huisnummer", huisnummer).append("toevoeging", toevoeging).append("postcode", postcode).append("plaats", plaats).append("soortAdres", soortAdres).append("compleet", isCompleet()).toString();
+        return new ToStringBuilder(this).append("id", id).append("straat", straat).append("huisnummer", huisnummer).append("toevoeging", toevoeging).append("postcode", postcode).append("plaats", plaats).append("soortAdres", soortAdres).append("compleet", isCompleet()).append("entiteitId", getEntiteitId()).append("soortEntiteit", getSoortEntiteit()).toString();
     }
 }

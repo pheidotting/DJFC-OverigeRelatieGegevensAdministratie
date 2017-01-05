@@ -29,7 +29,7 @@ public class JsonTelefoonnummerNaarTelefoonnummerMapper extends AbstractMapper<J
             telefoonnummer = telefoonnummerService.lees(jsonTelefoonnummer.getId());
         }
         telefoonnummer.setId(jsonTelefoonnummer.getId());
-        telefoonnummer.setOmschrijving(jsonTelefoonnummer.getOmschrijving());
+        telefoonnummer.setOmschrijving("".equals(jsonTelefoonnummer.getOmschrijving()) ? null : jsonTelefoonnummer.getOmschrijving());
         telefoonnummer.setSoort(TelefoonnummerSoort.valueOf(jsonTelefoonnummer.getSoort()));
         telefoonnummer.setTelefoonnummer(jsonTelefoonnummer.getTelefoonnummer());
 

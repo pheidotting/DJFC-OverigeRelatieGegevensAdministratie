@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext-it.xml")
@@ -97,7 +96,7 @@ public class AdresTest extends AbstractTest<JsonAdres> {
         verwacht.setPostcode(postcode);
         verwacht.setPlaats("Zwartemeer");
 
-        assertThat(adresClient.ophalenAdresOpPostcode(postcode, huisnummer), is(verwacht));
+        assertThat(adresClient.ophalenAdresOpPostcode(postcode, huisnummer, false), is(verwacht));
     }
 
     @Override

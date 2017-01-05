@@ -51,26 +51,45 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
         return mapper.map(adresService.lees(id), JsonAdres.class);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/ophalenAdresOpPostcode/{postcode}/{huisnummer}")
+    @RequestMapping(method = RequestMethod.GET, value = "/ophalenAdresOpPostcode/{postcode}/{huisnummer}/{toggle}")
     @ResponseBody
-    public JsonAdres ophalenAdresOpPostcode(@PathVariable("postcode") String postcode, @PathVariable("huisnummer") String huisnummer) {
-        String adres = "https://postcode-api.apiwise.nl/v2/addresses/?postcode=" + postcode + "&number=" + huisnummer;
+    public JsonAdres ophalenAdresOpPostcode(@PathVariable("postcode") String postcode, @PathVariable("huisnummer") String huisnummer, @PathVariable("toggle") boolean toggle) {
+        LOGGER.debug("Toggle is {}", toggle);
+        if (!toggle) {
+            String adres = "https://postcode-api.apiwise.nl/v2/addresses/?postcode=" + postcode + "&number=" + huisnummer;
 
-        ClientConfig clientConfig = new DefaultClientConfig();
-        clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
-        Client client = Client.create(clientConfig);
-        WebResource webResource = client.resource(adres);
-        ClientResponse response = webResource.header("X-Api-Key", "FYEYGHHNFV3sZutux7LcX8ng8VizXWPk1HWxPPX9").accept("application/x-www-form-urlencoded; charset=UTF-8").get(ClientResponse.class);
+            ClientConfig clientConfig = new DefaultClientConfig();
+            clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+            Client client = Client.create(clientConfig);
+            WebResource webResource = client.resource(adres);
+            ClientResponse response = webResource.header("X-Api-Key", "FYEYGHHNFV3sZutux7LcX8ng8VizXWPk1HWxPPX9").accept("application/x-www-form-urlencoded; charset=UTF-8").get(ClientResponse.class);
 
-        String antwoord = response.getEntity(String.class);
-        LOGGER.debug("Antwoord van de postcode api: {}", antwoord);
+            String antwoord = response.getEntity(String.class);
+            LOGGER.debug("Antwoord van de postcode api: {}", antwoord);
 
-        JsonAdres jsonAdres = postcodeService.extraHeerAdres(antwoord);
-        jsonAdres.setPostcode(postcode);
-        if (huisnummer != null) {
-            jsonAdres.setHuisnummer(Long.valueOf(huisnummer));
+            JsonAdres jsonAdres = postcodeService.extraHeerAdres(antwoord);
+            jsonAdres.setPostcode(postcode);
+            if (huisnummer != null) {
+                jsonAdres.setHuisnummer(Long.valueOf(huisnummer));
+            }
+
+            return jsonAdres;
+        } else {
+            JsonAdres adres = new JsonAdres();
+
+            if (postcode.equalsIgnoreCase("7891tn")) {
+                adres.setPostcode("7891TN");
+                adres.setHuisnummer(Long.valueOf(huisnummer));
+                adres.setStraat("Boogschutter");
+                adres.setPlaats("Klazienaveen");
+            } else if (postcode.equalsIgnoreCase("7894ab")) {
+                adres.setPostcode("7894AB");
+                adres.setHuisnummer(Long.valueOf(huisnummer));
+                adres.setStraat("Eemsladnweg");
+                adres.setPlaats("Zwartemeer");
+            }
+
+            return adres;
         }
-
-        return jsonAdres;
     }
 }

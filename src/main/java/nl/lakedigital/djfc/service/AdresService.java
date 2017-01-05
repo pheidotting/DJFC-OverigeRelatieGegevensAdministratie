@@ -42,8 +42,27 @@ public class AdresService extends AbstractService<Adres> {
         }
     }
 
+    public void opslaan(final List<Adres> adressen) {
+        adresRepository.opslaan(adressen);
+
+        for (Adres adres : adressen) {
+            if (!adres.isCompleet()) {
+                adresOpgeslagenTaakSender.send(adres);
+            }
+        }
+    }
+
     @Override
     public Adres lees(Long id) {
         return adresRepository.lees(id);
     }
+
+    public List<Adres> alles() {
+        return adresRepository.alles();
+    }
+
+    public void verwijder(List<Adres> adressen) {
+        adresRepository.verwijder(adressen);
+    }
+
 }

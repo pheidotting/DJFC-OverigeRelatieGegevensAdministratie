@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
+import java.util.Objects;
 
 @MappedSuperclass
 @Audited
@@ -34,5 +35,22 @@ public abstract class AbstracteEntiteitMetSoortEnId {
 
     public void setEntiteitId(Long entiteitId) {
         this.entiteitId = entiteitId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstracteEntiteitMetSoortEnId)) {
+            return false;
+        }
+        AbstracteEntiteitMetSoortEnId that = (AbstracteEntiteitMetSoortEnId) o;
+        return getSoortEntiteit() == that.getSoortEntiteit() && Objects.equals(getEntiteitId(), that.getEntiteitId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSoortEntiteit(), getEntiteitId());
     }
 }

@@ -3,8 +3,6 @@ package nl.lakedigital.djfc.mapper;
 import nl.lakedigital.djfc.commons.json.JsonRekeningNummer;
 import nl.lakedigital.djfc.domain.RekeningNummer;
 import nl.lakedigital.djfc.service.RekeningNummerService;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,16 +18,12 @@ public class JsonRekeningNummerNaarRekeningNummerMapper extends AbstractMapper<J
 
     @Override
     public RekeningNummer map(JsonRekeningNummer jsonRekeningNummer, Object parent, Object bestaandOjbect) {
-        LOGGER.debug(ReflectionToStringBuilder.toString(jsonRekeningNummer, ToStringStyle.SHORT_PREFIX_STYLE));
-        LOGGER.debug(ReflectionToStringBuilder.toString(parent, ToStringStyle.SHORT_PREFIX_STYLE));
-        LOGGER.debug(ReflectionToStringBuilder.toString(bestaandOjbect, ToStringStyle.SHORT_PREFIX_STYLE));
-
         RekeningNummer rekeningNummer = new RekeningNummer();
         if (jsonRekeningNummer.getId() != null) {
             rekeningNummer = rekeningNummerService.lees(jsonRekeningNummer.getId());
         }
         rekeningNummer.setRekeningnummer(jsonRekeningNummer.getRekeningnummer());
-        rekeningNummer.setBic(jsonRekeningNummer.getBic());
+        rekeningNummer.setBic("".equals(jsonRekeningNummer.getBic()) ? null : jsonRekeningNummer.getBic());
 
         return rekeningNummer;
     }
