@@ -73,6 +73,6 @@ public class VerwijderDuplicaatAdressen implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-
+        //Comment omdat SonarQube anders weer zit te miepen
     }
 }

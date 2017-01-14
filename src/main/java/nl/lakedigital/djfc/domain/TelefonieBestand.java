@@ -26,6 +26,7 @@ public class TelefonieBestand {
     private Date tijdstip;
 
     public TelefonieBestand() {
+        //Deze is er omdat Hibernate het anders niet zo leuk vindt en deze comment is er omdat SonarQube het anders niet zo leuk vindt
     }
 
     public TelefonieBestand(String bestandsnaam, String telefoonnummer, LocalDateTime tijdstip) {

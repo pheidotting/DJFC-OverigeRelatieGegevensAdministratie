@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.easymock.EasyMock.expect;
@@ -21,6 +22,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonBijlage> {
+    private final String ingelogdeGebruikerHeader = "ingelogdeGebruiker";
+    private final String trackAndTraceIdHeader = "trackAndTraceId";
+    private final String trackAndTraceId = UUID.randomUUID().toString();
+    
     @TestSubject
     private BijlageController bijlageController = new BijlageController();
     @Mock
@@ -61,8 +66,8 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
         Long id = 7L;
 
         HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
-        expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
-        expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");
+        expect(httpServletRequest.getHeader(ingelogdeGebruikerHeader)).andReturn("46");
+        expect(httpServletRequest.getHeader(trackAndTraceIdHeader)).andReturn(trackAndTraceId);
 
         bijlageService.verwijder(id);
         expectLastCall();
@@ -80,8 +85,8 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
         final Bijlage bijlage = new Bijlage();
         final Long id = 9L;
         HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
-        expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
-        expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");
+        expect(httpServletRequest.getHeader(ingelogdeGebruikerHeader)).andReturn("46");
+        expect(httpServletRequest.getHeader(trackAndTraceIdHeader)).andReturn(trackAndTraceId);
 
         expect(mapper.map(jsonBijlage, Bijlage.class)).andReturn(bijlage);
         bijlageService.opslaan(bijlage);
@@ -105,10 +110,9 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
         jsonBijlage.setSoortEntiteit("RELATIE");
         final Bijlage bijlage = new Bijlage();
         bijlage.setSoortEntiteit(SoortEntiteit.RELATIE);
-        final Long id = 9L;
         HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
-        expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
-        expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");
+        expect(httpServletRequest.getHeader(ingelogdeGebruikerHeader)).andReturn("46");
+        expect(httpServletRequest.getHeader(trackAndTraceIdHeader)).andReturn(trackAndTraceId);
 
         expect(mapper.map(jsonBijlage, Bijlage.class)).andReturn(bijlage);
         bijlageService.opslaan(newArrayList(bijlage), SoortEntiteit.RELATIE, null);

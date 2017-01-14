@@ -12,16 +12,15 @@ import java.util.UUID;
 public class TelefoonnummerTest extends AbstractTest<JsonTelefoonnummer> {
     private TelefoonnummerClient telefoonnummerClient = new TelefoonnummerClient("http://localhost:7072/oga");
 
-    @Override
-    public AbstractOgaClient getClient() {
-        return telefoonnummerClient;
-    }
-
     public final List<String> fieldNames = Lists.newArrayList(//
             "telefoonnummer", //
             "soort",//
             "omschrijving");
 
+    @Override
+    public AbstractOgaClient getClient() {
+        return telefoonnummerClient;
+    }
     @Override
     public List<String> getFields() {
         return fieldNames;

@@ -18,7 +18,7 @@ import java.util.UUID;
 import static nl.lakedigital.assertion.Assert.assertEquals;
 
 public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> {
-    private final static Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
     protected final String trackAndTraceId = UUID.randomUUID().toString();
 
     public abstract AbstractOgaClient getClient();
@@ -79,7 +79,6 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
 
         List<T> adressenOpgehaald = getClient().lijst(soortEntiteit.name(), entiteitId);
         entiteit1 = adressenOpgehaald.get(0);
-        entiteit2 = adressenOpgehaald.get(1);
         entiteit3 = adressenOpgehaald.get(2);
 
         wijzig(entiteit3);

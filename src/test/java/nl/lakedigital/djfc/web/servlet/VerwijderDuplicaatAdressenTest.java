@@ -31,8 +31,6 @@ public class VerwijderDuplicaatAdressenTest extends EasyMockSupport {
         Adres adres1 = maakAdres(1L, "straat", 3L, "", "1234AA", "plaats", Adres.SoortAdres.POSTADRES, SoortEntiteit.RELATIE, 4L);
         Adres adres2 = maakAdres(2L, "straat", 3L, null, "1234AA", "plaats", Adres.SoortAdres.POSTADRES, SoortEntiteit.RELATIE, 4L);
 
-        System.out.println(adres1.equals(adres2));
-
         adressen.add(adres1);
         adressen.add(adres2);
 
