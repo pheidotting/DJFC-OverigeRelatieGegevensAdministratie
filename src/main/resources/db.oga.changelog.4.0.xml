@@ -172,4 +172,15 @@
             <column name="NAAM" type="text"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="6" author="Patrick Heidotting">
+        <createTable tableName="TELEFONIEBESTAND">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="BESTANDSNAAM" type="varchar(100)"/>
+            <column name="TELEFOONNUMMER" type="varchar(10)"/>
+            <column name="TIJDSTIP" type="varchar(19)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

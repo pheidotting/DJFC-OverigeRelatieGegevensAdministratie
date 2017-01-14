@@ -9,7 +9,7 @@
 	</context-param>
 
 	<servlet>
-      <servlet-name>afspraakbeheer</servlet-name>
+        <servlet-name>oga</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <load-on-startup>1</load-on-startup>
 		<!--multipart-config>
@@ -20,7 +20,7 @@
 	</servlet>
  
 	<servlet-mapping>
-		<servlet-name>afspraakbeheer</servlet-name>
+        <servlet-name>oga</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 
@@ -34,4 +34,8 @@
 	<listener>
 		<listener-class>nl.lakedigital.djfc.web.servlet.VerwijderDuplicaatAdressen</listener-class>
 	</listener>
+    <listener>
+        <listener-class>nl.lakedigital.djfc.web.servlet.InlezenTelefonieBestandenServlet</listener-class>
+    </listener>
+
 </web-app>
