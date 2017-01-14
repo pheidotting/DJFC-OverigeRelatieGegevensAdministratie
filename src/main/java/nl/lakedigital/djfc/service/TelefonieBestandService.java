@@ -25,13 +25,13 @@ public class TelefonieBestandService {
     @Value("${recordingspad}")
     private String recordingspad;
 
+    @Inject
+    private TelefonieBestandRepository telefonieBestandRepository;
+
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigIn() {
         return new PropertySourcesPlaceholderConfigurer();
     }
-
-    @Inject
-    private TelefonieBestandRepository telefonieBestandRepository;
 
     public List<String> inlezenBestanden() {
         File f = new File(recordingspad);

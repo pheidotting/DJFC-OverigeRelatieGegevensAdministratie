@@ -20,7 +20,7 @@ import static com.google.common.collect.Lists.newArrayList;
 @Controller
 @RequestMapping("/telefonie")
 public class TelefonieController {
-    private final static Logger LOGGER = LoggerFactory.getLogger(TelefonieController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TelefonieController.class);
 
     @Inject
     private TelefonieBestandService telefonieBestandService;

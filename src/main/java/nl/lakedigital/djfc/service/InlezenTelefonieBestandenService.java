@@ -13,6 +13,7 @@ public class InlezenTelefonieBestandenService implements Runnable {
     }
 
     public InlezenTelefonieBestandenService() {
+        //Omdat SonarQube anders zeurt
     }
 
     @Override

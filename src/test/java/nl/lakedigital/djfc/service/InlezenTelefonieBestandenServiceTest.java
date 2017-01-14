@@ -23,17 +23,16 @@ public class InlezenTelefonieBestandenServiceTest extends EasyMockSupport {
     @Mock
     private TelefonieBestandService telefonieBestandService;
 
+    private String bestandsnaam1 = "out-0591377338-2912-20170102-185025-1483379425.187.wav";
+    private String telefoonnummer1 = "0591377338";
+    private LocalDateTime tijdstip1 = new LocalDateTime(2017, 1, 2, 18, 50, 25);
+    private String bestandsnaam2 = "rg-8001-0614165929-20170102-115841-1483354721.74.wav";
+    private String telefoonnummer2 = "0614165929";
+    private LocalDateTime tijdstip2 = new LocalDateTime(2017, 1, 2, 11, 58, 41);
+    private List<String> bestanden = newArrayList(bestandsnaam1, bestandsnaam2);
+
     @Test
     public void testRunMetAllemaalNietIngelezenBestanden() throws Exception {
-        String bestandsnaam1 = "out-0591377338-2912-20170102-185025-1483379425.187.wav";
-        String telefoonnummer1 = "0591377338";
-        LocalDateTime tijdstip1 = new LocalDateTime(2017, 1, 2, 18, 50, 25);
-        String bestandsnaam2 = "rg-8001-0614165929-20170102-115841-1483354721.74.wav";
-        String telefoonnummer2 = "0614165929";
-        LocalDateTime tijdstip2 = new LocalDateTime(2017, 1, 2, 11, 58, 41);
-
-        List<String> bestanden = newArrayList(bestandsnaam1, bestandsnaam2);
-
         expect(telefonieBestandService.inlezenBestanden()).andReturn(bestanden);
         expect(telefonieBestandService.alleTelefonieBestanden()).andReturn(new ArrayList<TelefonieBestand>());
 
@@ -51,15 +50,6 @@ public class InlezenTelefonieBestandenServiceTest extends EasyMockSupport {
 
     @Test
     public void testRunMetEenlNietIngelezenBestanden() throws Exception {
-        String bestandsnaam1 = "out-0591377338-2912-20170102-185025-1483379425.187.wav";
-        String telefoonnummer1 = "0591377338";
-        LocalDateTime tijdstip1 = new LocalDateTime(2017, 1, 2, 18, 50, 25);
-        String bestandsnaam2 = "rg-8001-0614165929-20170102-115841-1483354721.74.wav";
-        String telefoonnummer2 = "0614165929";
-        LocalDateTime tijdstip2 = new LocalDateTime(2017, 1, 2, 11, 58, 41);
-
-        List<String> bestanden = newArrayList(bestandsnaam1, bestandsnaam2);
-
         TelefonieBestand telefonieBestand1 = new TelefonieBestand(bestandsnaam1, telefoonnummer1, tijdstip1);
 
         expect(telefonieBestandService.inlezenBestanden()).andReturn(bestanden);
@@ -78,15 +68,6 @@ public class InlezenTelefonieBestandenServiceTest extends EasyMockSupport {
 
     @Test
     public void testRunMetGeenlNietIngelezenBestanden() throws Exception {
-        String bestandsnaam1 = "out-0591377338-2912-20170102-185025-1483379425.187.wav";
-        String telefoonnummer1 = "0591377338";
-        LocalDateTime tijdstip1 = new LocalDateTime(2017, 1, 2, 18, 50, 25);
-        String bestandsnaam2 = "rg-8001-0614165929-20170102-115841-1483354721.74.wav";
-        String telefoonnummer2 = "0614165929";
-        LocalDateTime tijdstip2 = new LocalDateTime(2017, 1, 2, 11, 58, 41);
-
-        List<String> bestanden = newArrayList(bestandsnaam1, bestandsnaam2);
-
         TelefonieBestand telefonieBestand1 = new TelefonieBestand(bestandsnaam1, telefoonnummer1, tijdstip1);
         TelefonieBestand telefonieBestand2 = new TelefonieBestand(bestandsnaam2, telefoonnummer2, tijdstip2);
 
