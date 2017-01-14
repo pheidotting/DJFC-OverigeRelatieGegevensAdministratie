@@ -57,7 +57,6 @@ public class TelefoonnummerControllerTest extends AbstractControllerTest<Telefoo
         jsonTelefoonnummer.setSoortEntiteit("RELATIE");
         final Telefoonnummer telefoonnummer = new Telefoonnummer();
         telefoonnummer.setSoortEntiteit(SoortEntiteit.RELATIE);
-        final Long id = 9L;
         HttpServletRequest httpServletRequest = createMock(HttpServletRequest.class);
         expect(httpServletRequest.getHeader("ingelogdeGebruiker")).andReturn("46");
         expect(httpServletRequest.getHeader("trackAndTraceId")).andReturn("trackAndTraceId");

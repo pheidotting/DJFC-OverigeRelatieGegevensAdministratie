@@ -13,11 +13,13 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static nl.lakedigital.assertion.Assert.assertEquals;
 
 public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> {
     private final static Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
+    protected final String trackAndTraceId = UUID.randomUUID().toString();
 
     public abstract AbstractOgaClient getClient();
 
@@ -46,7 +48,7 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
             }
         }
 
-        getClient().opslaan(adressen, 46L, "TAndTId");
+        getClient().opslaan(adressen, 46L, trackAndTraceId);
 
         for (T jsonAdres : adressen) {
 
@@ -58,7 +60,7 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
 
             assertEquals(jsonAdres, jsonAdres1, getFields());
 
-            getClient().verwijder(jsonAdres.getSoortEntiteit(), jsonAdres.getEntiteitId(), 46L, "TAndTId");
+            getClient().verwijder(jsonAdres.getSoortEntiteit(), jsonAdres.getEntiteitId(), 46L, trackAndTraceId);
         }
     }
 
@@ -73,7 +75,7 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
         T entiteit2 = maakEntiteit(2, entiteitId, soortEntiteit);
         T entiteit3 = maakEntiteit(3, entiteitId, soortEntiteit);
 
-        getClient().opslaan(Lists.newArrayList(entiteit1, entiteit2, entiteit3), 46L, "TAndTId");
+        getClient().opslaan(Lists.newArrayList(entiteit1, entiteit2, entiteit3), 46L, trackAndTraceId);
 
         List<T> adressenOpgehaald = getClient().lijst(soortEntiteit.name(), entiteitId);
         entiteit1 = adressenOpgehaald.get(0);
@@ -81,7 +83,7 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
         entiteit3 = adressenOpgehaald.get(2);
 
         wijzig(entiteit3);
-        getClient().opslaan(Lists.newArrayList(entiteit1, entiteit2, entiteit3), 46L, "TAndTId");
+        getClient().opslaan(Lists.newArrayList(entiteit1, entiteit2, entiteit3), 46L, trackAndTraceId);
 
         adressenOpgehaald = getClient().lijst(soortEntiteit.name(), entiteitId);
         entiteit1 = adressenOpgehaald.get(0);
@@ -89,10 +91,10 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
         entiteit3 = adressenOpgehaald.get(2);
         assertEquals(3, adressenOpgehaald.size());
 
-        getClient().opslaan(Lists.newArrayList(entiteit1, entiteit3), 46L, "TAndTId");
+        getClient().opslaan(Lists.newArrayList(entiteit1, entiteit3), 46L, trackAndTraceId);
 
         assertEquals(2, getClient().lijst(soortEntiteit.name(), entiteitId).size());
-        getClient().verwijder(soortEntiteit.name(), entiteitId, 46L, "TAndTId");
+        getClient().verwijder(soortEntiteit.name(), entiteitId, 46L, trackAndTraceId);
 
         assertEquals(0, getClient().lijst(soortEntiteit.name(), entiteitId).size());
     }
@@ -110,7 +112,7 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
         T entiteit2 = maakEntiteitVoorZoeken(zoek2, soortEntiteit, entiteitId);
         T entiteit3 = maakEntiteitVoorZoeken(zoek3, soortEntiteit, entiteitId);
 
-        getClient().opslaan(Lists.newArrayList(entiteit1, entiteit2, entiteit3), 46L, "TAndTId");
+        getClient().opslaan(Lists.newArrayList(entiteit1, entiteit2, entiteit3), 46L, trackAndTraceId);
 
         assertEquals(1, getClient().zoeken("a").size());
         assertEquals(2, getClient().zoeken("b").size());
@@ -118,6 +120,6 @@ public abstract class AbstractTest<T extends AbstracteJsonEntiteitMetSoortEnId> 
         assertEquals(2, getClient().zoeken("d").size());
         assertEquals(1, getClient().zoeken("e").size());
 
-        getClient().verwijder(soortEntiteit.name(), entiteitId, 46L, "TAndTId");
+        getClient().verwijder(soortEntiteit.name(), entiteitId, 46L, trackAndTraceId);
     }
 }

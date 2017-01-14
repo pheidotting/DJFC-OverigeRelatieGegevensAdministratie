@@ -12,32 +12,31 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @Configuration
 @PropertySources({@PropertySource("classpath:application.properties"), @PropertySource(value = "file:app.properties", ignoreResourceNotFound = true)})
 public class TelefonieBestandService {
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfigIn() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
-
     @Value("${voicemailspad}")
     private String voicemailspad;
     @Value("${recordingspad}")
     private String recordingspad;
 
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigIn() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
     @Inject
     private TelefonieBestandRepository telefonieBestandRepository;
 
     public List<String> inlezenBestanden() {
-        Map<String, List<String>> ret = new HashMap<>();
-
         File f = new File(recordingspad);
-        List<String> recordings = new ArrayList<>(Arrays.asList(f.list()));
 
-        return recordings;
+        return new ArrayList<>(Arrays.asList(f.list()));
     }
 
     public List<TelefonieBestand> alleTelefonieBestanden() {

@@ -26,7 +26,7 @@ public class TelefonieBestandRepositoryTest {
     }
 
     @Test
-    public void testAlles() throws Exception {
+    public void testAlles() {
         String bestandsnaam1 = "out-0591377338-2912-20170102-185025-1483379425.187.wav";
         String bestandsnaam2 = "rg-8001-0614165929-20170102-115841-1483354721.74.wav";
 
@@ -46,7 +46,7 @@ public class TelefonieBestandRepositoryTest {
     }
 
     @Test
-    public void testAllesMetTelefoonnummer() throws Exception {
+    public void testAllesMetTelefoonnummer() {
         String bestandsnaam1 = "out-0591377338-2912-20170102-185025-1483379425.187.wav";
         String bestandsnaam2 = "rg-8001-0614165929-20170102-115841-1483354721.74.wav";
 

@@ -20,7 +20,7 @@ import static nl.lakedigital.assertion.Assert.assertEquals;
 
 
 public class BijlageTest extends AbstractTest<JsonBijlage> {
-    private final static Logger LOGGER = LoggerFactory.getLogger(BijlageTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BijlageTest.class);
 
     private BijlageClient bijlageClient = new BijlageClient("http://localhost:7072/oga");
 
@@ -29,10 +29,7 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
         return bijlageClient;
     }
 
-    public final List<String> fieldNames = Lists.newArrayList(//
-            //            "bestandsNaam"//, //
-            //            "sooomschrijvingrt"
-    );
+    public final List<String> fieldNames = Lists.newArrayList();
 
     @Override
     public List<String> getFields() {
@@ -68,6 +65,7 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
     @Override
     @Test
     public void testZoek() {
+        String trackAndTraceId = UUID.randomUUID().toString();
         SoortEntiteit soortEntiteit = SoortEntiteit.RELATIE;
         Long entiteitId = 5L;
 
@@ -79,9 +77,9 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
         JsonBijlage entiteit2 = maakEntiteitVoorZoeken(zoek2, soortEntiteit, entiteitId);
         JsonBijlage entiteit3 = maakEntiteitVoorZoeken(zoek3, soortEntiteit, entiteitId);
 
-        bijlageClient.opslaan(entiteit1, 46L, "TAndTId");
-        bijlageClient.opslaan(entiteit2, 46L, "TAndTId");
-        bijlageClient.opslaan(entiteit3, 46L, "TAndTId");
+        bijlageClient.opslaan(entiteit1, 46L, trackAndTraceId);
+        bijlageClient.opslaan(entiteit2, 46L, trackAndTraceId);
+        bijlageClient.opslaan(entiteit3, 46L, trackAndTraceId);
 
         assertEquals(1, getClient().zoeken("a").size());
         assertEquals(2, getClient().zoeken("b").size());
@@ -89,7 +87,7 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
         assertEquals(2, getClient().zoeken("d").size());
         assertEquals(1, getClient().zoeken("e").size());
 
-        getClient().verwijder(soortEntiteit.name(), entiteitId, 46L, "TAndTId");
+        getClient().verwijder(soortEntiteit.name(), entiteitId, 46L, trackAndTraceId);
     }
 
     @Override
@@ -108,7 +106,7 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
 
                 LOGGER.info(ReflectionToStringBuilder.toString(jsonAdres, ToStringStyle.SHORT_PREFIX_STYLE));
 
-                bijlageClient.opslaan(jsonAdres, 46L, "TAndTId");
+                bijlageClient.opslaan(jsonAdres, 46L, trackAndTraceId);
             }
         }
 
@@ -122,7 +120,7 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
 
             assertEquals(jsonAdres, jsonAdres1, getFields());
 
-            getClient().verwijder(jsonAdres.getSoortEntiteit(), jsonAdres.getEntiteitId(), 46L, "TAndTId");
+            getClient().verwijder(jsonAdres.getSoortEntiteit(), jsonAdres.getEntiteitId(), 46L, trackAndTraceId);
         }
     }
 
@@ -137,9 +135,9 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
         JsonBijlage entiteit2 = maakEntiteit(2, entiteitId, soortEntiteit);
         JsonBijlage entiteit3 = maakEntiteit(3, entiteitId, soortEntiteit);
 
-        bijlageClient.opslaan(entiteit1, 46L, "TAndTId");
-        bijlageClient.opslaan(entiteit2, 46L, "TAndTId");
-        bijlageClient.opslaan(entiteit3, 46L, "TAndTId");
+        bijlageClient.opslaan(entiteit1, 46L, trackAndTraceId);
+        bijlageClient.opslaan(entiteit2, 46L, trackAndTraceId);
+        bijlageClient.opslaan(entiteit3, 46L, trackAndTraceId);
 
         List<JsonBijlage> adressenOpgehaald = getClient().lijst(soortEntiteit.name(), entiteitId);
         entiteit1 = adressenOpgehaald.get(0);
@@ -147,20 +145,19 @@ public class BijlageTest extends AbstractTest<JsonBijlage> {
         entiteit3 = adressenOpgehaald.get(2);
 
         wijzig(entiteit3);
-        bijlageClient.opslaan(entiteit1, 46L, "TAndTId");
-        bijlageClient.opslaan(entiteit2, 46L, "TAndTId");
-        bijlageClient.opslaan(entiteit3, 46L, "TAndTId");
+        bijlageClient.opslaan(entiteit1, 46L, trackAndTraceId);
+        bijlageClient.opslaan(entiteit2, 46L, trackAndTraceId);
+        bijlageClient.opslaan(entiteit3, 46L, trackAndTraceId);
 
         adressenOpgehaald = getClient().lijst(soortEntiteit.name(), entiteitId);
         entiteit1 = adressenOpgehaald.get(0);
-        entiteit2 = adressenOpgehaald.get(1);
         entiteit3 = adressenOpgehaald.get(2);
         assertEquals(3, adressenOpgehaald.size());
 
-        bijlageClient.opslaan(Lists.newArrayList(entiteit1, entiteit3), 46L, "TAndTId");
+        bijlageClient.opslaan(Lists.newArrayList(entiteit1, entiteit3), 46L, trackAndTraceId);
 
         assertEquals(2, getClient().lijst(soortEntiteit.name(), entiteitId).size());
-        getClient().verwijder(soortEntiteit.name(), entiteitId, 46L, "TAndTId");
+        getClient().verwijder(soortEntiteit.name(), entiteitId, 46L, trackAndTraceId);
 
         assertEquals(0, getClient().lijst(soortEntiteit.name(), entiteitId).size());
     }
