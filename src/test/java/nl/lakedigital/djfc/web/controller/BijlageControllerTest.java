@@ -22,9 +22,9 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonBijlage> {
-    private final String ingelogdeGebruikerHeader = "ingelogdeGebruiker";
-    private final String trackAndTraceIdHeader = "trackAndTraceId";
-    private final String trackAndTraceId = UUID.randomUUID().toString();
+    private static final String ingelogdeGebruikerHeader = "ingelogdeGebruiker";
+    private static final String trackAndTraceIdHeader = "trackAndTraceId";
+    private static final String trackAndTraceId = UUID.randomUUID().toString();
     
     @TestSubject
     private BijlageController bijlageController = new BijlageController();

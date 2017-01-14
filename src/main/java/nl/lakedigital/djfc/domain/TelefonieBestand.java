@@ -39,7 +39,7 @@ public class TelefonieBestand {
         this.bestandsnaam = bestandsnaam;
 
         String[] parts = bestandsnaam.split("-");
-        if (parts[0].equals("out")) {
+        if ("out".equals(parts[0])) {
             telefoonnummer = parts[1];
         } else {
             telefoonnummer = parts[2];
