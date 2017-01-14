@@ -12,6 +12,9 @@ public class InlezenTelefonieBestandenService implements Runnable {
         this.telefonieBestandService = telefonieBestandService;
     }
 
+    public InlezenTelefonieBestandenService() {
+    }
+
     @Override
     public void run() {
         List<String> bestanden = telefonieBestandService.inlezenBestanden();
