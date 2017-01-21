@@ -27,11 +27,12 @@ public class InlezenTelefonieBestandenService implements Runnable {
 
         final List<TelefonieBestand> telefonieBestanden = telefonieBestandService.alleTelefonieBestanden();
 
-        LOGGER.debug("Gevonden : {} bestanden", telefonieBestanden.size());
+        LOGGER.debug("Gevonden : {} bestanden", bestanden.size());
+        LOGGER.debug("Al bestaand : {} bestanden", telefonieBestanden.size());
 
         List<TelefonieBestand> nieuweBestanden = bestanden.stream().filter(file -> !telefonieBestanden.contains(new TelefonieBestand(file))).map(file -> new TelefonieBestand(file)).collect(Collectors.toList());
 
-        LOGGER.debug("{} nieuwe bestanden");
+        LOGGER.debug("{} nieuwe bestanden", nieuweBestanden.size());
 
         if (!nieuweBestanden.isEmpty()) {
             LOGGER.debug("Opslaan {} nieuwe bestanden", nieuweBestanden.size());
