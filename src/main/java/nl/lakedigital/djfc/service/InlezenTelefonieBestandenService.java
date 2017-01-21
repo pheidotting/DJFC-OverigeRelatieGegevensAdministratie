@@ -43,7 +43,9 @@ public class InlezenTelefonieBestandenService implements Runnable {
 
         List<TelefonieBestand> nieuweBestanden = newArrayList();
         for (String s : nieuweBestandenString) {
+            LOGGER.debug(s);
             nieuweBestanden.add(new TelefonieBestand(s));
+            LOGGER.debug("Lengte {}", nieuweBestanden.size());
         }
 
         //        .map(new Function<String, TelefonieBestand>() {
