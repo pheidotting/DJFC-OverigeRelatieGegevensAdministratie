@@ -1,6 +1,7 @@
 package nl.lakedigital.djfc.service;
 
 import nl.lakedigital.djfc.domain.TelefonieBestand;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +35,12 @@ public class InlezenTelefonieBestandenService implements Runnable {
         List<String> nieuweBestandenString = newArrayList();
 
         for (String file : bestanden) {
+            LOGGER.debug(file);
             TelefonieBestand tb = new TelefonieBestand(file);
             if (!telefonieBestanden.contains(tb)) {
                 nieuweBestandenString.add(file);
             }
+            LOGGER.debug(ReflectionToStringBuilder.toString(tb));
         }
 
         LOGGER.debug("Nieuwe bestanden");
