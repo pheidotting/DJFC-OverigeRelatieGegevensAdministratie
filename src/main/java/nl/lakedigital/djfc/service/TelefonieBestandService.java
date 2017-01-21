@@ -2,6 +2,8 @@ package nl.lakedigital.djfc.service;
 
 import nl.lakedigital.djfc.domain.TelefonieBestand;
 import nl.lakedigital.djfc.repository.TelefonieBestandRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,8 @@ import java.util.List;
 @Configuration
 @PropertySources({@PropertySource("classpath:application.properties"), @PropertySource(value = "file:app.properties", ignoreResourceNotFound = true)})
 public class TelefonieBestandService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TelefonieBestandService.class);
+
     @Value("${voicemailspad}")
     private String voicemailspad;
     @Value("${recordingspad}")
@@ -34,6 +38,7 @@ public class TelefonieBestandService {
     }
 
     public List<String> inlezenBestanden() {
+        LOGGER.debug("Inlezen bestanden vanaf {}", recordingspad);
         File f = new File(recordingspad);
 
         return new ArrayList<>(Arrays.asList(f.list()));
