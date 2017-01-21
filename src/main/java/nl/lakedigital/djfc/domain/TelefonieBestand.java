@@ -44,7 +44,7 @@ public class TelefonieBestand {
         if ("out".equals(parts[0])) {
             if (parts[1].length() == 10) {
                 telefoonnummer = parts[1];
-            } else if (telefoonnummer.startsWith("0900") || telefoonnummer.startsWith("0800")) {
+            } else if (parts[1].startsWith("0900") || parts[1].startsWith("0800")) {
                 telefoonnummer = parts[1];
             } else {
                 telefoonnummer = parts[1] + parts[2];
@@ -52,7 +52,9 @@ public class TelefonieBestand {
                 tijd = 5;
             }
             //voor de zekerheid
-            telefoonnummer = telefoonnummer.substring(0, 9);
+            if (telefoonnummer.length() > 10) {
+                telefoonnummer = telefoonnummer.substring(0, 10);
+            }
         } else {
             telefoonnummer = parts[2];
         }

@@ -6,7 +6,6 @@ import org.easymock.EasyMockSupport;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
 import org.joda.time.LocalDateTime;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -15,8 +14,8 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
 
-@Ignore
 @RunWith(EasyMockRunner.class)
 public class InlezenTelefonieBestandenServiceTest extends EasyMockSupport {
     @TestSubject
@@ -31,7 +30,10 @@ public class InlezenTelefonieBestandenServiceTest extends EasyMockSupport {
     private String bestandsnaam2 = "rg-8001-0614165929-20170102-115841-1483354721.74.wav";
     private String telefoonnummer2 = "0614165929";
     private LocalDateTime tijdstip2 = new LocalDateTime(2017, 1, 2, 11, 58, 41);
-    private List<String> bestanden = newArrayList(bestandsnaam1, bestandsnaam2);
+    private String bestandsnaam3 = "out-09008688-2904-20170112-161536-1484234136.1341.wav";
+    private String telefoonnummer3 = "09008688";
+    private LocalDateTime tijdstip3 = new LocalDateTime(2017, 1, 12, 16, 15, 36);
+    private List<String> bestanden = newArrayList(bestandsnaam1, bestandsnaam2, bestandsnaam3);
 
     @Test
     public void testRunMetAllemaalNietIngelezenBestanden() throws Exception {
@@ -40,8 +42,10 @@ public class InlezenTelefonieBestandenServiceTest extends EasyMockSupport {
 
         TelefonieBestand telefonieBestand1 = new TelefonieBestand(bestandsnaam1, telefoonnummer1, tijdstip1);
         TelefonieBestand telefonieBestand2 = new TelefonieBestand(bestandsnaam2, telefoonnummer2, tijdstip2);
+        TelefonieBestand telefonieBestand3 = new TelefonieBestand(bestandsnaam3, telefoonnummer3, tijdstip3);
 
-        telefonieBestandService.opslaan(newArrayList(telefonieBestand1, telefonieBestand2));
+        telefonieBestandService.opslaan(newArrayList(telefonieBestand1, telefonieBestand2, telefonieBestand3));
+        expectLastCall();
 
         replayAll();
 
@@ -58,8 +62,9 @@ public class InlezenTelefonieBestandenServiceTest extends EasyMockSupport {
         expect(telefonieBestandService.alleTelefonieBestanden()).andReturn(newArrayList(telefonieBestand1));
 
         TelefonieBestand telefonieBestand2 = new TelefonieBestand(bestandsnaam2, telefoonnummer2, tijdstip2);
+        TelefonieBestand telefonieBestand3 = new TelefonieBestand(bestandsnaam3, telefoonnummer3, tijdstip3);
 
-        telefonieBestandService.opslaan(newArrayList(telefonieBestand2));
+        telefonieBestandService.opslaan(newArrayList(telefonieBestand2, telefonieBestand3));
 
         replayAll();
 
@@ -72,9 +77,10 @@ public class InlezenTelefonieBestandenServiceTest extends EasyMockSupport {
     public void testRunMetGeenlNietIngelezenBestanden() throws Exception {
         TelefonieBestand telefonieBestand1 = new TelefonieBestand(bestandsnaam1, telefoonnummer1, tijdstip1);
         TelefonieBestand telefonieBestand2 = new TelefonieBestand(bestandsnaam2, telefoonnummer2, tijdstip2);
+        TelefonieBestand telefonieBestand3 = new TelefonieBestand(bestandsnaam3, telefoonnummer3, tijdstip3);
 
         expect(telefonieBestandService.inlezenBestanden()).andReturn(bestanden);
-        expect(telefonieBestandService.alleTelefonieBestanden()).andReturn(newArrayList(telefonieBestand1, telefonieBestand2));
+        expect(telefonieBestandService.alleTelefonieBestanden()).andReturn(newArrayList(telefonieBestand1, telefonieBestand2, telefonieBestand3));
 
         replayAll();
 
