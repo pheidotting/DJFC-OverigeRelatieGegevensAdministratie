@@ -6,6 +6,7 @@ import org.easymock.EasyMockSupport;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
 import org.joda.time.LocalDateTime;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.easymock.EasyMock.expect;
 
+@Ignore
 @RunWith(EasyMockRunner.class)
 public class InlezenTelefonieBestandenServiceTest extends EasyMockSupport {
     @TestSubject
