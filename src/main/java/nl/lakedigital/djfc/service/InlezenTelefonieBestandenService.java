@@ -34,7 +34,7 @@ public class InlezenTelefonieBestandenService implements Runnable {
         List<String> nieuweBestandenString = newArrayList();
 
         for (String file : bestanden) {
-            TelefonieBestand tb:new TelefonieBestand(file);
+            TelefonieBestand tb = new TelefonieBestand(file);
             if (!telefonieBestanden.contains(tb)) {
                 nieuweBestandenString.add(file);
             }
