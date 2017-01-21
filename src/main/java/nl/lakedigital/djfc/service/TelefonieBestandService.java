@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 @Service
 @Configuration
@@ -38,18 +38,21 @@ public class TelefonieBestandService {
     }
 
     public List<String> inlezenBestanden() {
+        List<String> result = newArrayList();
+
         LOGGER.debug("Inlezen bestanden vanaf {}", recordingspad);
         File f = new File(recordingspad);
 
         LOGGER.debug(f.toString());
 
         for (String s : f.list()) {
+            result.add(s);
             LOGGER.debug(s);
         }
 
         LOGGER.debug("Einde lijst");
 
-        return new ArrayList<>(Arrays.asList(f.list()));
+        return result;// new ArrayList<>(Arrays.asList(f.list()));
     }
 
     public List<TelefonieBestand> alleTelefonieBestanden() {
