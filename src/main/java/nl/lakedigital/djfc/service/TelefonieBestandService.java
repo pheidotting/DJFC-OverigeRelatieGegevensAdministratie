@@ -46,8 +46,10 @@ public class TelefonieBestandService {
         LOGGER.debug(f.toString());
 
         for (String s : f.list()) {
+            if (!s.contains("anonymous")) {
             result.add(s);
             LOGGER.debug(s);
+        }
         }
 
         LOGGER.debug("Einde lijst, aantal bestanden {}", result.size());
