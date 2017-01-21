@@ -41,6 +41,14 @@ public class TelefonieBestandService {
         LOGGER.debug("Inlezen bestanden vanaf {}", recordingspad);
         File f = new File(recordingspad);
 
+        LOGGER.debug(f.toString());
+
+        for (String s : f.list()) {
+            LOGGER.debug(s);
+        }
+
+        LOGGER.debug("Einde lijst");
+
         return new ArrayList<>(Arrays.asList(f.list()));
     }
 
