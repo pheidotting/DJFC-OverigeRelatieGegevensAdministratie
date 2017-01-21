@@ -44,11 +44,15 @@ public class TelefonieBestand {
         if ("out".equals(parts[0])) {
             if (parts[1].length() == 10) {
                 telefoonnummer = parts[1];
+            } else if (telefoonnummer.startsWith("0900") || telefoonnummer.startsWith("0800")) {
+                telefoonnummer = parts[1];
             } else {
                 telefoonnummer = parts[1] + parts[2];
                 datum = 4;
                 tijd = 5;
             }
+            //voor de zekerheid
+            telefoonnummer = telefoonnummer.substring(0, 9);
         } else {
             telefoonnummer = parts[2];
         }
