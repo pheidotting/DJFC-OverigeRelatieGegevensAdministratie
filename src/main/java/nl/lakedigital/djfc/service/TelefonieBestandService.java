@@ -50,9 +50,9 @@ public class TelefonieBestandService {
             LOGGER.debug(s);
         }
 
-        LOGGER.debug("Einde lijst");
+        LOGGER.debug("Einde lijst, aantal bestanden {}", result.size());
 
-        return result;// new ArrayList<>(Arrays.asList(f.list()));
+        return result;
     }
 
     public List<TelefonieBestand> alleTelefonieBestanden() {
