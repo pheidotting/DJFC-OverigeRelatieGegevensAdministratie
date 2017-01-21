@@ -37,15 +37,27 @@ public class TelefonieBestand {
 
     public TelefonieBestand(String bestandsnaam) {
         this.bestandsnaam = bestandsnaam;
+        int datum = 3;
+        int tijd = 4;
 
         String[] parts = bestandsnaam.split("-");
         if ("out".equals(parts[0])) {
-            telefoonnummer = parts[1];
+            if (parts[1].length() == 10) {
+                telefoonnummer = parts[1];
+            } else {
+                telefoonnummer = parts[1] + parts[2];
+                datum = 4;
+                tijd = 5;
+            }
         } else {
             telefoonnummer = parts[2];
         }
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("YYYYMMddHHmmss");
-        setTijdstip(LocalDateTime.parse(parts[3] + parts[4], dateTimeFormatter));
+        try {
+            setTijdstip(LocalDateTime.parse(parts[datum] + parts[tijd], dateTimeFormatter));
+        } catch (Exception e) {
+            setTijdstip(LocalDateTime.now());
+        }
     }
 
     public Long getId() {
