@@ -5,8 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -33,13 +31,28 @@ public class InlezenTelefonieBestandenService implements Runnable {
         LOGGER.debug("Gevonden : {} bestanden", bestanden.size());
         LOGGER.debug("Al bestaand : {} bestanden", telefonieBestanden.size());
 
-        List<String> nieuweBestandenString = bestanden.stream().filter(new Predicate<String>() {
-            @Override
-            public boolean test(String file) {
-                LOGGER.debug("{} : {} ", file, !telefonieBestanden.contains(new TelefonieBestand(file)));
-                return !telefonieBestanden.contains(new TelefonieBestand(file));
+        List<String> nieuweBestandenString = newArrayList();
+
+        for (String file : bestanden) {
+            TelefonieBestand tb:new TelefonieBestand(file);
+            if (!telefonieBestanden.contains(tb)) {
+                nieuweBestandenString.add(file);
             }
-        }).collect(Collectors.toList());
+        }
+
+        LOGGER.debug("Nieuwe bestanden");
+        for (String s : nieuweBestandenString) {
+            LOGGER.debug(s);
+        }
+        LOGGER.debug("# Nieuwe bestanden");
+
+        //        List<String> nieuweBestandenString = bestanden.stream().filter(new Predicate<String>() {
+        //            @Override
+        //            public boolean test(String file) {
+        //                LOGGER.debug("{} : {} ", file, !telefonieBestanden.contains(new TelefonieBestand(file)));
+        //                return !telefonieBestanden.contains(new TelefonieBestand(file));
+        //            }
+        //        }).collect(Collectors.toList());
 
         List<TelefonieBestand> nieuweBestanden = newArrayList();
         for (String s : nieuweBestandenString) {
