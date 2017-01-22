@@ -3,16 +3,12 @@ package nl.lakedigital.djfc.mapper;
 import nl.lakedigital.djfc.commons.json.JsonRekeningNummer;
 import nl.lakedigital.djfc.domain.RekeningNummer;
 import nl.lakedigital.djfc.service.RekeningNummerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
 @Component
 public class JsonRekeningNummerNaarRekeningNummerMapper extends AbstractMapper<JsonRekeningNummer, RekeningNummer> implements JsonMapper {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JsonRekeningNummerNaarRekeningNummerMapper.class);
-
     @Inject
     private RekeningNummerService rekeningNummerService;
 
