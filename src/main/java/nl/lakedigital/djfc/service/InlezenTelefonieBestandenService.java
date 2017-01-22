@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class InlezenTelefonieBestandenService implements Runnable {
@@ -33,21 +31,15 @@ public class InlezenTelefonieBestandenService implements Runnable {
         LOGGER.debug("Gevonden : {} bestanden", bestanden.size());
         LOGGER.debug("Al bestaand : {} bestanden", telefonieBestanden.size());
 
-        List<TelefonieBestand> nieuweBestanden = bestanden.stream().filter(new Predicate<String>() {
-            @Override
-            public boolean test(String file) {
-                LOGGER.debug("{} : {} ", file, !telefonieBestanden.contains(new TelefonieBestand(file)));
-                return !telefonieBestanden.contains(new TelefonieBestand(file));
-            }
-        }).map(new Function<String, TelefonieBestand>() {
-            @Override
-            public TelefonieBestand apply(String file) {
-                TelefonieBestand tb = new TelefonieBestand(file);
+        List<TelefonieBestand> nieuweBestanden = bestanden.stream().filter(file -> {
+            LOGGER.debug("{} : {} ", file, !telefonieBestanden.contains(new TelefonieBestand(file)));
+            return !telefonieBestanden.contains(new TelefonieBestand(file));
+        }).map(file -> {
+            TelefonieBestand tb = new TelefonieBestand(file);
 
-                LOGGER.debug(ReflectionToStringBuilder.toString(tb));
+            LOGGER.debug(ReflectionToStringBuilder.toString(tb));
 
-                return tb;
-            }
+            return tb;
         }).collect(Collectors.toList());
 
         LOGGER.debug("{} nieuwe bestanden", nieuweBestanden.size());
