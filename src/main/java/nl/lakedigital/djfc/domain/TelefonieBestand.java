@@ -42,9 +42,7 @@ public class TelefonieBestand {
 
         String[] parts = bestandsnaam.split("-");
         if ("out".equals(parts[0])) {
-            if (parts[1].length() == 10) {
-                telefoonnummer = parts[1];
-            } else if (parts[1].startsWith("0900") || parts[1].startsWith("0800")) {
+            if (parts[1].length() == 10 || (parts[1].startsWith("0900") || parts[1].startsWith("0800"))) {
                 telefoonnummer = parts[1];
             } else {
                 telefoonnummer = parts[1] + parts[2];
