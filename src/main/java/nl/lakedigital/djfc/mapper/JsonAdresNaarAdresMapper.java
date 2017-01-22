@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 @Component
 public class JsonAdresNaarAdresMapper extends AbstractMapper<JsonAdres, Adres> implements JsonMapper {
-    private final static Logger LOGGER = LoggerFactory.getLogger(JsonAdresNaarAdresMapper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonAdresNaarAdresMapper.class);
 
     @Inject
     private AdresService adresService;
