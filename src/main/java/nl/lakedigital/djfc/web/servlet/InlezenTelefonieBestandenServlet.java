@@ -23,9 +23,8 @@ public class InlezenTelefonieBestandenServlet implements ServletContextListener 
         scheduler.scheduleAtFixedRate(new InlezenTelefonieBestandenService(telefonieBestandService), 0, 5, TimeUnit.MINUTES);
     }
 
-    @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-
+        //Moet overriden worden van de compiler, maar van sonar mag er geen leeg blok zijn, dus maar een comment
     }
 }
 
