@@ -12,8 +12,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class InlezenTelefonieBestandenServlet implements ServletContextListener {
-    private ScheduledExecutorService scheduler;
-
     @Inject
     private TelefonieBestandService telefonieBestandService;
 
@@ -21,10 +19,8 @@ public class InlezenTelefonieBestandenServlet implements ServletContextListener 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         WebApplicationContextUtils.getRequiredWebApplicationContext(servletContextEvent.getServletContext()).getAutowireCapableBeanFactory().autowireBean(this);
 
-
-        scheduler = Executors.newSingleThreadScheduledExecutor();
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new InlezenTelefonieBestandenService(telefonieBestandService), 0, 5, TimeUnit.MINUTES);
-
     }
 
     @Override
