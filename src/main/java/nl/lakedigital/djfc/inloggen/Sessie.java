@@ -3,12 +3,12 @@ package nl.lakedigital.djfc.inloggen;
 import javax.servlet.http.HttpServletRequest;
 
 public final class Sessie {
-    private Sessie() {
-    }
-
     // Zodat Hibernate Envers deze uit kan lezen..
     private static Long ingelogdeGebruiker;
     private static String trackAndTraceId;
+
+    private Sessie() {
+    }
 
     public static Long getIngelogdeGebruiker() {
         return ingelogdeGebruiker;
