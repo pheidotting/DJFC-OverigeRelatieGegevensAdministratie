@@ -24,6 +24,11 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(EasyMockRunner.class)
 public abstract class AbstractControllerTest<T extends AbstracteEntiteitMetSoortEnId, U extends AbstracteJsonEntiteitMetSoortEnId> extends EasyMockSupport {
+    @Mock
+    protected Mapper mapper;
+    private Class<T> type;
+    private Class<U> jsonType;
+
     public abstract AbstractController getController();
 
     public abstract AbstractService getService();
@@ -35,11 +40,6 @@ public abstract class AbstractControllerTest<T extends AbstracteEntiteitMetSoort
     public abstract Class setType();
 
     public abstract Class setJsonType();
-
-    @Mock
-    protected Mapper mapper;
-    private Class<T> type;
-    private Class<U> jsonType;
 
     @Before
     public void init() {
