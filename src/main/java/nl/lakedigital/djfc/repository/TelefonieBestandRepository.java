@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 public class TelefonieBestandRepository {
-    private final static Logger LOGGER = LoggerFactory.getLogger(TelefonieBestandRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TelefonieBestandRepository.class);
 
     @Autowired
     private SessionFactory sessionFactory;
