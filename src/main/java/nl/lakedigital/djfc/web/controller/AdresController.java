@@ -77,12 +77,12 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
         } else {
             JsonAdres adres = new JsonAdres();
 
-            if (postcode.equalsIgnoreCase("7891tn")) {
+            if ("7891tn".equalsIgnoreCase(postcode)) {
                 adres.setPostcode("7891TN");
                 adres.setHuisnummer(Long.valueOf(huisnummer));
                 adres.setStraat("Boogschutter");
                 adres.setPlaats("Klazienaveen");
-            } else if (postcode.equalsIgnoreCase("7894ab")) {
+            } else if ("7894ab".equalsIgnoreCase(postcode)) {
                 adres.setPostcode("7894AB");
                 adres.setHuisnummer(Long.valueOf(huisnummer));
                 adres.setStraat("Eemsladnweg");
