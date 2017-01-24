@@ -61,7 +61,7 @@ public class TelefonieBestand {
             setTijdstip(LocalDateTime.parse(parts[datum] + parts[tijd], dateTimeFormatter));
         } catch (Exception e) {
             setTijdstip(LocalDateTime.now());
-            throw new RuntimeException("Fout bij zetten datum");
+            throw e;
         }
     }
 
