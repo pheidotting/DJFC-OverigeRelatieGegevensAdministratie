@@ -46,4 +46,9 @@ public class AdresService extends AbstractService<Adres> {
         adresRepository.verwijder(adressen);
     }
 
+    public List<Adres> alleAdressenBijLijstMetEntiteiten(List<Long> ids, SoortEntiteit soortEntiteit) {
+        return adresRepository.alleAdressenBijLijstMetEntiteiten(ids, soortEntiteit);
+    }
+
+
 }

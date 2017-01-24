@@ -8,6 +8,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.domain.Adres;
+import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.service.AbstractService;
 import nl.lakedigital.djfc.service.AdresService;
 import nl.lakedigital.djfc.service.PostcodeService;
@@ -49,6 +50,12 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     @ResponseBody
     public JsonAdres lees(@PathVariable Long id) {
         return mapper.map(adresService.lees(id), JsonAdres.class);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/alleAdressenBijLijstMetEntiteiten")
+    @ResponseBody
+    public List<Adres> alleAdressenBijLijstMetEntiteiten(@RequestParam("soortEntiteit") String soortEntiteit, @RequestParam("lijst") List<Long> ids) {
+        return adresService.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.valueOf(soortEntiteit));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/ophalenAdresOpPostcode/{postcode}/{huisnummer}/{toggle}")

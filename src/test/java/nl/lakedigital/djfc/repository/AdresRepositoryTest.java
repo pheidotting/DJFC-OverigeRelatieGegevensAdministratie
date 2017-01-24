@@ -100,4 +100,32 @@ public class AdresRepositoryTest {
 
         adresRepository.verwijder(adressen);
     }
+
+    @Test
+    public void alleAdressenBijLijstMetEntiteiten() {
+        Adres adres1 = maakAdres("aa", SoortEntiteit.BEDRIJF, 1L);
+        Adres adres2 = maakAdres("bb", SoortEntiteit.POLIS, 2L);
+        Adres adres3 = maakAdres("cc", SoortEntiteit.POLIS, 3L);
+        Adres adres4 = maakAdres("dd", SoortEntiteit.RELATIE, 4L);
+        Adres adres5 = maakAdres("ee", SoortEntiteit.RELATIE, 4L);
+        Adres adres6 = maakAdres("ff", SoortEntiteit.RELATIE, 5L);
+
+        adresRepository.opslaan(newArrayList(adres1, adres2, adres3, adres4, adres5, adres6));
+
+        List<Long> ids = newArrayList(1L, 2l, 3L, 4L, 5L, 6L);
+
+
+        assertThat(adresRepository.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.BEDRIJF).size(), is(1));
+        assertThat(adresRepository.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.POLIS).size(), is(2));
+        assertThat(adresRepository.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.RELATIE).size(), is(3));
+    }
+
+    private Adres maakAdres(String straat, SoortEntiteit soortEntiteit, Long entiteitId) {
+        Adres adres = new Adres();
+        adres.setStraat(straat);
+        adres.setSoortEntiteit(soortEntiteit);
+        adres.setEntiteitId(entiteitId);
+
+        return adres;
+    }
 }

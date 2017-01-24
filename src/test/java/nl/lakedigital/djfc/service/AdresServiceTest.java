@@ -1,11 +1,15 @@
 package nl.lakedigital.djfc.service;
 
 import nl.lakedigital.djfc.domain.Adres;
+import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.repository.AbstractRepository;
 import nl.lakedigital.djfc.repository.AdresRepository;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.easymock.EasyMock.expect;
 
@@ -76,6 +80,21 @@ public class AdresServiceTest extends AbstractServicetTest<Adres> {
         replayAll();
 
         getService().lees(id);
+
+        verifyAll();
+    }
+
+    @Test
+    public void alleAdressenBijLijstMetEntiteiten() {
+        List<Long> lijst = new ArrayList<>();
+        List<Adres> ret = new ArrayList<>();
+        SoortEntiteit soortEntiteit = SoortEntiteit.RELATIE;
+
+        expect(adresRepository.alleAdressenBijLijstMetEntiteiten(lijst, soortEntiteit)).andReturn(ret);
+
+        replayAll();
+
+        adresService.alleAdressenBijLijstMetEntiteiten(lijst, soortEntiteit);
 
         verifyAll();
     }
