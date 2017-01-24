@@ -1,7 +1,6 @@
 package nl.lakedigital.djfc.service;
 
 import nl.lakedigital.djfc.domain.Adres;
-import nl.lakedigital.djfc.messaging.sender.AdresOpgeslagenTaakSender;
 import nl.lakedigital.djfc.repository.AbstractRepository;
 import nl.lakedigital.djfc.repository.AdresRepository;
 import org.easymock.Mock;
@@ -9,15 +8,12 @@ import org.easymock.TestSubject;
 import org.junit.Test;
 
 import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.expectLastCall;
 
 public class AdresServiceTest extends AbstractServicetTest<Adres> {
     @TestSubject
     private AdresService adresService = new AdresService();
     @Mock
     private AdresRepository adresRepository;
-    @Mock
-    private AdresOpgeslagenTaakSender adresOpgeslagenTaakSender;
 
     @Override
     public AbstractService getService() {
@@ -62,19 +58,11 @@ public class AdresServiceTest extends AbstractServicetTest<Adres> {
 
     @Override
     public void testOpslaan() throws Exception {
-        adresOpgeslagenTaakSender.send(getLegeEntiteit());
-        expectLastCall();
-
         super.testOpslaan();
     }
 
     @Override
     public void testOpslaanLijst() throws Exception {
-        adresOpgeslagenTaakSender.send(getGevuldeEntiteit());
-        expectLastCall();
-        adresOpgeslagenTaakSender.send(getGevuldeBestaandeEntiteit());
-        expectLastCall();
-
         super.testOpslaanLijst();
     }
 

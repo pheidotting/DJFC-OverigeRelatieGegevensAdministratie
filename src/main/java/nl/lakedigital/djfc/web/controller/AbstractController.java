@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId, J extends AbstracteJsonEntiteitMetSoortEnId> {
-    protected static Logger LOGGER;
+    protected static Logger logger;
 
     private final Class<D> domainType;
     private final Class<J> jsonType;
@@ -29,7 +29,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
     public AbstractController(Class<D> domainType, Class<J> jsonType) {
         this.domainType = domainType;
         this.jsonType = jsonType;
-        LOGGER = LoggerFactory.getLogger(AbstractController.class);
+        logger = LoggerFactory.getLogger(AbstractController.class);
     }
 
     @Inject
@@ -40,7 +40,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
     @RequestMapping(method = RequestMethod.GET, value = "/alles/{soortentiteit}/{parentid}")
     @ResponseBody
     public List<J> alles(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
-        LOGGER.debug("alles soortEntiteit {} parentId {}", soortentiteit, parentid);
+        logger.debug("alles soortEntiteit {} parentId {}", soortentiteit, parentid);
 
         List<D> domainEntiteiten = getService().alles(SoortEntiteit.valueOf(soortentiteit), parentid);
         List<J> jsonEntiteiten = new ArrayList<>();
@@ -60,7 +60,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
 
             List<D> entiteiten = new ArrayList<>();
             for (J jsonEntiteit : jsonEntiteiten) {
-                LOGGER.debug(ReflectionToStringBuilder.toString(jsonEntiteit, ToStringStyle.SHORT_PREFIX_STYLE));
+                logger.debug(ReflectionToStringBuilder.toString(jsonEntiteit, ToStringStyle.SHORT_PREFIX_STYLE));
 
                 entiteiten.add(mapper.map(jsonEntiteit, domainType));
             }
@@ -71,7 +71,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
     @RequestMapping(method = RequestMethod.POST, value = "/verwijderen/{soortentiteit}/{parentid}")
     @ResponseBody
     public void verwijderen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid, HttpServletRequest httpServletRequest) {
-        LOGGER.debug("Verwijderen entiteiten {} bij {} en {}", domainType, soortentiteit, parentid);
+        logger.debug("Verwijderen entiteiten {} bij {} en {}", domainType, soortentiteit, parentid);
 
         zetSessieWaarden(httpServletRequest);
 
@@ -81,7 +81,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
     @RequestMapping(method = RequestMethod.GET, value = "/zoeken/{zoekTerm}")
     @ResponseBody
     public List<J> zoeken(@PathVariable("zoekTerm") String zoekTerm) {
-        LOGGER.debug("Zoeken met zoeketerm {}, {}", zoekTerm, domainType);
+        logger.debug("Zoeken met zoeketerm {}, {}", zoekTerm, domainType);
 
         List<J> result = new ArrayList<>();
         List<D> opgehaald = getService().zoeken(zoekTerm);
@@ -100,14 +100,14 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
 
     protected Long getIngelogdeGebruiker(HttpServletRequest httpServletRequest) {
         Long ingelogdeGebruiker = Long.valueOf(httpServletRequest.getHeader("ingelogdeGebruiker"));
-        LOGGER.debug("Ingelogde Gebruiker opgehaald : {}", ingelogdeGebruiker);
+        logger.debug("Ingelogde Gebruiker opgehaald : {}", ingelogdeGebruiker);
 
         return ingelogdeGebruiker;
     }
 
     protected String getTrackAndTraceId(HttpServletRequest httpServletRequest) {
         String tati = httpServletRequest.getHeader("trackAndTraceId");
-        LOGGER.debug("Track And Trace Id : {}", tati);
+        logger.debug("Track And Trace Id : {}", tati);
 
         return tati;
     }

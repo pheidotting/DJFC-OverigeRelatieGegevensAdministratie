@@ -70,7 +70,7 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
     @RequestMapping(method = RequestMethod.POST, value = "/opslaan")
     @ResponseBody
     public Long opslaan(@RequestBody JsonBijlage jsonBijlage, HttpServletRequest httpServletRequest) {
-        LOGGER.info("Opslaan {}", ReflectionToStringBuilder.toString(jsonBijlage, ToStringStyle.SHORT_PREFIX_STYLE));
+        logger.info("Opslaan {}", ReflectionToStringBuilder.toString(jsonBijlage, ToStringStyle.SHORT_PREFIX_STYLE));
 
         zetSessieWaarden(httpServletRequest);
 
@@ -121,16 +121,16 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
     @RequestMapping(method = RequestMethod.GET, value = "/alleGroepen/{soortentiteit}/{parentid}")
     @ResponseBody
     public List<JsonGroepBijlages> alleGroepen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
-        LOGGER.debug("alles JsonGroepBijlages voor soortEntiteit {} parentId {}", soortentiteit, parentid);
+        logger.debug("alles JsonGroepBijlages voor soortEntiteit {} parentId {}", soortentiteit, parentid);
 
         List<GroepBijlages> domainEntiteiten = bijlageService.alleGroepenBijlages(SoortEntiteit.valueOf(soortentiteit), parentid);
 
-        LOGGER.debug("Opgehaald {} entiteiten", domainEntiteiten.size());
+        logger.debug("Opgehaald {} entiteiten", domainEntiteiten.size());
 
         List<JsonGroepBijlages> jsonEntiteiten = new ArrayList<>();
 
         for (GroepBijlages entiteit : domainEntiteiten) {
-            LOGGER.debug("map map {}", ReflectionToStringBuilder.toString(entiteit, ToStringStyle.SHORT_PREFIX_STYLE));
+            logger.debug("map map {}", ReflectionToStringBuilder.toString(entiteit, ToStringStyle.SHORT_PREFIX_STYLE));
             JsonGroepBijlages jsonGroepBijlages = mapper.map(entiteit, JsonGroepBijlages.class);
 
             ReflectionToStringBuilder.toString(jsonEntiteiten, ToStringStyle.SHORT_PREFIX_STYLE);

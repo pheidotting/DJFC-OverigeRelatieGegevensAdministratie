@@ -39,7 +39,7 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     @RequestMapping(method = RequestMethod.POST, value = "/opslaan")
     @ResponseBody
     public void opslaan(@RequestBody List<JsonAdres> jsonEntiteiten, HttpServletRequest httpServletRequest) {
-        LOGGER.info("Opslaan lijst met {} entiteiten", jsonEntiteiten.size());
+        logger.info("Opslaan lijst met {} entiteiten", jsonEntiteiten.size());
         zetSessieWaarden(httpServletRequest);
 
         goOpslaan(jsonEntiteiten);
@@ -54,7 +54,7 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     @RequestMapping(method = RequestMethod.GET, value = "/ophalenAdresOpPostcode/{postcode}/{huisnummer}/{toggle}")
     @ResponseBody
     public JsonAdres ophalenAdresOpPostcode(@PathVariable("postcode") String postcode, @PathVariable("huisnummer") String huisnummer, @PathVariable("toggle") boolean toggle) {
-        LOGGER.debug("Toggle is {}", toggle);
+        logger.debug("Toggle is {}", toggle);
         if (!toggle) {
             String adres = "https://postcode-api.apiwise.nl/v2/addresses/?postcode=" + postcode + "&number=" + huisnummer;
 
@@ -65,7 +65,7 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
             ClientResponse response = webResource.header("X-Api-Key", "FYEYGHHNFV3sZutux7LcX8ng8VizXWPk1HWxPPX9").accept("application/x-www-form-urlencoded; charset=UTF-8").get(ClientResponse.class);
 
             String antwoord = response.getEntity(String.class);
-            LOGGER.debug("Antwoord van de postcode api: {}", antwoord);
+            logger.debug("Antwoord van de postcode api: {}", antwoord);
 
             JsonAdres jsonAdres = postcodeService.extraHeerAdres(antwoord);
             jsonAdres.setPostcode(postcode);

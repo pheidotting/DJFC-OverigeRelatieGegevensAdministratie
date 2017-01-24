@@ -18,6 +18,9 @@ import java.util.List;
 public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRepository.class);
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     private final Class<T> type;
 
     public AbstractRepository(Class<T> type) {
@@ -27,9 +30,6 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
     private String getMyType() {
         return this.type.getSimpleName();
     }
-
-    @Autowired
-    private SessionFactory sessionFactory;
 
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
