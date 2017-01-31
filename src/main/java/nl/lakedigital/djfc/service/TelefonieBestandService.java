@@ -2,6 +2,9 @@ package nl.lakedigital.djfc.service;
 
 import nl.lakedigital.djfc.domain.TelefonieBestand;
 import nl.lakedigital.djfc.repository.TelefonieBestandRepository;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,21 +43,87 @@ public class TelefonieBestandService {
     public List<String> inlezenBestanden() {
         List<String> result = newArrayList();
 
-        LOGGER.debug("Inlezen bestanden vanaf {}", recordingspad);
         File f = new File(recordingspad);
 
-        LOGGER.debug(f.toString());
 
         for (String s : f.list()) {
-            if (!s.contains("anonymous")) {
-            result.add(s);
-            LOGGER.debug(s);
+            if (!s.contains("anonymous") && !".DS_Store".equals(s)) {
+                result.add(s);
+            }
         }
-        }
-
-        LOGGER.debug("Einde lijst, aantal bestanden {}", result.size());
 
         return result;
+    }
+
+    public TelefonieBestand maakTelefonieBestand(String file) {
+        String[] parts = file.split("-");
+        TelefonieBestand telefonieBestand = null;
+
+        try {
+            if ("out".equals(parts[0])) {
+                //uitgaand bestand
+                //            String file = "out-0302780222-2904-20170106-121930-1483701570.658.wav";
+                //                String file = "out-030-2780222-2904-20170103-134319-1483447399.315.wav";
+                String telefoonnummer;
+                String dag;
+                String tijd;
+                if (parts[1].length() == 3 || parts[1].length() == 4) {
+                    telefoonnummer = parts[1] + parts[2];
+                    dag = parts[4];
+                    tijd = parts[5];
+                } else {
+                    telefoonnummer = parts[1];
+                    dag = parts[3];
+                    tijd = parts[4];
+
+                    if (telefoonnummer.startsWith("3") && telefoonnummer.length() == 3) {
+                        //0591 vergeten
+                        telefoonnummer = "0591" + telefoonnummer;
+                    }
+                }
+                DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("YYYYMMddHHmmss");
+                if ((dag + tijd).length() == 14) {
+                    LocalDateTime tijdstip = LocalDateTime.parse(dag + tijd, dateTimeFormatter);
+
+                    if (telefoonnummer.length() == 10 || ((telefoonnummer.startsWith("088") || telefoonnummer.startsWith("0800") || telefoonnummer.startsWith("0900")) && telefoonnummer.length() <= 10)) {
+                        telefonieBestand = new TelefonieBestand(file, telefoonnummer, tijdstip);
+                    }
+                }
+            } else if ("external".equals(parts[0])) {
+                //                String file = "external-2901-0611710077-20170113-131904-1484309944.1401.wav";
+                String telefoonnummer = parts[2];
+                String dag = parts[3];
+                String tijd = parts[4];
+                DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("YYYYMMddHHmmss");
+                if ((dag + tijd).length() == 14) {
+                    LocalDateTime tijdstip = LocalDateTime.parse(dag + tijd, dateTimeFormatter);
+
+                    if (telefoonnummer.length() == 10) {
+                        telefonieBestand = new TelefonieBestand(file, telefoonnummer, tijdstip);
+                    }
+                }
+            } else if ("rg".equals(parts[0])) {
+                //                String file = "rg-8001-0561451395-20170113-161919-1484320759.1426.wav";
+                String telefoonnummer = parts[2];
+                String dag = parts[3];
+                String tijd = parts[4];
+                DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("YYYYMMddHHmmss");
+                if ((dag + tijd).length() == 14) {
+                    LocalDateTime tijdstip = LocalDateTime.parse(dag + tijd, dateTimeFormatter);
+
+                    if (telefoonnummer.length() == 10) {
+                        telefonieBestand = new TelefonieBestand(file, telefoonnummer, tijdstip);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Fout opgetreden bij parsen bestand {}", file, e);
+        }
+
+        if (telefonieBestand == null) {
+            LOGGER.error("Niet kunnen parsen : {}", file);
+        }
+        return telefonieBestand;
     }
 
     public List<TelefonieBestand> alleTelefonieBestanden() {
