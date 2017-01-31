@@ -59,6 +59,7 @@ public class TelefonieBestandService {
         String[] parts = file.split("-");
         TelefonieBestand telefonieBestand = null;
 
+        if (!"anonymous".equals(parts[1]) && !"ID".equals(parts[1])) {
         try {
             if ("out".equals(parts[0])) {
                 //uitgaand bestand
@@ -85,7 +86,10 @@ public class TelefonieBestandService {
                 if ((dag + tijd).length() == 14) {
                     LocalDateTime tijdstip = LocalDateTime.parse(dag + tijd, dateTimeFormatter);
 
-                    if (telefoonnummer.length() == 10 || ((telefoonnummer.startsWith("088") || telefoonnummer.startsWith("0800") || telefoonnummer.startsWith("0900")) && telefoonnummer.length() <= 10)) {
+                    if (telefoonnummer.length() == 10 || ((telefoonnummer.startsWith("088") || telefoonnummer.startsWith("0800") || telefoonnummer.startsWith("0900")))) {
+                        if (telefoonnummer.length() > 10) {
+                            telefoonnummer = telefoonnummer.substring(0, 10);
+                        }
                         telefonieBestand = new TelefonieBestand(file, telefoonnummer, tijdstip);
                     }
                 }
@@ -118,6 +122,7 @@ public class TelefonieBestandService {
             }
         } catch (Exception e) {
             LOGGER.error("Fout opgetreden bij parsen bestand {}", file, e);
+        }
         }
 
         if (telefonieBestand == null) {

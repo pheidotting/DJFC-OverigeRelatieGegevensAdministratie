@@ -37,15 +37,9 @@ public class InlezenTelefonieBestandenService implements Runnable {
                 return false;
             }
 
-            //            LOGGER.debug("{}  ", file);
-            //            LOGGER.debug("{} : {} ", file, !telefonieBestanden.contains(new TelefonieBestand(file)));
-            return !telefonieBestanden.contains(new TelefonieBestand(file));
+            return !telefonieBestanden.contains(telefonieBestand);
         }).map(file -> {
-            TelefonieBestand tb = telefonieBestandService.maakTelefonieBestand(file);
-
-            //            LOGGER.debug(ReflectionToStringBuilder.toString(tb));
-
-            return tb;
+            return telefonieBestandService.maakTelefonieBestand(file);
         }).collect(Collectors.toList());
 
         LOGGER.debug("{} nieuwe bestanden", nieuweBestanden.size());
