@@ -93,20 +93,7 @@ public class TelefonieBestandService {
                         telefonieBestand = new TelefonieBestand(file, telefoonnummer, tijdstip);
                     }
                 }
-            } else if ("external".equals(parts[0])) {
-                //                String file = "external-2901-0611710077-20170113-131904-1484309944.1401.wav";
-                String telefoonnummer = parts[2];
-                String dag = parts[3];
-                String tijd = parts[4];
-                DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("YYYYMMddHHmmss");
-                if ((dag + tijd).length() == 14) {
-                    LocalDateTime tijdstip = LocalDateTime.parse(dag + tijd, dateTimeFormatter);
-
-                    if (telefoonnummer.length() == 10) {
-                        telefonieBestand = new TelefonieBestand(file, telefoonnummer, tijdstip);
-                    }
-                }
-            } else if ("rg".equals(parts[0])) {
+            } else if ("external".equals(parts[0]) || "rg".equals(parts[0])) {
                 //                String file = "rg-8001-0561451395-20170113-161919-1484320759.1426.wav";
                 String telefoonnummer = parts[2];
                 String dag = parts[3];
