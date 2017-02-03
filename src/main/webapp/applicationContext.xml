@@ -71,6 +71,6 @@
         <property name="start" value="true" />
     </bean>
 
-    <import resource="applicationContext-jms.xml" />
     -->
+    <import resource="applicationContext-jms.xml"/>
 </beans>
