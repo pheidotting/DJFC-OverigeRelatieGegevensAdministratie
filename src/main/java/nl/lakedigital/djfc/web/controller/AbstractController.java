@@ -37,21 +37,6 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
 
     public abstract AbstractService getService();
 
-    @RequestMapping(method = RequestMethod.GET, value = "/alles/{soortentiteit}/{parentid}")
-    @ResponseBody
-    public List<J> alles(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
-        logger.debug("alles soortEntiteit {} parentId {}", soortentiteit, parentid);
-
-        List<D> domainEntiteiten = getService().alles(SoortEntiteit.valueOf(soortentiteit), parentid);
-        List<J> jsonEntiteiten = new ArrayList<>();
-
-        for (D entiteit : domainEntiteiten) {
-            jsonEntiteiten.add(mapper.map(entiteit, jsonType));
-        }
-
-        return jsonEntiteiten;
-    }
-
     public abstract void opslaan(List<J> jsonEntiteiten, HttpServletRequest httpServletRequest);
 
     public void goOpslaan(List<J> jsonEntiteiten) {
@@ -76,20 +61,6 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
         zetSessieWaarden(httpServletRequest);
 
         getService().verwijderen(SoortEntiteit.valueOf(soortentiteit), parentid);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/zoeken/{zoekTerm}")
-    @ResponseBody
-    public List<J> zoeken(@PathVariable("zoekTerm") String zoekTerm) {
-        logger.debug("Zoeken met zoeketerm {}, {}", zoekTerm, domainType);
-
-        List<J> result = new ArrayList<>();
-        List<D> opgehaald = getService().zoeken(zoekTerm);
-        for (D d : opgehaald) {
-            result.add(mapper.map(d, jsonType));
-        }
-
-        return result;
     }
 
     protected void zetSessieWaarden(HttpServletRequest httpServletRequest) {

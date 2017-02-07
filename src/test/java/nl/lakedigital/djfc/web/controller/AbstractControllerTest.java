@@ -14,13 +14,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(EasyMockRunner.class)
 public abstract class AbstractControllerTest<T extends AbstracteEntiteitMetSoortEnId, U extends AbstracteJsonEntiteitMetSoortEnId> extends EasyMockSupport {
@@ -47,23 +44,23 @@ public abstract class AbstractControllerTest<T extends AbstracteEntiteitMetSoort
         type = setType();
     }
 
-    @Test
-    public void testAlles() {
-        SoortEntiteit soortEntiteit = SoortEntiteit.POLIS;
-        Long entiteitId = 4L;
-
-        T entiteit = getEntiteit();
-        U jsonEntiteit = getJsonEntiteit();
-
-        expect(getService().alles(soortEntiteit, entiteitId)).andReturn(newArrayList(entiteit));
-        expect(mapper.map(entiteit, jsonType)).andReturn(jsonEntiteit);
-
-        replayAll();
-
-        assertEquals(newArrayList(jsonEntiteit), getController().alles(soortEntiteit.name(), entiteitId));
-
-        verifyAll();
-    }
+    //    @Test
+    //    public void testAlles() {
+    //        SoortEntiteit soortEntiteit = SoortEntiteit.POLIS;
+    //        Long entiteitId = 4L;
+    //
+    //        T entiteit = getEntiteit();
+    //        U jsonEntiteit = getJsonEntiteit();
+    //
+    //        expect(getService().alles(soortEntiteit, entiteitId)).andReturn(newArrayList(entiteit));
+    //        expect(mapper.map(entiteit, jsonType)).andReturn(jsonEntiteit);
+    //
+    //        replayAll();
+    //
+    //        assertEquals(newArrayList(jsonEntiteit), getController().alles(soortEntiteit.name(), entiteitId));
+    //
+    //        verifyAll();
+    //    }
 
     @Test
     @Ignore
@@ -108,25 +105,25 @@ public abstract class AbstractControllerTest<T extends AbstracteEntiteitMetSoort
         verifyAll();
     }
 
-    @Test
-    public void zoeken() {
-        String zoekTerm = "zoekTerm";
-        List<T> domainEntiteiten = new ArrayList<>();
-        T t = getEntiteit();
-        domainEntiteiten.add(t);
-
-        List<U> jsonEntiteiten = new ArrayList<>();
-        U u = getJsonEntiteit();
-        jsonEntiteiten.add(u);
-
-        expect(getService().zoeken(zoekTerm)).andReturn(domainEntiteiten);
-        expect(mapper.map(t, jsonType)).andReturn(u);
-
-        replayAll();
-
-        assertEquals(jsonEntiteiten, getController().zoeken(zoekTerm));
-
-        verifyAll();
-    }
+    //    @Test
+    //    public void zoeken() {
+    //        String zoekTerm = "zoekTerm";
+    //        List<T> domainEntiteiten = new ArrayList<>();
+    //        T t = getEntiteit();
+    //        domainEntiteiten.add(t);
+    //
+    //        List<U> jsonEntiteiten = new ArrayList<>();
+    //        U u = getJsonEntiteit();
+    //        jsonEntiteiten.add(u);
+    //
+    //        expect(getService().zoeken(zoekTerm)).andReturn(domainEntiteiten);
+    //        expect(mapper.map(t, jsonType)).andReturn(u);
+    //
+    //        replayAll();
+    //
+    //        assertEquals(jsonEntiteiten, getController().zoeken(zoekTerm));
+    //
+    //        verifyAll();
+    //    }
 
 }

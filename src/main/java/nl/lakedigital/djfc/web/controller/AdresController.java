@@ -7,6 +7,7 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
+import nl.lakedigital.djfc.commons.xml.OpvragenAdressenResponse;
 import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.service.AbstractService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestMapping("/adres")
@@ -34,6 +36,35 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     @Override
     public AbstractService getService() {
         return adresService;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/alles/{soortentiteit}/{parentid}", produces = MediaType.APPLICATION_XML)
+    @ResponseBody
+    public OpvragenAdressenResponse alles(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
+        logger.debug("alles soortEntiteit {} parentId {}", soortentiteit, parentid);
+
+        List<Adres> domainEntiteiten = getService().alles(SoortEntiteit.valueOf(soortentiteit), parentid);
+        OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
+
+        for (Adres entiteit : domainEntiteiten) {
+            opvragenAdressenResponse.getAdressen().add(mapper.map(entiteit, JsonAdres.class));
+        }
+
+        return opvragenAdressenResponse;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/zoeken/{zoekTerm}", produces = MediaType.APPLICATION_XML)
+    @ResponseBody
+    public OpvragenAdressenResponse zoeken(@PathVariable("zoekTerm") String zoekTerm) {
+        logger.debug("Zoeken met zoeketerm {}, {}", zoekTerm, Adres.class);
+
+        OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
+        List<Adres> opgehaald = getService().zoeken(zoekTerm);
+        for (Adres d : opgehaald) {
+            opvragenAdressenResponse.getAdressen().add(mapper.map(d, JsonAdres.class));
+        }
+
+        return opvragenAdressenResponse;
     }
 
     @Override

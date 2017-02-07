@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import nl.lakedigital.djfc.commons.json.JsonBijlage;
 import nl.lakedigital.djfc.commons.json.JsonGroepBijlages;
 import nl.lakedigital.djfc.commons.json.WijzigenOmschrijvingBijlage;
+import nl.lakedigital.djfc.commons.xml.OpvragenBijlagesResponse;
 import nl.lakedigital.djfc.domain.Bijlage;
 import nl.lakedigital.djfc.domain.GroepBijlages;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -49,6 +51,36 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
     public AbstractService getService() {
         return bijlageService;
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/alles/{soortentiteit}/{parentid}", produces = MediaType.APPLICATION_XML)
+    @ResponseBody
+    public OpvragenBijlagesResponse alles(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
+        logger.debug("alles soortEntiteit {} parentId {}", soortentiteit, parentid);
+
+        List<Bijlage> domainEntiteiten = getService().alles(SoortEntiteit.valueOf(soortentiteit), parentid);
+        OpvragenBijlagesResponse opvragenBijlagesResponse = new OpvragenBijlagesResponse();
+
+        for (Bijlage entiteit : domainEntiteiten) {
+            opvragenBijlagesResponse.getBijlages().add(mapper.map(entiteit, JsonBijlage.class));
+        }
+
+        return opvragenBijlagesResponse;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/zoeken/{zoekTerm}", produces = MediaType.APPLICATION_XML)
+    @ResponseBody
+    public OpvragenBijlagesResponse zoeken(@PathVariable("zoekTerm") String zoekTerm) {
+        logger.debug("Zoeken met zoeketerm {}, {}", zoekTerm, Bijlage.class);
+
+        OpvragenBijlagesResponse opvragenBijlagesResponse = new OpvragenBijlagesResponse();
+        List<Bijlage> opgehaald = getService().zoeken(zoekTerm);
+        for (Bijlage d : opgehaald) {
+            opvragenBijlagesResponse.getBijlages().add(mapper.map(d, JsonBijlage.class));
+        }
+
+        return opvragenBijlagesResponse;
+    }
+
 
     @Override
     @RequestMapping(method = RequestMethod.POST, value = "/opslaanBijlages")
