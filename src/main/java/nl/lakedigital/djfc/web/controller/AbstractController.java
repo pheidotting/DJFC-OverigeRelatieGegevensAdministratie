@@ -45,7 +45,7 @@ public abstract class AbstractController<D extends AbstracteEntiteitMetSoortEnId
 
             List<D> entiteiten = new ArrayList<>();
             for (J jsonEntiteit : jsonEntiteiten) {
-                logger.debug(ReflectionToStringBuilder.toString(jsonEntiteit, ToStringStyle.SHORT_PREFIX_STYLE));
+                logger.debug("Opslaan {}",ReflectionToStringBuilder.toString(jsonEntiteit, ToStringStyle.SHORT_PREFIX_STYLE));
 
                 entiteiten.add(mapper.map(jsonEntiteit, domainType));
             }
