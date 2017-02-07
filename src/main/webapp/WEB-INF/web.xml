@@ -37,5 +37,7 @@
     <listener>
         <listener-class>nl.lakedigital.djfc.web.servlet.InlezenTelefonieBestandenServlet</listener-class>
     </listener>
-
+	<listener>
+		<listener-class>nl.lakedigital.djfc.web.servlet.ScheduleServlet</listener-class>
+	</listener>
 </web-app>

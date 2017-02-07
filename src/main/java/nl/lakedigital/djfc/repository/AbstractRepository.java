@@ -31,7 +31,7 @@ public class AbstractRepository<T extends AbstracteEntiteitMetSoortEnId> {
         return this.type.getSimpleName();
     }
 
-    protected Session getSession() {
+    public Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
