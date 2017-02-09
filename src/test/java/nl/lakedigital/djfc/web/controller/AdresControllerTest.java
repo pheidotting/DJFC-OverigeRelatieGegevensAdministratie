@@ -59,7 +59,7 @@ public class AdresControllerTest extends AbstractControllerTest<Adres, JsonAdres
 
         replayAll();
 
-        assertThat(adresController.lees(id), is(jsonAdres));
+        assertThat(adresController.lees(id).getAdressen().get(0), is(jsonAdres));
 
         verifyAll();
     }

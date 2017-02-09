@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 @RequestMapping("/adres")
 @Controller
 public class AdresController extends AbstractController<Adres, JsonAdres> {
@@ -79,14 +81,22 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
 
     @RequestMapping(method = RequestMethod.GET, value = "/lees/{id}")
     @ResponseBody
-    public JsonAdres lees(@PathVariable Long id) {
-        return mapper.map(adresService.lees(id), JsonAdres.class);
+    public OpvragenAdressenResponse lees(@PathVariable Long id) {
+        OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
+
+        opvragenAdressenResponse.setAdressen(newArrayList(mapper.map(adresService.lees(id), JsonAdres.class)));
+
+        return opvragenAdressenResponse;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/alleAdressenBijLijstMetEntiteiten")
     @ResponseBody
-    public List<Adres> alleAdressenBijLijstMetEntiteiten(@RequestParam("soortEntiteit") String soortEntiteit, @RequestParam("lijst") List<Long> ids) {
-        return adresService.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.valueOf(soortEntiteit));
+    public OpvragenAdressenResponse alleAdressenBijLijstMetEntiteiten(@RequestParam("soortEntiteit") String soortEntiteit, @RequestParam("lijst") List<Long> ids) {
+        OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
+
+        opvragenAdressenResponse.setAdressen(newArrayList(mapper.map(adresService.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.valueOf(soortEntiteit)), JsonAdres.class)));
+
+        return opvragenAdressenResponse;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/ophalenAdresOpPostcode/{postcode}/{huisnummer}/{toggle}")
