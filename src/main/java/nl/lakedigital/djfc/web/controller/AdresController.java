@@ -94,7 +94,11 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     public OpvragenAdressenResponse alleAdressenBijLijstMetEntiteiten(@RequestParam("soortEntiteit") String soortEntiteit, @RequestParam("lijst") List<Long> ids) {
         OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
 
-        opvragenAdressenResponse.setAdressen(newArrayList(mapper.map(adresService.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.valueOf(soortEntiteit)), JsonAdres.class)));
+        List<Adres> adressen = adresService.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.valueOf(soortEntiteit));
+        
+        if (!adressen.isEmpty()) {
+            opvragenAdressenResponse.setAdressen(newArrayList(mapper.map(adressen, JsonAdres.class)));
+        }
 
         return opvragenAdressenResponse;
     }
