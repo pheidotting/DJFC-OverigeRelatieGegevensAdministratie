@@ -29,6 +29,13 @@
         <sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>Symplex</id>
+            <url>http://jenkins.djfc.local:8081/artifactory/libs-release</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>nl.lakedigital.as</groupId>
@@ -60,7 +67,7 @@
         <dependency>
             <groupId>nl.lakedigital.djfc</groupId>
             <artifactId>djfc-clients</artifactId>
-            <version>5.3</version>
+            <version>5.5</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
