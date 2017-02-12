@@ -5,6 +5,7 @@ import nl.lakedigital.djfc.commons.json.JsonBijlage;
 import nl.lakedigital.djfc.commons.json.JsonGroepBijlages;
 import nl.lakedigital.djfc.commons.json.WijzigenOmschrijvingBijlage;
 import nl.lakedigital.djfc.commons.xml.OpvragenBijlagesResponse;
+import nl.lakedigital.djfc.commons.xml.OpvragenGroepBijlagesResponse;
 import nl.lakedigital.djfc.domain.Bijlage;
 import nl.lakedigital.djfc.domain.GroepBijlages;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
@@ -152,7 +153,7 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
 
     @RequestMapping(method = RequestMethod.GET, value = "/alleGroepen/{soortentiteit}/{parentid}")
     @ResponseBody
-    public List<JsonGroepBijlages> alleGroepen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
+    public OpvragenGroepBijlagesResponse alleGroepen(@PathVariable("soortentiteit") String soortentiteit, @PathVariable("parentid") Long parentid) {
         logger.debug("alles JsonGroepBijlages voor soortEntiteit {} parentId {}", soortentiteit, parentid);
 
         List<GroepBijlages> domainEntiteiten = bijlageService.alleGroepenBijlages(SoortEntiteit.valueOf(soortentiteit), parentid);
@@ -170,7 +171,10 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
             jsonEntiteiten.add(jsonGroepBijlages);
         }
 
-        return jsonEntiteiten;
+        OpvragenGroepBijlagesResponse opvragenGroepBijlagesResponse = new OpvragenGroepBijlagesResponse();
+        opvragenGroepBijlagesResponse.setBijlages(jsonEntiteiten);
+
+        return opvragenGroepBijlagesResponse;
     }
 
 }
