@@ -62,8 +62,8 @@ public class VerwijderDuplicaatAdressen implements ServletContextListener {
             if ("".equals(adres.getStraat())) {
                 adres.setStraat(null);
             }
-            if ("".equals(adres.getPostcode())) {
-                adres.setPostcode(null);
+            if (adres.getPostcode() == null) {
+                adres.setPostcode("");//anders gaat dit later weer fout
             }
             if ("".equals(adres.getPlaats())) {
                 adres.setPlaats(null);
