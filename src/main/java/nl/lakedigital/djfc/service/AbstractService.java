@@ -33,6 +33,10 @@ public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
         getRepository().opslaan(newArrayList(adres));
     }
 
+    public void opslaan(List<T> entiteiten) {
+        getRepository().opslaan(entiteiten);
+    }
+
     public void opslaan(final List<T> entiteiten, SoortEntiteit soortEntiteit, Long entiteitId) {
         LOGGER.debug("Op te slaan entiteiten");
         for (T t : entiteiten) {

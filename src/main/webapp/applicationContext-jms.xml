@@ -23,4 +23,13 @@ http://www.springframework.org/schema/jms http://www.springframework.org/schema/
         <jms:listener destination="rb.oga.verwijderEntiteitenRequestQueue" ref="verwijderEntiteitenRequestReciever"
                       method="onMessage"/>
     </jms:listener-container>
+
+    <bean id="opslaanEntiteitenRequestReciever"
+          class="nl.lakedigital.djfc.messaging.reciever.OpslaanEntiteitenRequestReciever"/>
+
+    <jms:listener-container container-type="default"
+                            connection-factory="connectionFactory" acknowledge="auto">
+        <jms:listener destination="rb.oga.opslaanEntiteitenRequestQueue" ref="opslaanEntiteitenRequestReciever"
+                      method="onMessage"/>
+    </jms:listener-container>
 </beans>
