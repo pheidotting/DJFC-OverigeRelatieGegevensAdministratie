@@ -6,6 +6,7 @@ import nl.lakedigital.djfc.repository.OpmerkingRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Service
 public class OpmerkingService extends AbstractService<Opmerking> {
@@ -15,6 +16,10 @@ public class OpmerkingService extends AbstractService<Opmerking> {
     @Override
     public AbstractRepository getRepository() {
         return opmerkingRepository;
+    }
+
+    public List<Opmerking> alles() {
+        return opmerkingRepository.alles();
     }
 
     public void verwijder(Long id) {

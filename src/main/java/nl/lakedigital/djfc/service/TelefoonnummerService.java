@@ -6,6 +6,7 @@ import nl.lakedigital.djfc.repository.TelefoonnummerRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 
 
 @Service
@@ -16,5 +17,9 @@ public class TelefoonnummerService extends AbstractService<Telefoonnummer> {
     @Override
     public AbstractRepository getRepository() {
         return telefoonnummerRepository;
+    }
+
+    public List<Telefoonnummer> alles() {
+        return telefoonnummerRepository.alles();
     }
 }

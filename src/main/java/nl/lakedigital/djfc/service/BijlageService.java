@@ -48,4 +48,8 @@ public class BijlageService extends AbstractService<Bijlage> {
         bijlageRepository.opslaan(newArrayList(bijlage));
     }
 
+    public List<Bijlage> alles() {
+        return bijlageRepository.alles();
+    }
+
 }

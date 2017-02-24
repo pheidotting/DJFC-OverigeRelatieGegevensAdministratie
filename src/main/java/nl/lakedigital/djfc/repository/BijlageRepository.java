@@ -29,6 +29,16 @@ public class BijlageRepository extends AbstractRepository<Bijlage> {
         return groepBijlages;
     }
 
+    public List<Bijlage> alles() {
+        getSession().getTransaction().begin();
+
+        List<Bijlage> adressen = getSession().createQuery("select a from Bijlage a").list();
+
+        getSession().getTransaction().commit();
+
+        return adressen;
+    }
+
     public void opslaanGroepBijlages(GroepBijlages groepBijlages) {
         getTransaction().begin();
 
