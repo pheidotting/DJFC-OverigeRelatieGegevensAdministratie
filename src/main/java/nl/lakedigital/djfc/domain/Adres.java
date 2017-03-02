@@ -16,6 +16,9 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @NamedQueries({//
         @NamedQuery(name = "Adres.zoekBijEntiteit", query = "select a from Adres a where a.soortEntiteit = :soortEntiteit and a.entiteitId = :entiteitId"),//
         @NamedQuery(name = "Adres.zoeken", query = "select a from Adres a where a.straat like :zoekTerm or a.plaats like :zoekTerm"), //
+        @NamedQuery(name = "Adres.zoekenOpAdres", query = "select a from Adres a where a.straat like :zoekTerm"), //
+        @NamedQuery(name = "Adres.zoekenOpPostcode", query = "select a from Adres a where a.postcode like :zoekTerm"), //
+        @NamedQuery(name = "Adres.zoekenOpPlaats", query = "select a from Adres a where a.plaats like :zoekTerm") //
 })
 public class Adres extends AbstracteEntiteitMetSoortEnId implements Serializable {
     private static final long serialVersionUID = 2361944992062349932L;

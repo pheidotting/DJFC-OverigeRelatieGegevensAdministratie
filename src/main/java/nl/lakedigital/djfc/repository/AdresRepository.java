@@ -2,6 +2,7 @@ package nl.lakedigital.djfc.repository;
 
 import nl.lakedigital.djfc.domain.Adres;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -31,5 +32,44 @@ public class AdresRepository extends AbstractRepository<Adres> {
         }
 
         return result;
+    }
+
+    public List<Adres> zoekOpAdres(String zoekterm) {
+        getTransaction();
+
+        Query query = getSession().getNamedQuery("Adres.zoekenOpAdres");
+        query.setParameter("zoekTerm", zoekterm);
+
+        List<Adres> adressen = query.list();
+
+        getTransaction().commit();
+
+        return adressen;
+    }
+
+    public List<Adres> zoekOpPostcode(String zoekterm) {
+        getTransaction();
+
+        Query query = getSession().getNamedQuery("Adres.zoekenOpPostcode");
+        query.setParameter("zoekTerm", zoekterm);
+
+        List<Adres> adressen = query.list();
+
+        getTransaction().commit();
+
+        return adressen;
+    }
+
+    public List<Adres> zoekOpPlaats(String zoekterm) {
+        getTransaction();
+
+        Query query = getSession().getNamedQuery("Adres.zoekenOpPlaats");
+        query.setParameter("zoekTerm", zoekterm);
+
+        List<Adres> adressen = query.list();
+
+        getTransaction().commit();
+
+        return adressen;
     }
 }

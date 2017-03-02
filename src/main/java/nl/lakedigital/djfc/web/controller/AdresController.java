@@ -58,10 +58,52 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     @RequestMapping(method = RequestMethod.GET, value = "/zoeken/{zoekTerm}", produces = MediaType.APPLICATION_XML)
     @ResponseBody
     public OpvragenAdressenResponse zoeken(@PathVariable("zoekTerm") String zoekTerm) {
-        logger.debug("Zoeken met zoeketerm {}, {}", zoekTerm, Adres.class);
+        logger.debug("Zoeken met zoekterm {}", zoekTerm, Adres.class);
 
         OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
         List<Adres> opgehaald = getService().zoeken(zoekTerm);
+        for (Adres d : opgehaald) {
+            opvragenAdressenResponse.getAdressen().add(mapper.map(d, JsonAdres.class));
+        }
+
+        return opvragenAdressenResponse;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/zoekOpAdres/{zoekTerm}", produces = MediaType.APPLICATION_XML)
+    @ResponseBody
+    public OpvragenAdressenResponse zoekOpAdres(@PathVariable("zoekTerm") String zoekTerm) {
+        logger.debug("Zoek op adres {}, {}", zoekTerm);
+
+        OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
+        List<Adres> opgehaald = adresService.zoekOpAdres(zoekTerm);
+        for (Adres d : opgehaald) {
+            opvragenAdressenResponse.getAdressen().add(mapper.map(d, JsonAdres.class));
+        }
+
+        return opvragenAdressenResponse;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/zoekOpPostcode/{zoekTerm}", produces = MediaType.APPLICATION_XML)
+    @ResponseBody
+    public OpvragenAdressenResponse zoekOpPostcode(@PathVariable("zoekTerm") String zoekTerm) {
+        logger.debug("Zoek op adres {}", zoekTerm);
+
+        OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
+        List<Adres> opgehaald = adresService.zoekOpPostcode(zoekTerm);
+        for (Adres d : opgehaald) {
+            opvragenAdressenResponse.getAdressen().add(mapper.map(d, JsonAdres.class));
+        }
+
+        return opvragenAdressenResponse;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/zoekOpPlaats/{zoekTerm}", produces = MediaType.APPLICATION_XML)
+    @ResponseBody
+    public OpvragenAdressenResponse zoekOpPlaats(@PathVariable("zoekTerm") String zoekTerm) {
+        logger.debug("Zoek op adres {}", zoekTerm);
+
+        OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
+        List<Adres> opgehaald = adresService.zoekOpPlaats(zoekTerm);
         for (Adres d : opgehaald) {
             opvragenAdressenResponse.getAdressen().add(mapper.map(d, JsonAdres.class));
         }

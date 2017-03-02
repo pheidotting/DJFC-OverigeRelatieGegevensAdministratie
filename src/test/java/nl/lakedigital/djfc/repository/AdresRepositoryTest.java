@@ -114,11 +114,78 @@ public class AdresRepositoryTest {
 
         List<Long> ids = newArrayList(1L, 2l, 3L, 4L, 5L, 6L);
 
-
         assertThat(adresRepository.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.BEDRIJF).size(), is(1));
         assertThat(adresRepository.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.POLIS).size(), is(2));
         assertThat(adresRepository.alleAdressenBijLijstMetEntiteiten(ids, SoortEntiteit.RELATIE).size(), is(3));
     }
+
+    @Test
+    public void zoekOpAdres() {
+        String adresZoek1 = "aa";
+        String adresZoek2 = "bb";
+
+        Adres adres1 = maakAdres("aa", SoortEntiteit.BEDRIJF, 1L);
+        Adres adres2 = maakAdres("bb", SoortEntiteit.POLIS, 2L);
+
+        adresRepository.opslaan(newArrayList(adres1, adres2));
+
+        List<Adres> lijst1 = adresRepository.zoekOpAdres(adresZoek1);
+        assertThat(lijst1.size(), is(1));
+        assertThat(lijst1.get(0), is(adres1));
+        List<Adres> lijst2 = adresRepository.zoekOpAdres(adresZoek2);
+        assertThat(lijst2.size(), is(1));
+        assertThat(lijst2.get(0), is(adres2));
+        assertThat(adresRepository.zoekOpAdres("cc").size(), is(0));
+
+        adresRepository.verwijder(newArrayList(adres1, adres2));
+    }
+
+    @Test
+    public void zoekOpPostcode() {
+        String adresZoek1 = "cc";
+        String adresZoek2 = "dd";
+
+        Adres adres1 = maakAdres("aa", SoortEntiteit.BEDRIJF, 1L);
+        adres1.setPostcode("cc");
+        Adres adres2 = maakAdres("bb", SoortEntiteit.POLIS, 2L);
+        adres2.setPostcode("dd");
+
+        adresRepository.opslaan(newArrayList(adres1, adres2));
+
+        List<Adres> lijst1 = adresRepository.zoekOpPostcode(adresZoek1);
+        assertThat(lijst1.size(), is(1));
+        assertThat(lijst1.get(0), is(adres1));
+        List<Adres> lijst2 = adresRepository.zoekOpPostcode(adresZoek2);
+        assertThat(lijst2.size(), is(1));
+        assertThat(lijst2.get(0), is(adres2));
+        assertThat(adresRepository.zoekOpPostcode("ee").size(), is(0));
+
+        adresRepository.verwijder(newArrayList(adres1, adres2));
+    }
+
+    @Test
+    public void zoekOpPlaats() {
+        String adresZoek1 = "cc";
+        String adresZoek2 = "dd";
+
+        Adres adres1 = maakAdres("aa", SoortEntiteit.BEDRIJF, 1L);
+        adres1.setPlaats("cc");
+        Adres adres2 = maakAdres("bb", SoortEntiteit.POLIS, 2L);
+        adres2.setPlaats("dd");
+
+        adresRepository.opslaan(newArrayList(adres1, adres2));
+
+        List<Adres> lijst1 = adresRepository.zoekOpPlaats(adresZoek1);
+        assertThat(lijst1.size(), is(1));
+        assertThat(lijst1.get(0), is(adres1));
+        List<Adres> lijst2 = adresRepository.zoekOpPlaats(adresZoek2);
+        assertThat(lijst2.size(), is(1));
+        assertThat(lijst2.get(0), is(adres2));
+        assertThat(adresRepository.zoekOpPlaats("ee").size(), is(0));
+
+        adresRepository.verwijder(newArrayList(adres1, adres2));
+    }
+
 
     private Adres maakAdres(String straat, SoortEntiteit soortEntiteit, Long entiteitId) {
         Adres adres = new Adres();

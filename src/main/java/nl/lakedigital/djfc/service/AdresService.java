@@ -50,5 +50,16 @@ public class AdresService extends AbstractService<Adres> {
         return adresRepository.alleAdressenBijLijstMetEntiteiten(ids, soortEntiteit);
     }
 
+    public List<Adres> zoekOpAdres(String zoekterm) {
+        return adresRepository.zoekOpAdres(zoekterm);
+    }
+
+    public List<Adres> zoekOpPostcode(String zoekterm) {
+        return adresRepository.zoekOpPostcode(zoekterm);
+    }
+
+    public List<Adres> zoekOpPlaats(String zoekterm) {
+        return adresRepository.zoekOpPlaats(zoekterm);
+    }
 
 }
