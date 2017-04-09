@@ -42,6 +42,9 @@ public class AanmeldenEntiteitenBijIdentificatieServlet implements ServletContex
         for (Bijlage bijlage : bijlageService.alles()) {
             entiteitenOpgeslagenRequestSender.send(maakSoortEntiteitEnEntiteitId(bijlage.getId(), SoortEntiteit.BIJLAGE));
         }
+        for (GroepBijlages groepBijlages : bijlageService.alleGroepenBijlages()) {
+            entiteitenOpgeslagenRequestSender.send(maakSoortEntiteitEnEntiteitId(groepBijlages.getId(), SoortEntiteit.GROEPBIJLAGES));
+        }
         for (Opmerking opmerking : opmerkingService.alles()) {
             entiteitenOpgeslagenRequestSender.send(maakSoortEntiteitEnEntiteitId(opmerking.getId(), SoortEntiteit.OPMERKING));
         }

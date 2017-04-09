@@ -116,6 +116,7 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
     @ResponseBody
     public void opslaan(@RequestBody List<JsonAdres> jsonEntiteiten, HttpServletRequest httpServletRequest) {
         logger.info("Opslaan lijst met {} entiteiten", jsonEntiteiten.size());
+
         zetSessieWaarden(httpServletRequest);
 
         goOpslaan(jsonEntiteiten);
@@ -150,8 +151,9 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
 
     @RequestMapping(method = RequestMethod.GET, value = "/ophalenAdresOpPostcode/{postcode}/{huisnummer}/{toggle}")
     @ResponseBody
-    public JsonAdres ophalenAdresOpPostcode(@PathVariable("postcode") String postcode, @PathVariable("huisnummer") String huisnummer, @PathVariable("toggle") boolean toggle) {
+    public OpvragenAdressenResponse ophalenAdresOpPostcode(@PathVariable("postcode") String postcode, @PathVariable("huisnummer") String huisnummer, @PathVariable("toggle") boolean toggle) {
         logger.debug("Toggle is {}", toggle);
+        OpvragenAdressenResponse opvragenAdressenResponse = new OpvragenAdressenResponse();
         if (!toggle) {
             String adres = "https://postcode-api.apiwise.nl/v2/addresses/?postcode=" + postcode + "&number=" + huisnummer;
 
@@ -170,23 +172,30 @@ public class AdresController extends AbstractController<Adres, JsonAdres> {
                 jsonAdres.setHuisnummer(Long.valueOf(huisnummer));
             }
 
-            return jsonAdres;
+            opvragenAdressenResponse.getAdressen().add(jsonAdres);
         } else {
             JsonAdres adres = new JsonAdres();
 
             if ("7891tn".equalsIgnoreCase(postcode)) {
                 adres.setPostcode("7891TN");
                 adres.setHuisnummer(Long.valueOf(huisnummer));
-                adres.setStraat("Boogschutter");
+                adres.setStraat("Boogschuttert");
                 adres.setPlaats("Klazienaveen");
             } else if ("7894ab".equalsIgnoreCase(postcode)) {
                 adres.setPostcode("7894AB");
                 adres.setHuisnummer(Long.valueOf(huisnummer));
                 adres.setStraat("Eemsladnweg");
                 adres.setPlaats("Zwartemeer");
+            } else if ("7891rb".equalsIgnoreCase(postcode)) {
+                adres.setPostcode("7891RB");
+                adres.setHuisnummer(Long.valueOf(huisnummer));
+                adres.setStraat("Herdersstraaat");
+                adres.setPlaats("Klazienaveen");
             }
 
-            return adres;
+            opvragenAdressenResponse.getAdressen().add(adres);
         }
+
+        return opvragenAdressenResponse;
     }
 }

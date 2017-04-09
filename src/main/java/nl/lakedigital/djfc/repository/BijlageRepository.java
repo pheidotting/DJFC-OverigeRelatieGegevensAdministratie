@@ -70,4 +70,22 @@ public class BijlageRepository extends AbstractRepository<Bijlage> {
 
         return newArrayList(groepen);
     }
+
+    public List<GroepBijlages> alleGroepenBijlages() {
+        getTransaction();
+
+        Query query = getSession().getNamedQuery("Bijlage.zoekBijEntiteitMetGroepAlles");
+
+        List<Bijlage> bijlages = query.list();
+
+        Set<GroepBijlages> groepen = new HashSet<>();
+
+        for (Bijlage bijlage : bijlages) {
+            groepen.add(bijlage.getGroepBijlages());
+        }
+
+        getTransaction().commit();
+
+        return newArrayList(groepen);
+    }
 }

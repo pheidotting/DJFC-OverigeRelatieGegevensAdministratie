@@ -39,15 +39,15 @@ public class TelefonieController {
 
         Map<String, List<String>> ret = new HashMap<>();
 
-        List<TelefonieBestand> telefonieBestands = newArrayList();
         for (String telefoonnummer : telefoonnummers) {
+            List<TelefonieBestand> telefonieBestands = newArrayList();
             LOGGER.debug("Ophalen met nummer {}", telefoonnummer);
             telefonieBestands.addAll(telefonieBestandService.alleTelefonieBestandenOpTelefoonnummer(telefoonnummer));
+
+            List<String> bestanden = telefonieBestands.stream().map(telefonieBestand -> telefonieBestand.getBestandsnaam()).collect(Collectors.toList());
+
+            ret.put(telefoonnummer, bestanden);
         }
-
-        List<String> bestanden = telefonieBestands.stream().map(telefonieBestand -> telefonieBestand.getBestandsnaam()).collect(Collectors.toList());
-
-        ret.put("recordings", bestanden);
 
         return ret;
     }

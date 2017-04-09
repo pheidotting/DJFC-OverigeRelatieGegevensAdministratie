@@ -17,6 +17,10 @@ public class BijlageService extends AbstractService<Bijlage> {
     @Inject
     private BijlageRepository bijlageRepository;
 
+    public BijlageService() {
+        super(nl.lakedigital.as.messaging.domain.SoortEntiteit.BIJLAGE);
+    }
+
     @Override
     public AbstractRepository getRepository() {
         return bijlageRepository;
@@ -32,6 +36,10 @@ public class BijlageService extends AbstractService<Bijlage> {
 
     public List<GroepBijlages> alleGroepenBijlages(SoortEntiteit soortEntiteit, Long entiteitId) {
         return bijlageRepository.alleGroepenBijlages(soortEntiteit, entiteitId);
+    }
+
+    public List<GroepBijlages> alleGroepenBijlages() {
+        return bijlageRepository.alleGroepenBijlages();
     }
 
     public void opslaanGroepBijlages(GroepBijlages groepBijlages) {

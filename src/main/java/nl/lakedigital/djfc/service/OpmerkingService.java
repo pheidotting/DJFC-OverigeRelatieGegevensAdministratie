@@ -1,5 +1,6 @@
 package nl.lakedigital.djfc.service;
 
+import nl.lakedigital.as.messaging.domain.SoortEntiteit;
 import nl.lakedigital.djfc.domain.Opmerking;
 import nl.lakedigital.djfc.repository.AbstractRepository;
 import nl.lakedigital.djfc.repository.OpmerkingRepository;
@@ -12,6 +13,10 @@ import java.util.List;
 public class OpmerkingService extends AbstractService<Opmerking> {
     @Inject
     private OpmerkingRepository opmerkingRepository;
+
+    public OpmerkingService() {
+        super(SoortEntiteit.OPMERKING);
+    }
 
     @Override
     public AbstractRepository getRepository() {

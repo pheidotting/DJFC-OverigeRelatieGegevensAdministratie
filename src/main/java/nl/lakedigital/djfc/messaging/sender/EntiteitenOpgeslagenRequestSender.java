@@ -5,18 +5,18 @@ import nl.lakedigital.as.messaging.request.EntiteitenOpgeslagenRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class EntiteitenOpgeslagenRequestSender extends AbstractSender<EntiteitenOpgeslagenRequest, List<SoortEntiteitEnEntiteitId>> {
     private static final Logger LOGGER = LoggerFactory.getLogger(EntiteitenOpgeslagenRequestSender.class);
+
 
     public EntiteitenOpgeslagenRequestSender() {
         this.jmsTemplates = new ArrayList<>();
         this.LOGGER_ = LOGGER;
+        this.clazz = EntiteitenOpgeslagenRequest.class;
     }
 
     public EntiteitenOpgeslagenRequestSender(final JmsTemplate jmsTemplate) {

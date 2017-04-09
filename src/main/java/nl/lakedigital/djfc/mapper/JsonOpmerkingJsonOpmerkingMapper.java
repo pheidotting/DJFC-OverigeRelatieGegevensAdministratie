@@ -3,6 +3,9 @@ package nl.lakedigital.djfc.mapper;
 import nl.lakedigital.djfc.commons.json.JsonOpmerking;
 import nl.lakedigital.djfc.domain.Opmerking;
 import nl.lakedigital.djfc.service.OpmerkingService;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -23,6 +26,10 @@ public class JsonOpmerkingJsonOpmerkingMapper extends AbstractMapper<JsonOpmerki
 
         opmerking.setOpmerking(jsonOpmerking.getOpmerking());
         opmerking.setMedewerker(jsonOpmerking.getMedewerkerId());
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-YYYY HH:mm");
+
+        opmerking.setTijd(LocalDateTime.parse(jsonOpmerking.getTijd(), dateTimeFormatter));
 
         return opmerking;
     }

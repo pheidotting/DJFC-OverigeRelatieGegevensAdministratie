@@ -62,6 +62,7 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
         OpvragenBijlagesResponse opvragenBijlagesResponse = new OpvragenBijlagesResponse();
 
         for (Bijlage entiteit : domainEntiteiten) {
+            logger.debug(ReflectionToStringBuilder.toString(entiteit, ToStringStyle.SHORT_PREFIX_STYLE));
             opvragenBijlagesResponse.getBijlages().add(mapper.map(entiteit, JsonBijlage.class));
         }
 
@@ -137,8 +138,12 @@ public class BijlageController extends AbstractController<Bijlage, JsonBijlage> 
 
     @RequestMapping(method = RequestMethod.GET, value = "/lees/{id}")
     @ResponseBody
-    public JsonBijlage lees(@PathVariable("id") Long id) {
-        return mapper.map(bijlageService.lees(id), JsonBijlage.class);
+    public OpvragenBijlagesResponse lees(@PathVariable("id") Long id) {
+        OpvragenBijlagesResponse response = new OpvragenBijlagesResponse();
+
+        response.getBijlages().add(mapper.map(bijlageService.lees(id), JsonBijlage.class));
+
+        return response;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/opslaanGroep")

@@ -16,6 +16,7 @@ import java.util.Date;
 @NamedQueries({//
         @NamedQuery(name = "Bijlage.zoekBijEntiteit", query = "select b from Bijlage b where b.soortEntiteit = :soortEntiteit and b.entiteitId = :entiteitId and groepBijlages is null"),//
         @NamedQuery(name = "Bijlage.zoekBijEntiteitMetGroep", query = "select b from Bijlage b where b.soortEntiteit = :soortEntiteit and b.entiteitId = :entiteitId and groepBijlages is not null"),//
+        @NamedQuery(name = "Bijlage.zoekBijEntiteitMetGroepAlles", query = "select b from Bijlage b where groepBijlages is not null"),//
         @NamedQuery(name = "Bijlage.zoeken", query = "select b from Bijlage b where b.omschrijving like :zoekTerm")//
 })
 public class Bijlage extends AbstracteEntiteitMetSoortEnId implements Serializable {
