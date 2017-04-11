@@ -29,7 +29,9 @@ public class JsonOpmerkingJsonOpmerkingMapper extends AbstractMapper<JsonOpmerki
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-YYYY HH:mm");
 
-        opmerking.setTijd(LocalDateTime.parse(jsonOpmerking.getTijd(), dateTimeFormatter));
+        if(jsonOpmerking.getTijd()!=null) {
+            opmerking.setTijd(LocalDateTime.parse(jsonOpmerking.getTijd(), dateTimeFormatter));
+        }
 
         return opmerking;
     }

@@ -1,23 +1,35 @@
 package nl.lakedigital.djfc.service;
 
 import com.google.common.collect.Lists;
+import nl.lakedigital.as.messaging.domain.SoortEntiteitEnEntiteitId;
 import nl.lakedigital.djfc.domain.AbstracteEntiteitMetSoortEnId;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
+import nl.lakedigital.djfc.messaging.sender.EntiteitenOpgeslagenRequestSender;
+import nl.lakedigital.djfc.messaging.sender.EntiteitenVerwijderdRequestSender;
 import nl.lakedigital.djfc.repository.AbstractRepository;
+import org.easymock.Capture;
 import org.easymock.EasyMockRunner;
 import org.easymock.EasyMockSupport;
+import org.easymock.Mock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.*;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 @RunWith(EasyMockRunner.class)
 public abstract class AbstractServicetTest<T extends AbstracteEntiteitMetSoortEnId> extends EasyMockSupport {
+
+    @Mock
+    private EntiteitenOpgeslagenRequestSender entiteitenOpgeslagenRequestSender;
+    @Mock
+    private EntiteitenVerwijderdRequestSender entiteitenVerwijderdRequestSender;
+
     public abstract AbstractService getService();
 
     public abstract AbstractRepository getRepository();
@@ -87,11 +99,21 @@ public abstract class AbstractServicetTest<T extends AbstracteEntiteitMetSoortEn
         getRepository().verwijder(Lists.newArrayList(teVerwijderen));
         expectLastCall();
 
+        Capture<SoortEntiteitEnEntiteitId> soortEntiteitEnEntiteitIdCapture = newCapture();
+        entiteitenVerwijderdRequestSender.send(capture(soortEntiteitEnEntiteitIdCapture));
+
+        Capture<List> listCapture = newCapture();
+        entiteitenOpgeslagenRequestSender.send(capture(listCapture));
+
+        expectLastCall();
+
         replayAll();
 
         getService().opslaan(Lists.newArrayList(nieuw, bestaand), soortEntiteit, entiteitId);
 
         verifyAll();
+
+        assertThat(listCapture.getValue().size(), is(2));
     }
 
     @Test

@@ -37,4 +37,6 @@
             </props>
         </property>
     </bean>
+
+    <import resource="../oga/applicationContext-jms.xml"/>
 </beans>

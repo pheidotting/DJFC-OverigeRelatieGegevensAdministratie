@@ -2,6 +2,7 @@ package nl.lakedigital.djfc.web.controller;
 
 import com.google.gson.Gson;
 import nl.lakedigital.djfc.commons.json.JsonBijlage;
+import nl.lakedigital.djfc.commons.xml.OpvragenBijlagesResponse;
 import nl.lakedigital.djfc.domain.Bijlage;
 import nl.lakedigital.djfc.domain.SoortEntiteit;
 import nl.lakedigital.djfc.service.AbstractService;
@@ -132,7 +133,9 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
 
     @Test
     public void testLees() {
+        OpvragenBijlagesResponse response = new OpvragenBijlagesResponse();
         JsonBijlage jsonBijlage = new JsonBijlage();
+        response.getBijlages().add(jsonBijlage);
         final Bijlage bijlage = new Bijlage();
         final Long id = 9L;
 
@@ -141,7 +144,9 @@ public class BijlageControllerTest extends AbstractControllerTest<Bijlage, JsonB
 
         replayAll();
 
-        assertThat(bijlageController.lees(id), is(jsonBijlage));
+        OpvragenBijlagesResponse real = bijlageController.lees(id);
+
+        assertThat(real.getBijlages(), is(response.getBijlages()));
 
         verifyAll();
     }

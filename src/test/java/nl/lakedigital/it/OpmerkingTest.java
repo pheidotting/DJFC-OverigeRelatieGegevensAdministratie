@@ -37,7 +37,7 @@ public class OpmerkingTest extends AbstractTest<JsonOpmerking> {
         JsonOpmerking jsonOpmerking = new JsonOpmerking();
 
         jsonOpmerking.setOpmerking(UUID.randomUUID().toString());
-        jsonOpmerking.setTijd("2016-05-01 13:37");
+        jsonOpmerking.setTijd("01-05-2016 13:37");
         jsonOpmerking.setMedewerkerId(2L);
         jsonOpmerking.setEntiteitId(entiteitId);
         jsonOpmerking.setSoortEntiteit(soortEntiteit.name());
@@ -50,7 +50,7 @@ public class OpmerkingTest extends AbstractTest<JsonOpmerking> {
         JsonOpmerking jsonOpmerking = new JsonOpmerking();
 
         jsonOpmerking.setOpmerking(zoekWaarde);
-        jsonOpmerking.setTijd("2016-05-01 13:37");
+        jsonOpmerking.setTijd("01-05-2016 13:37");
         jsonOpmerking.setMedewerkerId(2L);
         jsonOpmerking.setEntiteitId(entiteitId);
         jsonOpmerking.setSoortEntiteit(soortEntiteit.name());
