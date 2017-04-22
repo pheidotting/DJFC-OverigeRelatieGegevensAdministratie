@@ -65,12 +65,9 @@
         <property name="changeLog" value="classpath:databaseChangeLog.xml"/>
     </bean>
 
-    <!-- Embedded ActiveMQ
-    <bean id="broker" class="org.apache.activemq.xbean.BrokerFactoryBean">
-        <property name="config" value="classpath:activemq.xml" />
-        <property name="start" value="true" />
+    <bean id="identificatieClient" class="nl.lakedigital.djfc.client.identificatie.IdentificatieClient">
+        <property name="basisUrl" value="${id.url}"/>
     </bean>
 
-    -->
     <import resource="applicationContext-jms.xml"/>
 </beans>

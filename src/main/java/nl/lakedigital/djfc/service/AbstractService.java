@@ -51,6 +51,20 @@ public abstract class AbstractService<T extends AbstracteEntiteitMetSoortEnId> {
 
     public void opslaan(List<T> entiteiten) {
         getRepository().opslaan(entiteiten);
+
+        List<SoortEntiteitEnEntiteitId> soortEntiteitEnEntiteitIds = new ArrayList<>();
+
+        for (T t : entiteiten) {
+            SoortEntiteitEnEntiteitId soortEntiteitEnEntiteitId = new SoortEntiteitEnEntiteitId();
+
+            soortEntiteitEnEntiteitId.setSoortEntiteit(this.soortEntiteit);
+            soortEntiteitEnEntiteitId.setEntiteitId(t.getId());
+
+            soortEntiteitEnEntiteitIds.add(soortEntiteitEnEntiteitId);
+        }
+
+        LOGGER.debug("Versturen {}", ReflectionToStringBuilder.toString(soortEntiteitEnEntiteitIds));
+        entiteitenOpgeslagenRequestSender.send(soortEntiteitEnEntiteitIds);
     }
 
     public void opslaan(final List<T> entiteiten, SoortEntiteit soortEntiteit, Long entiteitId) {
