@@ -55,5 +55,5 @@
         <property name="start" value="true" />
     </bean>
 
-    <import resource="../oga/applicationContext-jms.xml"/>
+    <import resource="../../src/main/webapp/applicationContext-jms.xml"/>
 </beans>
