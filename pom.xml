@@ -40,7 +40,7 @@
         <dependency>
             <groupId>nl.lakedigital.as</groupId>
             <artifactId>messaging</artifactId>
-            <version>5.28</version>
+            <version>5.29</version>
         </dependency>
         <!--<dependency>-->
         <!--<groupId>nl.lakedigital.djfc.commons</groupId>-->
@@ -404,8 +404,8 @@
                                         <resource>
                                             <directory>${basedir}/src/main/resources/dev</directory>
                                             <includes>
-                                                <include>id.app.properties</include>
-                                                <include>id.log4j.xml</include>
+                                                <include>oga.app.properties</include>
+                                                <include>oga.log4j.xml</include>
                                             </includes>
                                         </resource>
                                     </resources>
