@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 <bean id="MariaDbServer" class="nl.lakedigital.djfc.mariadbserver.MariaDBServer" init-method="init">
-    <property name="poortNummer" value="3318"/>
+    <property name="poortNummer" value="3328"/>
     </bean>
 
     <context:component-scan base-package="nl.lakedigital"/>
@@ -15,7 +15,7 @@
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" depends-on="MariaDbServer">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 
-        <property name="url" value="jdbc:mysql://localhost:3318/test"/>
+        <property name="url" value="jdbc:mysql://localhost:3328/test"/>
         <property name="username" value=""/>
         <property name="password" value=""/>
         <!--<property name="url" value="jdbc:mysql://localhost:3306/kattekoop" />-->
@@ -53,6 +53,10 @@
     <bean id="broker" class="org.apache.activemq.xbean.BrokerFactoryBean">
         <property name="config" value="classpath:activemq.xml" />
         <property name="start" value="true" />
+    </bean>
+
+    <bean id="identificatieClient" class="nl.lakedigital.djfc.client.identificatie.IdentificatieClient">
+        <property name="basisUrl" value="${id.url}"/>
     </bean>
 
     <import resource="../../src/main/webapp/applicationContext-jms.xml"/>
