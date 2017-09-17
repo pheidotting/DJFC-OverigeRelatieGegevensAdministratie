@@ -40,7 +40,7 @@
 	<listener>
 		<listener-class>nl.lakedigital.djfc.web.servlet.ScheduleServlet</listener-class>
 	</listener>
-	<listener>
-		<listener-class>nl.lakedigital.djfc.web.servlet.AanmeldenEntiteitenBijIdentificatieServlet</listener-class>
-	</listener>
+    <!--<listener>-->
+    <!--<listener-class>nl.lakedigital.djfc.web.servlet.AanmeldenEntiteitenBijIdentificatieServlet</listener-class>-->
+    <!--</listener>-->
 </web-app>
