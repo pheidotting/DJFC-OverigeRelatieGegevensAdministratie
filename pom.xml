@@ -409,8 +409,8 @@
                                         <resource>
                                             <directory>${basedir}/src/main/resources/dev</directory>
                                             <includes>
-                                                <include>oga.app.properties</include>
-                                                <include>oga.log4j.xml</include>
+                                                <include>dev/oga.app.properties</include>
+                                                <include>dev/oga.log4j.xml</include>
                                             </includes>
                                         </resource>
                                     </resources>
