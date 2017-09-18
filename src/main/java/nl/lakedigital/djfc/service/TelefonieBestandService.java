@@ -112,9 +112,9 @@ public class TelefonieBestandService {
         }
         }
 
-        if (telefonieBestand == null) {
-            LOGGER.error("Niet kunnen parsen : {}", file);
-        }
+        //        if (telefonieBestand == null) {
+        //            LOGGER.error("Niet kunnen parsen : {}", file);
+        //        }
         return telefonieBestand;
     }
 

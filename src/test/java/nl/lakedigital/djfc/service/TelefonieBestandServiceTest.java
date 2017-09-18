@@ -100,12 +100,7 @@ public class TelefonieBestandServiceTest extends EasyMockSupport {
     public void testMaakTelefonieBestandUitgaandbestand6() throws Exception {
         String file = "out--2903-20170103-134840-1483447719.317.wav";
 
-        TelefonieBestand verwacht = new TelefonieBestand();
-        verwacht.setTijdstip(new LocalDateTime(2017, 1, 3, 16, 6, 2));
-        verwacht.setBestandsnaam(file);
-        verwacht.setTelefoonnummer("088299042");
-
-        assertThat(telefonieBestandService.maakTelefonieBestand(file), is(verwacht));
+        assertThat(telefonieBestandService.maakTelefonieBestand(file), is(nullValue()));
     }
 
     @Test
