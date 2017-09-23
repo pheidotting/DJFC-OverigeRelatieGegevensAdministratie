@@ -1,6 +1,7 @@
 package nl.lakedigital.djfc.web.controller;
 
-import nl.lakedigital.djfc.service.AdresService;
+import nl.lakedigital.djfc.reflection.ReflectionToStringBuilder;
+import nl.lakedigital.djfc.repository.AdresRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,13 +18,15 @@ public class ZabbixController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ZabbixController.class);
 
     @Inject
-    private AdresService adresService;
+    private AdresRepository adresRepository;
 
     @RequestMapping(method = RequestMethod.GET, value = "/checkDatabase", produces = MediaType.TEXT_PLAIN)
     @ResponseBody
     public int checkDatabase() {
         try {
-            adresService.alles();
+            adresRepository.getSession().getTransaction().begin();
+            LOGGER.debug(ReflectionToStringBuilder.toString(adresRepository.getSession().createSQLQuery("/* ping */ SELECT 1").uniqueResult()));
+            adresRepository.getSession().getTransaction().commit();
             return 1;
         } catch (Exception e) {
             LOGGER.error("Database niet beschikbaar", e);
