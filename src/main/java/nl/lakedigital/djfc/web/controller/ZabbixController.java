@@ -1,6 +1,5 @@
 package nl.lakedigital.djfc.web.controller;
 
-import nl.lakedigital.djfc.reflection.ReflectionToStringBuilder;
 import nl.lakedigital.djfc.repository.AdresRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +24,7 @@ public class ZabbixController {
     public String checkDatabase() {
         try {
             adresRepository.getSession().getTransaction().begin();
-            LOGGER.debug(ReflectionToStringBuilder.toString(adresRepository.getSession().createSQLQuery("/* ping */ SELECT 1").uniqueResult()));
+            adresRepository.getSession().createSQLQuery("/* ping */ SELECT 1").uniqueResult();
             adresRepository.getSession().getTransaction().commit();
             return "1";
         } catch (Exception e) {
