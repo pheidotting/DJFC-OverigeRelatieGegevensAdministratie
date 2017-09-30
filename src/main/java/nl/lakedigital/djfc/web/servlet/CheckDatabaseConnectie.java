@@ -1,6 +1,5 @@
 package nl.lakedigital.djfc.web.servlet;
 
-import nl.lakedigital.djfc.reflection.ReflectionToStringBuilder;
 import nl.lakedigital.djfc.repository.AdresRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,7 @@ public class CheckDatabaseConnectie implements Runnable {
     public void run() {
         LOGGER.info("check database connectie");
         adresRepository.getSession().getTransaction().begin();
-        LOGGER.debug(ReflectionToStringBuilder.toString(adresRepository.getSession().createSQLQuery("/* ping */ SELECT 1").uniqueResult()));
+        adresRepository.getSession().createSQLQuery("/* ping */ SELECT 1").uniqueResult();
         adresRepository.getSession().getTransaction().commit();
     }
 
